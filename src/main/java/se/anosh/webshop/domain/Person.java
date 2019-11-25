@@ -1,11 +1,13 @@
 package se.anosh.webshop.domain;
+
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -15,32 +17,35 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Table(name = "products")
+@Table(name = "persons")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Products.findAll", query = "SELECT p FROM Products p")
-    , @NamedQuery(name = "Products.findById", query = "SELECT p FROM Products p WHERE p.id = :id")
-    , @NamedQuery(name = "Products.findByName", query = "SELECT p FROM Products p WHERE p.name = :name")
-    , @NamedQuery(name = "Products.findByPrice", query = "SELECT p FROM Products p WHERE p.price = :price")})
-public class Products implements Serializable {
+    @NamedQuery(name = "Persons.findAll", query = "SELECT p FROM Persons p")
+    , @NamedQuery(name = "Persons.findById", query = "SELECT p FROM Persons p WHERE p.id = :id")
+    , @NamedQuery(name = "Persons.findByName", query = "SELECT p FROM Persons p WHERE p.name = :name")
+    , @NamedQuery(name = "Persons.findByBirth", query = "SELECT p FROM Persons p WHERE p.birth = :birth")
+    , @NamedQuery(name = "Persons.findByCity", query = "SELECT p FROM Persons p WHERE p.city = :city")})
+public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
     @Column(name = "name")
     private String name;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "price")
-    private BigDecimal price;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-    private Collection<Orderlines> orderlinesCollection;
+    @Column(name = "birth")
+    private Integer birth;
+    @Column(name = "city")
+    private String city;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private Collection<Order> ordersCollection;
 
-    public Products() {
+    public Person() {
     }
 
-    public Products(Integer id) {
+    public Person(Integer id) {
         this.id = id;
     }
 
@@ -60,21 +65,29 @@ public class Products implements Serializable {
         this.name = name;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public Integer getBirth() {
+        return birth;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setBirth(Integer birth) {
+        this.birth = birth;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     @XmlTransient
-    public Collection<Orderlines> getOrderlinesCollection() {
-        return orderlinesCollection;
+    public Collection<Order> getOrdersCollection() {
+        return ordersCollection;
     }
 
-    public void setOrderlinesCollection(Collection<Orderlines> orderlinesCollection) {
-        this.orderlinesCollection = orderlinesCollection;
+    public void setOrdersCollection(Collection<Order> ordersCollection) {
+        this.ordersCollection = ordersCollection;
     }
 
     @Override
@@ -87,10 +100,10 @@ public class Products implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Products)) {
+        if (!(object instanceof Person)) {
             return false;
         }
-        Products other = (Products) object;
+        Person other = (Person) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -99,7 +112,7 @@ public class Products implements Serializable {
 
     @Override
     public String toString() {
-        return "webshop.Products[ id=" + id + " ]";
+        return "webshop.Persons[ id=" + id + " ]";
     }
     
 }

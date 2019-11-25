@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Orders.findAll", query = "SELECT o FROM Orders o")
     , @NamedQuery(name = "Orders.findById", query = "SELECT o FROM Orders o WHERE o.id = :id")
     , @NamedQuery(name = "Orders.findByDatum", query = "SELECT o FROM Orders o WHERE o.datum = :datum")})
-public class Orders implements Serializable {
+public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -38,19 +38,19 @@ public class Orders implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date datum;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order1")
-    private Collection<Orderlines> orderlinesCollection;
+    private Collection<Orderline> orderlinesCollection;
     @JoinColumn(name = "customer", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Persons customer;
+    private Person customer;
 
-    public Orders() {
+    public Order() {
     }
 
-    public Orders(Integer id) {
+    public Order(Integer id) {
         this.id = id;
     }
 
-    public Orders(Integer id, Date datum) {
+    public Order(Integer id, Date datum) {
         this.id = id;
         this.datum = datum;
     }
@@ -72,19 +72,19 @@ public class Orders implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Orderlines> getOrderlinesCollection() {
+    public Collection<Orderline> getOrderlinesCollection() {
         return orderlinesCollection;
     }
 
-    public void setOrderlinesCollection(Collection<Orderlines> orderlinesCollection) {
+    public void setOrderlinesCollection(Collection<Orderline> orderlinesCollection) {
         this.orderlinesCollection = orderlinesCollection;
     }
 
-    public Persons getCustomer() {
+    public Person getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Persons customer) {
+    public void setCustomer(Person customer) {
         this.customer = customer;
     }
 
@@ -98,10 +98,10 @@ public class Orders implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Orders)) {
+        if (!(object instanceof Order)) {
             return false;
         }
-        Orders other = (Orders) object;
+        Order other = (Order) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

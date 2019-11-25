@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Orderlines.findAll", query = "SELECT o FROM Orderlines o")
     , @NamedQuery(name = "Orderlines.findById", query = "SELECT o FROM Orderlines o WHERE o.id = :id")
     , @NamedQuery(name = "Orderlines.findByQuantity", query = "SELECT o FROM Orderlines o WHERE o.quantity = :quantity")})
-public class Orderlines implements Serializable {
+public class Orderline implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -32,19 +32,19 @@ public class Orderlines implements Serializable {
     private int quantity;
     @JoinColumn(name = "order", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Orders order1;
+    private Order order1;
     @JoinColumn(name = "product", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Products product;
+    private Product product;
 
-    public Orderlines() {
+    public Orderline() {
     }
 
-    public Orderlines(Integer id) {
+    public Orderline(Integer id) {
         this.id = id;
     }
 
-    public Orderlines(Integer id, int quantity) {
+    public Orderline(Integer id, int quantity) {
         this.id = id;
         this.quantity = quantity;
     }
@@ -65,19 +65,19 @@ public class Orderlines implements Serializable {
         this.quantity = quantity;
     }
 
-    public Orders getOrder1() {
+    public Order getOrder1() {
         return order1;
     }
 
-    public void setOrder1(Orders order1) {
+    public void setOrder1(Order order1) {
         this.order1 = order1;
     }
 
-    public Products getProduct() {
+    public Product getProduct() {
         return product;
     }
 
-    public void setProduct(Products product) {
+    public void setProduct(Product product) {
         this.product = product;
     }
 
@@ -91,10 +91,10 @@ public class Orderlines implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Orderlines)) {
+        if (!(object instanceof Orderline)) {
             return false;
         }
-        Orderlines other = (Orderlines) object;
+        Orderline other = (Orderline) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
