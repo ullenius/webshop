@@ -1,43 +1,42 @@
 package se.anosh.webshop.service;
 
+import java.util.Date;
 import java.util.List;
 
-import se.anosh.webshop.dao.Dao;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import se.anosh.webshop.dao.OrderDao;
 import se.anosh.webshop.domain.Order;
 
 public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
-	private Dao<Order,Integer> dao;
+	private OrderDao dao;
 
 	@Override
 	public List<Order> findAllOrders() {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.findAll();
 	}
 
 	@Override
 	public Order findById(int id) throws OrderNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.findById(id);
 	}
 
 	@Override
 	public void newOrder(Order newOrder) {
-		// TODO Auto-generated method stub
-
+		dao.add(newOrder);
 	}
 
 	@Override
 	public void removeOrder(Order order) {
-		// TODO Auto-generated method stub
-
+		dao.remove(order);
 	}
 
 	@Override
-	public void dispatchOrder() {
-		// TODO Auto-generated method stub
-
+	public void dispatchOrder(Order order) {
+		order.setDatum(new Date());
+		dao.update(order);
 	}
 
 }

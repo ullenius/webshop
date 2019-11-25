@@ -1,6 +1,6 @@
 package se.anosh.webshop.service;
 
-public class OrderNotFoundException extends Exception {
+public class OrderNotFoundException extends Exception implements CustomException {
 	
 	public OrderNotFoundException() {
 	}
