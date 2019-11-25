@@ -37,8 +37,6 @@ public class Order implements Serializable {
     @Column(name = "datum")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datum;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order1")
-    private Collection<Orderline> orderlinesCollection;
     @JoinColumn(name = "customer", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Person customer;
@@ -69,15 +67,6 @@ public class Order implements Serializable {
 
     public void setDatum(Date datum) {
         this.datum = datum;
-    }
-
-    @XmlTransient
-    public Collection<Orderline> getOrderlinesCollection() {
-        return orderlinesCollection;
-    }
-
-    public void setOrderlinesCollection(Collection<Orderline> orderlinesCollection) {
-        this.orderlinesCollection = orderlinesCollection;
     }
 
     public Person getCustomer() {

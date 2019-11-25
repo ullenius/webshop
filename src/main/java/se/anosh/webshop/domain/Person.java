@@ -39,8 +39,6 @@ public class Person implements Serializable {
     private Integer birth;
     @Column(name = "city")
     private String city;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
-    private Collection<Order> ordersCollection;
 
     public Person() {
     }
@@ -79,15 +77,6 @@ public class Person implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    @XmlTransient
-    public Collection<Order> getOrdersCollection() {
-        return ordersCollection;
-    }
-
-    public void setOrdersCollection(Collection<Order> ordersCollection) {
-        this.ordersCollection = ordersCollection;
     }
 
     @Override
