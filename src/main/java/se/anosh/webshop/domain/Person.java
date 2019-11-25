@@ -20,11 +20,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "persons")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Persons.findAll", query = "SELECT p FROM Persons p")
-    , @NamedQuery(name = "Persons.findById", query = "SELECT p FROM Persons p WHERE p.id = :id")
-    , @NamedQuery(name = "Persons.findByName", query = "SELECT p FROM Persons p WHERE p.name = :name")
-    , @NamedQuery(name = "Persons.findByBirth", query = "SELECT p FROM Persons p WHERE p.birth = :birth")
-    , @NamedQuery(name = "Persons.findByCity", query = "SELECT p FROM Persons p WHERE p.city = :city")})
+    @NamedQuery(name = "Persons.findAll", query = "SELECT p FROM Person p")
+    , @NamedQuery(name = "Persons.findById", query = "SELECT p FROM Person p WHERE p.id = :id")
+    , @NamedQuery(name = "Persons.findByName", query = "SELECT p FROM Person p WHERE p.name = :name")
+    , @NamedQuery(name = "Persons.findByBirth", query = "SELECT p FROM Person p WHERE p.birth = :birth")
+    , @NamedQuery(name = "Persons.findByCity", query = "SELECT p FROM Person p WHERE p.city = :city")})
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
