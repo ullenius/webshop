@@ -17,11 +17,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "products")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Products.findAll", query = "SELECT p FROM Product p")
-    , @NamedQuery(name = "Products.findById", query = "SELECT p FROM Product p WHERE p.id = :id")
-    , @NamedQuery(name = "Products.findByName", query = "SELECT p FROM Product p WHERE p.name = :name")
-    , @NamedQuery(name = "Products.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
