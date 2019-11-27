@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
+import se.anosh.webshop.dao.api.OrderDao;
 import se.anosh.webshop.domain.Order;
 
 @Repository

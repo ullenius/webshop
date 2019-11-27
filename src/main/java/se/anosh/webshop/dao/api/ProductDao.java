@@ -1,7 +1,8 @@
-package se.anosh.webshop.dao;
+package se.anosh.webshop.dao.api;
 
 import java.util.List;
 
+import se.anosh.webshop.dao.ProductNotFoundException;
 import se.anosh.webshop.domain.Product;
 
 public interface ProductDao {
