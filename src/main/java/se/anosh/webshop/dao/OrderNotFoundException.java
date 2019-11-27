@@ -1,4 +1,4 @@
-package se.anosh.webshop.service;
+package se.anosh.webshop.dao;
 
 public class OrderNotFoundException extends Exception implements CustomException {
 	

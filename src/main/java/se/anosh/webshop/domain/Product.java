@@ -28,8 +28,6 @@ public class Product implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "price")
     private BigDecimal price;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-    private Collection<Orderline> orderlinesCollection;
 
     public Product() {
     }
@@ -60,15 +58,6 @@ public class Product implements Serializable {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    @XmlTransient
-    public Collection<Orderline> getOrderlinesCollection() {
-        return orderlinesCollection;
-    }
-
-    public void setOrderlinesCollection(Collection<Orderline> orderlinesCollection) {
-        this.orderlinesCollection = orderlinesCollection;
     }
 
     @Override

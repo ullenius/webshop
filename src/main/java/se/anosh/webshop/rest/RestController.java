@@ -11,8 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import se.anosh.webshop.dao.OrderNotFoundException;
 import se.anosh.webshop.domain.Order;
-import se.anosh.webshop.service.OrderNotFoundException;
 import se.anosh.webshop.service.OrderService;
 
 @Controller

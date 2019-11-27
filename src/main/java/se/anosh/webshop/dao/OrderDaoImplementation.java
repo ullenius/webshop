@@ -10,7 +10,6 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import se.anosh.webshop.domain.Order;
-import se.anosh.webshop.service.OrderNotFoundException;
 
 @Repository
 public class OrderDaoImplementation implements OrderDao {
