@@ -4,6 +4,7 @@ package se.anosh.webshop.rest;
 import java.util.List;
 import java.util.Objects;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -14,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -76,7 +78,9 @@ public class RestController {
 	
 	
 	@RequestMapping(value="/admin/addProduct", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Void> addProduct(@NotNull Product newProduct) {
+	public ResponseEntity<Void> addProduct(@NotNull @Valid @RequestBody Product newProduct) {
+		newProduct.setId(null);
+		System.out.println("Received: " + newProduct);
 		productService.addProduct(newProduct);
 		return ResponseEntity.accepted().build();
 	}
