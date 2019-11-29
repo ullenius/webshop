@@ -8,6 +8,7 @@ import se.anosh.webshop.domain.Order;
 public interface OrderService {
 	
 	public List<Order> findAllOrders();
+	public List<Order> findAllDispatchedOrders();
 	public List<Order> findAllUndispatchedOrders();
 	public Order findById(int id) throws OrderNotFoundException;
 	public void newOrder(Order newOrder);

@@ -3,6 +3,7 @@ package se.anosh.webshop.service;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import javax.transaction.Transactional;
 
@@ -27,14 +28,23 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Override
 	public List<Order> findAllUndispatchedOrders() {
+		return findMatchingOrders( order -> order.getDatum() == null);
+	}
+
+	@Override
+	public List<Order> findAllDispatchedOrders() {
+		return findMatchingOrders( order -> order.getDatum() != null);
+	}
+	
+	private List<Order> findMatchingOrders(Predicate<Order> criteria) {
 		
 		List<Order> allOrders = findAllOrders();
-		List<Order> undispatched = new LinkedList<>();
+		List<Order> matching = new LinkedList<>();
 		for (Order order : allOrders) {
-			if (order.getDatum() == null)
-				undispatched.add(order);
+			if (criteria.test(order))
+				matching.add(order);
 		}
-		return undispatched;
+		return matching;
 	}
 
 	@Override
