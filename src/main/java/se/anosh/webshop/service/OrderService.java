@@ -12,6 +12,6 @@ public interface OrderService {
 	public Order findById(int id) throws OrderNotFoundException;
 	public void newOrder(Order newOrder);
 	public void removeOrder(Order order);
-	public void dispatchOrder(Order order);
+	public void dispatchOrder(Integer id) throws OrderNotFoundException;
 
 }

@@ -53,7 +53,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void dispatchOrder(Order order) {
+	public void dispatchOrder(Integer id) throws OrderNotFoundException {
+		Order order = findById(id);
 		order.setDatum(new Date());
 		dao.update(order);
 	}
