@@ -25,7 +25,7 @@ public class OrderDaoImplementation implements OrderDao {
 	}
 
 	@Override
-	public Order findById(int id) throws OrderNotFoundException {
+	public Order findById(final int id) throws OrderNotFoundException {
 		try {
 			TypedQuery<Order> query = em.createQuery("SELECT order FROM Order as order WHERE order.id = :id", Order.class);
 			query.setParameter("id",id);

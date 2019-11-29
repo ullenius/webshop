@@ -1,5 +1,6 @@
 package se.anosh.webshop.service;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,14 +38,13 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	private List<Order> findMatchingOrders(Predicate<Order> criteria) {
-		
 		List<Order> allOrders = findAllOrders();
 		List<Order> matching = new LinkedList<>();
 		for (Order order : allOrders) {
 			if (criteria.test(order))
 				matching.add(order);
 		}
-		return matching;
+		return Collections.unmodifiableList(matching);
 	}
 
 	@Override
@@ -64,11 +64,10 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public void dispatchOrder(Integer id) throws OrderNotFoundException {
-		Order order = findById(id);
+		final Order order = findById(id);
 		
 		if (order.getDatum() != null)
 			throw new IllegalStateException("Order has already been dispatched");
-		
 		order.setDatum(new Date());
 		dao.update(order);
 	}

@@ -25,7 +25,7 @@ public class PersonDaoImplementation implements PersonDao {
 	}
 
 	@Override
-	public Person findById(int id) throws PersonNotFoundException {
+	public Person findById(final int id) throws PersonNotFoundException {
 		try {
 			TypedQuery<Person> query = em.createQuery("SELECT person FROM Person as person WHERE order.id = :id", Person.class);
 			query.setParameter("id",id);

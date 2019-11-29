@@ -24,7 +24,7 @@ public class ProductDaoImplementation implements ProductDao {
 	}
 
 	@Override
-	public Product findById(int id) throws ProductNotFoundException {
+	public Product findById(final int id) throws ProductNotFoundException {
 		try {
 			TypedQuery<Product> query = em.createQuery("SELECT product FROM Product as product WHERE order.id = :id", Product.class);
 			query.setParameter("id",id);
