@@ -3,22 +3,17 @@ package se.anosh.webshop.rest;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.validation.constraints.NotEmpty;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import se.anosh.webshop.dao.exception.OrderNotFoundException;
 import se.anosh.webshop.domain.Order;
@@ -42,11 +37,12 @@ public class RestController {
 		return new ResponseEntity<List<Order>>(service.findAllUndispatchedOrders(), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/admin/{id}", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ErrorMessage> dispatchOrder(@PathVariable("id") @NonNull String id) {
+	@RequestMapping(value="/admin/{orderId}", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ErrorMessage> dispatchOrder(@PathVariable("orderId") String id) {
 		
 		try {
 		Integer orderId = Integer.parseInt(id);
+		System.out.println("Argument passed in: " + id);
 		service.dispatchOrder(orderId);
 		return new ResponseEntity<ErrorMessage>(new ErrorMessage(null), HttpStatus.ACCEPTED);
 		} catch (OrderNotFoundException e) {

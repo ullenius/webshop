@@ -55,6 +55,10 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void dispatchOrder(Integer id) throws OrderNotFoundException {
 		Order order = findById(id);
+		
+		if (order.getDatum() != null)
+			throw new IllegalStateException("Order has already been dispatched");
+		
 		order.setDatum(new Date());
 		dao.update(order);
 	}
