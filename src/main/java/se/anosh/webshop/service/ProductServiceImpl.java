@@ -13,7 +13,7 @@ import se.anosh.webshop.domain.Product;
 
 @Service
 @Transactional
-public class ProductImpl implements ProductService {
+public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductDao dao;
