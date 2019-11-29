@@ -11,20 +11,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import se.anosh.webshop.dao.exception.OrderNotFoundException;
 import se.anosh.webshop.domain.Order;
 import se.anosh.webshop.service.OrderService;
 
 @Controller
 public class RestController {
-	
+
 	@Autowired
 	private OrderService service;
-	
-	
+
+
 	@RequestMapping(value="/api", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Order>> listOrders() throws OrderNotFoundException {
+	public ResponseEntity<List<Order>> listOrders() {
 		return new ResponseEntity<List<Order>>(service.findAllOrders(), HttpStatus.OK);
 	}
+
+	@RequestMapping(value="/admin", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Order>> listUndispatchedOrders() {
+		
+		return new ResponseEntity<List<Order>>(service.findAllUndispatchedOrders(), HttpStatus.OK);
+	}
+
 
 }

@@ -1,6 +1,7 @@
 package se.anosh.webshop.service;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -22,6 +23,18 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<Order> findAllOrders() {
 		return dao.findAll();
+	}
+	
+	@Override
+	public List<Order> findAllUndispatchedOrders() {
+		
+		List<Order> allOrders = findAllOrders();
+		List<Order> undispatched = new LinkedList<>();
+		for (Order order : allOrders) {
+			if (order.getDatum() == null)
+				undispatched.add(order);
+		}
+		return undispatched;
 	}
 
 	@Override
