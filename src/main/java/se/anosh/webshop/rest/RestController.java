@@ -4,6 +4,7 @@ package se.anosh.webshop.rest;
 import java.util.List;
 import java.util.Objects;
 
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import se.anosh.webshop.dao.exception.OrderNotFoundException;
 import se.anosh.webshop.domain.Order;
+import se.anosh.webshop.domain.Product;
 import se.anosh.webshop.service.OrderService;
 import se.anosh.webshop.service.ProductService;
 
@@ -64,6 +66,19 @@ public class RestController {
 			return new ResponseEntity<ErrorMessage>(new ErrorMessage("Bad input"), HttpStatus.BAD_REQUEST);
 		}
 		
+	}
+	
+	// demo method
+	@RequestMapping(value="/products", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Product>> listProducts() {
+		return new ResponseEntity<List<Product>>(productService.findAllProducts(), HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value="/admin/addProduct", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Void> addProduct(@NotNull Product newProduct) {
+		productService.addProduct(newProduct);
+		return ResponseEntity.accepted().build();
 	}
 	
 	@XmlRootElement
