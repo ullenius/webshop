@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import se.anosh.webshop.dao.api.PersonDao;
+import se.anosh.webshop.dao.exception.PersonNotFoundException;
 import se.anosh.webshop.domain.Person;
 
 @Repository

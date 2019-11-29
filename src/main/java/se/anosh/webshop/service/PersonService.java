@@ -2,7 +2,7 @@ package se.anosh.webshop.service;
 
 import java.util.List;
 
-import se.anosh.webshop.dao.PersonNotFoundException;
+import se.anosh.webshop.dao.exception.PersonNotFoundException;
 import se.anosh.webshop.domain.Person;
 
 public interface PersonService {
