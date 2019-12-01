@@ -1,6 +1,7 @@
 package se.anosh.webshop.rest;
 
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
@@ -82,6 +83,18 @@ public class RestController {
 		newProduct.setId(null);
 		System.out.println("Received: " + newProduct);
 		productService.addProduct(newProduct);
+		return ResponseEntity.accepted().build();
+	}
+	
+	@RequestMapping(value="/admin/addProduct2", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Void> addProductDemo() {
+		
+		Product p = new Product();
+		p.setName("kebab");
+		p.setPrice(new BigDecimal("666"));
+		
+		System.out.println("Generated: " + p);
+		productService.addProduct(p);
 		return ResponseEntity.accepted().build();
 	}
 	
