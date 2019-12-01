@@ -38,21 +38,12 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(Integer id) {
-        this.id = id;
-    }
-
-    public Order(Integer id, Date datum) {
-        this.id = id;
+    public Order(Date datum) {
         this.datum = datum;
     }
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Date getDatum() {

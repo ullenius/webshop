@@ -80,7 +80,6 @@ public class RestController {
 	
 	@RequestMapping(value="/admin/addProduct", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> addProduct(@NotNull @Valid @RequestBody Product newProduct) {
-		newProduct.setId(null);
 		System.out.println("Received: " + newProduct);
 		productService.addProduct(newProduct);
 		return ResponseEntity.accepted().build();

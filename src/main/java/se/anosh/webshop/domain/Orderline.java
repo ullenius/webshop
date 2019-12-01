@@ -38,10 +38,6 @@ public class Orderline implements Serializable {
     public Orderline() {
     }
 
-    public Orderline(Integer id) {
-        this.id = id;
-    }
-
     public Orderline(Integer id, int quantity) {
         this.id = id;
         this.quantity = quantity;

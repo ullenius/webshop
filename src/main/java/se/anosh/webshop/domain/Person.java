@@ -32,16 +32,8 @@ public class Person implements Serializable {
     public Person() {
     }
 
-    public Person(Integer id) {
-        this.id = id;
-    }
-
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {
