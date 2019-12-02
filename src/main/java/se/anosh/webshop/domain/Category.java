@@ -23,9 +23,7 @@ public class Category implements Serializable  {
 	@Column(name = "id")
 	private Integer id;
 	@Basic(optional = false)
-	@Column(name = "name")
 	private String name;
-	@Column(name="description")
 	@Basic(optional = true)
 	private String description;
 

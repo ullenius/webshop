@@ -23,10 +23,8 @@ public class Orderline implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "quantity")
     private int quantity;
     @JoinColumn(name = "order", referencedColumnName = "id")
     @ManyToOne(optional = false)
