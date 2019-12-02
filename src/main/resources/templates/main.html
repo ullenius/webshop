@@ -7,15 +7,25 @@
 <title>Webshop</title>
 </head>
 <body>
+	<header>
 	<h1>Welcome to the web shop!</h1>
+	</header>
+	
 	<h2>Categories</h2>
 	<p>Available categories:</p>
-
 
 	<ol>	
 		<li th:each="category : ${categories}" th:text="${category.name}">category 1</li>
 	</ol>
-	
-	
-	</body>
+
+	<hr/>
+	<h2>Product search</h2>
+	<form action="/search" method="GET">
+		<label>Search available products: </label><input type="text" name="product" placeholder="Product name" /><br/>
+		<input type="submit" value="Search">
+	</form>
+
+
+
+</body>
 	</html>
