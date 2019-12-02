@@ -109,7 +109,7 @@ public class RestController {
 		List<Category> categories = categoryService.findAll();
 		System.out.println("Size of categories = " + categories.size());
 		model.put("categories",categories);
-		model.put("products", products);
+		model.put("products", matchingProducts);
 		
 		return new ModelAndView("main", "model", model);
 	}
