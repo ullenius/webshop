@@ -93,7 +93,13 @@ public class RestController {
 	}
 	
 	@RequestMapping(value="/shop")
-	public ModelAndView search(@RequestParam(value="search", required=false)String searchType, @RequestParam(value="value", required=false)String match) {
+	public ModelAndView search(@RequestParam(value="products", required=false)String products) {
+		
+		System.out.println("products = " + products);
+		
+		List<Product> matchingProducts;
+		if (products != null)
+		
 		
 		
 		Map<String,Object> model = new LinkedHashMap<>();

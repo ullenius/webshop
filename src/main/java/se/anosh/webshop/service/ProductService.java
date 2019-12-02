@@ -9,6 +9,7 @@ import se.anosh.webshop.domain.Product;
 public interface ProductService {
 
 	public List<Product> findAllProducts();
+	public List<Product> findByName(String match);
 	public Product findById(int id) throws ProductNotFoundException;
 	public void addProduct(Product newProduct);
 	public void removeProduct(Product product);
