@@ -48,7 +48,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public List<Product> findByName(String match) {
-		if (match == null || match.isEmpty())
+		if (match == null || match.trim().isEmpty()) //isBlank() in Java 11
 			return Collections.emptyList();
 			
 		return findMatchingOrders( (product) -> product.getName().contains(match));

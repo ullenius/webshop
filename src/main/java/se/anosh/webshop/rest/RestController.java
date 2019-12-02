@@ -1,6 +1,7 @@
 package se.anosh.webshop.rest;
 
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,18 +96,20 @@ public class RestController {
 	@RequestMapping(value="/shop")
 	public ModelAndView search(@RequestParam(value="products", required=false)String products) {
 		
-		System.out.println("products = " + products);
-		
-		List<Product> matchingProducts;
-		if (products != null)
-		
-		
-		
 		Map<String,Object> model = new LinkedHashMap<>();
 		
+		System.out.println("products = " + products);
+		List<Product> matchingProducts;
+		matchingProducts = (products != null) 
+				? matchingProducts = productService.findByName(products) 
+				: Collections.emptyList();
+				
+		System.out.println("Products = " + matchingProducts);
+			
 		List<Category> categories = categoryService.findAll();
 		System.out.println("Size of categories = " + categories.size());
 		model.put("categories",categories);
+		model.put("products", products);
 		
 		return new ModelAndView("main", "model", model);
 	}
