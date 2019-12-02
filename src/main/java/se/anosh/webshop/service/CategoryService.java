@@ -9,9 +9,8 @@ import se.anosh.webshop.domain.Person;
 public interface CategoryService {
 	
 	public List<Category> findAll();
-	public Person findById(int id) throws CategoryNotFoundException;
-	public void addCustomer(Person newPerson);
-	public void removeCustomer(Person person);
-	public void updateCustomer(Person peron);
+	public void addCategory(Category newCategory);
+	public void removeCategory(Category category);
+	public void updateCategory(Category category);
 
 }

@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import se.anosh.webshop.dao.exception.OrderNotFoundException;
 import se.anosh.webshop.domain.Order;
 import se.anosh.webshop.domain.Product;
-import se.anosh.webshop.service.CategoryService;
 import se.anosh.webshop.service.OrderService;
 import se.anosh.webshop.service.ProductService;
 
@@ -84,6 +84,16 @@ public class RestController {
 		productService.addProduct(newProduct);
 		return ResponseEntity.accepted().build();
 	}
+	
+	@RequestMapping(value="/shop")
+	public ModelAndView main() {
+		
+		String category = "food";
+		
+		return new ModelAndView("main", "category", category);
+	}
+	
+	
 	
 	@XmlRootElement
 	private class ErrorMessage {

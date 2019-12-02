@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "categories")
 @XmlRootElement
-public class Category implements Serializable  {
+public class Category implements Serializable, Comparable<Category>  {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -27,6 +27,7 @@ public class Category implements Serializable  {
 	private String description;
 
 	public Category() {
+		name = "";
 	}
 
 	public String getName() {
@@ -72,6 +73,11 @@ public class Category implements Serializable  {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Category category) {
+		return name.compareTo(category.getName());
 	}
 
 }
