@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import se.anosh.webshop.dao.exception.OrderNotFoundException;
+import se.anosh.webshop.domain.Category;
 import se.anosh.webshop.domain.Order;
 import se.anosh.webshop.domain.Product;
+import se.anosh.webshop.service.CategoryService;
 import se.anosh.webshop.service.OrderService;
 import se.anosh.webshop.service.ProductService;
 
@@ -31,11 +33,13 @@ public class RestController {
 
 	private OrderService orderService;
 	private ProductService productService;
+	private CategoryService categoryService;
 	
 	@Autowired
-	public RestController(OrderService orderService, ProductService productService) {
+	public RestController(OrderService orderService, ProductService productService, CategoryService categoryService) {
 		this.orderService = Objects.requireNonNull(orderService);
 		this.productService = Objects.requireNonNull(productService);
+		this.categoryService = Objects.requireNonNull(categoryService);
 	}
 
 	@RequestMapping(value="/api", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
@@ -88,9 +92,10 @@ public class RestController {
 	@RequestMapping(value="/shop")
 	public ModelAndView main() {
 		
-		String category = "food";
+		List<Category> categories = categoryService.findAll();
+		System.out.println("Size of categories = " + categories.size());
 		
-		return new ModelAndView("main", "category", category);
+		return new ModelAndView("main", "categories", categories);
 	}
 	
 	

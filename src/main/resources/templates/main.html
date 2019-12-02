@@ -7,13 +7,13 @@
 <title>Webshop</title>
 </head>
 <body>
-	<h1>Categories</h1>
-	<p>Available categories</p>
-	
-	<ol>
-	<li th:text="${category}">category 1</li>
-	
-	
+	<h1>Welcome to the web shop!</h1>
+	<h2>Categories</h2>
+	<p>Available categories:</p>
+
+
+	<ol>	
+		<li th:each="category : ${categories}" th:text="${category.name}">category 1</li>
 	</ol>
 	
 	
