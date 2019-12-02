@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -21,9 +22,9 @@ public class Orderline implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     @Basic(optional = false)
-    private Integer id;
-    @Basic(optional = false)
+    @Min(value=0)
     private int quantity;
     @JoinColumn(name = "order", referencedColumnName = "id")
     @ManyToOne(optional = false)
@@ -40,12 +41,8 @@ public class Orderline implements Serializable {
         this.quantity = quantity;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public int getQuantity() {
@@ -64,29 +61,32 @@ public class Orderline implements Serializable {
         this.product = product;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Orderline)) {
-            return false;
-        }
-        Orderline other = (Orderline) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
 
     @Override
     public String toString() {
         return "webshop.Orderlines[ id=" + id + " ]";
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Orderline other = (Orderline) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
     
 }

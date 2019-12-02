@@ -19,11 +19,9 @@ public class Category implements Serializable  {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	@Basic(optional = false)
-	@Column(name = "id")
-	private Integer id;
-	@Basic(optional = false)
-	private String name;
+	private String name; //lower case only
 	@Basic(optional = true)
 	private String description;
 
@@ -35,7 +33,7 @@ public class Category implements Serializable  {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.name = name.toLowerCase();
 	}
 
 	public String getDescription() {

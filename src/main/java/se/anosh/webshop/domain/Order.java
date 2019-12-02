@@ -24,8 +24,7 @@ public class Order implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    private Integer id;
+    private int id;
     @Basic(optional = false)
     @Column(name = "datum")
     @Temporal(TemporalType.TIMESTAMP)
@@ -41,7 +40,7 @@ public class Order implements Serializable {
         this.datum = datum;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
@@ -53,27 +52,29 @@ public class Order implements Serializable {
         return customer;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Order)) {
-            return false;
-        }
-        Order other = (Order) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Order other = (Order) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
 
-    @Override
+	@Override
     public String toString() {
         return "webshop.Orders[ id=" + id + " ]";
     }
