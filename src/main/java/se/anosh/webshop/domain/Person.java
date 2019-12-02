@@ -20,13 +20,10 @@ public class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
     private Integer id;
-    @Column(name = "name")
     private String name;
     @Column(name = "birth")
-    private Integer birth;
-    @Column(name = "city")
+    private Integer yearOfbirth; // 4 digits
     private String city;
 
     public Person() {
@@ -36,20 +33,20 @@ public class Person implements Serializable {
         return id;
     }
 
-    public String getName() {
+    public Integer getYearOfbirth() {
+		return yearOfbirth;
+	}
+
+	public void setYearOfbirth(Integer yearOfbirth) {
+		this.yearOfbirth = yearOfbirth;
+	}
+
+	public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getBirth() {
-        return birth;
-    }
-
-    public void setBirth(Integer birth) {
-        this.birth = birth;
     }
 
     public String getCity() {
