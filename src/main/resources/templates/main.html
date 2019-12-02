@@ -15,7 +15,7 @@
 	<p>Available categories:</p>
 
 	<ol>	
-		<li th:each="category : ${categories}" th:text="${category.name}">category 1</li>
+		<li th:each="category : ${model.categories}" th:text="${category.name}">category 1</li>
 	</ol>
 
 	<hr/>

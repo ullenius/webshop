@@ -1,7 +1,9 @@
 package se.anosh.webshop.rest;
 
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.validation.Valid;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import se.anosh.webshop.dao.exception.OrderNotFoundException;
@@ -90,14 +93,17 @@ public class RestController {
 	}
 	
 	@RequestMapping(value="/shop")
-	public ModelAndView main() {
+	public ModelAndView search(@RequestParam(value="search", required=false)String searchType, @RequestParam(value="value", required=false)String match) {
+		
+		
+		Map<String,Object> model = new LinkedHashMap<>();
 		
 		List<Category> categories = categoryService.findAll();
 		System.out.println("Size of categories = " + categories.size());
+		model.put("categories",categories);
 		
-		return new ModelAndView("main", "categories", categories);
+		return new ModelAndView("main", "model", model);
 	}
-	
 	
 	
 	@XmlRootElement
