@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -25,19 +26,26 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Basic(optional = false)
     @Column(name = "datum")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     @JoinColumn(name = "customer", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Person customer;
+    @Transient
+    private final long creationTimeStampNanoSeconds;
 
     public Order() {
+    	creationTimeStampNanoSeconds = System.nanoTime();
     }
 
     public Order(Date datum) {
         this.date = datum;
+        creationTimeStampNanoSeconds = System.nanoTime();
+    }
+    
+    public long getNanoStamp() {
+    	return creationTimeStampNanoSeconds;
     }
 
     public int getId() {
@@ -79,8 +87,10 @@ public class Order implements Serializable {
 	}
 
 	@Override
-    public String toString() {
-        return "webshop.Orders[ id=" + id + " ]";
-    }
+	public String toString() {
+		return "Order [id=" + id + ", unix time=" + date.getTime() + "]";
+	}
+
+	
     
 }

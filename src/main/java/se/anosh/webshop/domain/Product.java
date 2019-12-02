@@ -2,6 +2,7 @@ package se.anosh.webshop.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Objects;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -33,6 +34,10 @@ public class Product implements Serializable {
     private Category category;
 
     public Product() {
+    }
+    
+    public Product(Category category) {
+    	this.category = Objects.requireNonNull(category, "Category cannot be null");
     }
 
     public int getId() {

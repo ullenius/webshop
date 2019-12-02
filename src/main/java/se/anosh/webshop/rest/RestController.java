@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import se.anosh.webshop.dao.exception.OrderNotFoundException;
 import se.anosh.webshop.domain.Order;
 import se.anosh.webshop.domain.Product;
+import se.anosh.webshop.service.CategoryService;
 import se.anosh.webshop.service.OrderService;
 import se.anosh.webshop.service.ProductService;
 

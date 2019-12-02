@@ -21,6 +21,7 @@ public class Category implements Serializable  {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Basic(optional = false)
+	@Column(unique = true)
 	private String name; //lower case only
 	@Basic(optional = true)
 	private String description;
@@ -52,7 +53,7 @@ public class Category implements Serializable  {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
@@ -65,7 +66,10 @@ public class Category implements Serializable  {
 		if (getClass() != obj.getClass())
 			return false;
 		Category other = (Category) obj;
-		if (id != other.id)
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
 			return false;
 		return true;
 	}
