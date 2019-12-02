@@ -28,7 +28,7 @@ public class Order implements Serializable {
     @Basic(optional = false)
     @Column(name = "datum")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date datum;
+    private Date date;
     @JoinColumn(name = "customer", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Person customer;
@@ -37,7 +37,7 @@ public class Order implements Serializable {
     }
 
     public Order(Date datum) {
-        this.datum = datum;
+        this.date = datum;
     }
 
     public int getId() {
@@ -45,7 +45,11 @@ public class Order implements Serializable {
     }
 
     public Date getDatum() {
-        return datum;
+        return date;
+    }
+    
+    public void setDate(Date date) {
+    	this.date = date;
     }
 
     public Person getCustomer() {

@@ -68,7 +68,7 @@ public class OrderServiceImpl implements OrderService {
 		
 		if (order.getDatum() != null)
 			throw new IllegalStateException("Order has already been dispatched");
-		order.setDatum(new Date());
+		order.setDate(new Date());
 		dao.update(order);
 	}
 

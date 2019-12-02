@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
@@ -28,6 +29,8 @@ public class Product implements Serializable {
     private String name;
     @Min(value=0)
     private BigDecimal price;
+    @ManyToOne
+    private Category category;
 
     public Product() {
     }
@@ -50,6 +53,10 @@ public class Product implements Serializable {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+    
+    public String getCategory() {
+    	return category.getName();
     }
 
 	@Override
