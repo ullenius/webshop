@@ -1,4 +1,7 @@
 {
     "name":"mjukglass",
-    "price":25
+    "price":25,
+    "category" : {
+        "id" : 2
+    }
 }
