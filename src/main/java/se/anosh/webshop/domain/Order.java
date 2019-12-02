@@ -49,16 +49,8 @@ public class Order implements Serializable {
         return datum;
     }
 
-    public void setDatum(Date datum) {
-        this.datum = datum;
-    }
-
     public Person getCustomer() {
         return customer;
-    }
-
-    public void setCustomer(Person customer) {
-        this.customer = customer;
     }
 
     @Override

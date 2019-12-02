@@ -4,7 +4,6 @@ package se.anosh.webshop.domain;
 import java.io.Serializable;
 
 import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -53,16 +52,8 @@ public class Orderline implements Serializable {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
     public Order getOrder1() {
         return order1;
-    }
-
-    public void setOrder1(Order order1) {
-        this.order1 = order1;
     }
 
     public Product getProduct() {
