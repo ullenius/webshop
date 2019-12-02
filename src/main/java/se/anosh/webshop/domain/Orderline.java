@@ -28,7 +28,7 @@ public class Orderline implements Serializable {
     private int quantity;
     @JoinColumn(name = "order", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Order order1;
+    private Order order;
     @JoinColumn(name = "product", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Product product;
@@ -50,7 +50,7 @@ public class Orderline implements Serializable {
     }
 
     public Order getOrder1() {
-        return order1;
+        return order;
     }
 
     public Product getProduct() {
