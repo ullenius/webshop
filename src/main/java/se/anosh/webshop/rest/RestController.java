@@ -94,15 +94,15 @@ public class RestController {
 	}
 	
 	@RequestMapping(value="/shop")
-	public ModelAndView search(@RequestParam(value="products", required=false)String products) {
+	public ModelAndView search(@RequestParam(value="products", required=false)final String products) {
 		
-		Map<String,Object> model = new LinkedHashMap<>();
+		final Map<String,Object> model = new LinkedHashMap<>();
 		
 		System.out.println("products = " + products);
 		List<Product> matchingProducts;
-		matchingProducts = (products != null) 
-				? matchingProducts = productService.findByName(products) 
-				: Collections.emptyList();
+		matchingProducts = (products == null) 
+				? Collections.emptyList()
+				: productService.findByName(products);
 				
 		System.out.println("Products = " + matchingProducts);
 			
