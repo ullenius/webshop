@@ -1,5 +1,6 @@
 package se.anosh.webshop.service;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -30,9 +31,27 @@ public class ShoppingCart {
 		return Collections.frequency(shoppingCart, product);
 	}
 	
+	Set<Product> uniqueItems() {
+		return Collections.unmodifiableSet(new HashSet<>(shoppingCart));
+	}
+	
 	int uniqueItemCount() {
-		final Set<Product> uniqueItems = new HashSet<>(shoppingCart);
+		Set<Product> uniqueItems = uniqueItems();
 		return uniqueItems.size();
+	}
+	
+	BigDecimal calculateTotalPrice() {
+		
+		final Set<Product> uniqueItems = uniqueItems();
+		BigDecimal sum = BigDecimal.valueOf(0);
+		
+		for (Product product : uniqueItems) {
+			final BigDecimal multiplier = new BigDecimal(frequency(product));
+			BigDecimal total = product.getPrice().multiply(multiplier);
+			sum.add(total);
+		}
+		
+		return sum;
 	}
 	
 
