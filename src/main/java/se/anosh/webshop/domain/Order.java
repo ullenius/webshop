@@ -88,9 +88,10 @@ public class Order implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", unix time=" + date.getTime() + "]";
+		return "Order [id=" + id + ", date=" + date + ", customer=" + customer + "]";
 	}
-
+	
+	
 	
     
 }

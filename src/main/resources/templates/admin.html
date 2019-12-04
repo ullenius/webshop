@@ -14,10 +14,28 @@
 	<h2>Admin pages</h2>
 	
 	<h3>Orders</h3>
-	<p>List all dispatched</p>
-	<p>List all undispatched</p>
 	
-	<p>Item number one: <span th:text="${model.get(0)}">first item</span></p>
+	<h2>Undispatched orders</h2>
+	
+	<ol>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ol>
+	
+	
+	
+	<h2>Dispatched orders</h2>
+	
+	<ol>
+	<li th:each="order : ${model}">
+		<span th:text="${order}">order 1</span>
+		<span><a th:href="@{/admin/order(id=${order.id})}" href="order.html?id=orderId">Details</a></span>	
+	</li>
+	
+	</ol>
 
 
 </body>

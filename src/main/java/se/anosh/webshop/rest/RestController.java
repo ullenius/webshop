@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import se.anosh.webshop.dao.exception.OrderNotFoundException;
 import se.anosh.webshop.domain.Category;
 import se.anosh.webshop.domain.Order;
+import se.anosh.webshop.domain.Orderline;
 import se.anosh.webshop.domain.Product;
 import se.anosh.webshop.service.CategoryService;
 import se.anosh.webshop.service.OrderService;
@@ -120,6 +121,16 @@ public class RestController {
 		List<Order> dispatchedOrders = orderService.findAllDispatchedOrders();
 		
 		return new ModelAndView("admin", "model", dispatchedOrders);
+	}
+	
+	@RequestMapping(value="/admin/order")
+	public ModelAndView orderDetails(@RequestParam(value="id", required=true)final String id) {
+		
+		final int orderId = Integer.parseInt(id);
+		System.out.println("Parsed order id = " + orderId);
+		
+		List<Orderline> orderLines = orderService.findMatchingOrderlines(orderId);
+		return new ModelAndView("orderdetails", "model", orderLines);
 	}
 	
 	@XmlRootElement

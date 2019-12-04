@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import se.anosh.webshop.dao.api.OrderDao;
+import se.anosh.webshop.dao.api.OrderLineDao;
 import se.anosh.webshop.dao.exception.OrderNotFoundException;
 import se.anosh.webshop.domain.Order;
+import se.anosh.webshop.domain.Orderline;
 
 @Service
 @Transactional
@@ -21,7 +23,15 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	private OrderDao dao;
-
+	
+	@Autowired
+	private OrderLineDao orderLineDao;
+	
+	@Override
+	public List<Orderline> findMatchingOrderlines(int orderId) {
+		return orderLineDao.findMatchingOrderlines(orderId);
+	}
+	
 	@Override
 	public List<Order> findAllOrders() {
 		return dao.findAll();

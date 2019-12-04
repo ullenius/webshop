@@ -36,7 +36,7 @@ public class Orderline implements Serializable {
     public Orderline() {
     }
 
-    public Orderline(Integer id, int quantity) {
+    public Orderline(int id, int quantity) {
         this.id = id;
         this.quantity = quantity;
     }
