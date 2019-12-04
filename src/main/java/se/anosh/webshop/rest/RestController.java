@@ -114,6 +114,13 @@ public class RestController {
 		return new ModelAndView("main", "model", model);
 	}
 	
+	@RequestMapping(value="/admin")
+	public ModelAndView adminPage() {
+		
+		List<Order> dispatchedOrders = orderService.findAllDispatchedOrders();
+		
+		return new ModelAndView("admin", "model", dispatchedOrders);
+	}
 	
 	@XmlRootElement
 	private class ErrorMessage {

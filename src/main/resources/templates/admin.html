@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+<link rel="stylesheet" href="css/main.css" th:href="@{css/main.css}" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webshop &#45; admin pages</title>
+</head>
+<body>
+	<header>
+	<h1>Web shop</h1>
+	</header>
+	
+	<h2>Admin pages</h2>
+	
+	<h3>Orders</h3>
+	<p>List all dispatched</p>
+	<p>List all undispatched</p>
+	
+	<p>Item number one: <span th:text="${model.get(0)}">first item</span></p>
+
+
+</body>
+	</html>
