@@ -10,3 +10,11 @@ body {
 h1, h2, h3 {
 	line-height: 1.2
 }
+
+li {
+	padding: 1em;
+}
+
+footer {
+	text-align: center;
+}
