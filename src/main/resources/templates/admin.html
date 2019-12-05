@@ -28,8 +28,7 @@
 	<p>Please select an order to mark it as dispatched</p>
 	<form action="/admin/dispatchOrder" method="POST">
 		<select name="orderId">
-			<option th:each="order : ${undispatched}" th:text="${order.id}" th:value="${order.id}">option 1</option>
-			<option value="volvo">volvo</option>
+			<option th:each="order : ${undispatched}" th:text="${order.id}" th:value="${order.id}">placeholder option 1</option>
 		</select>
 		<button type="submit" value="Search">Mark as dispatched</button>
 	</form>
