@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import se.anosh.webshop.domain.Category;
 import se.anosh.webshop.domain.Order;
@@ -103,17 +102,10 @@ public class RestController {
 			Integer orderId = Integer.parseInt(id);
 			System.out.println("Argument passed in: " + id);
 			orderService.dispatchOrder(orderId);
-			
-			ModelAndView model = new ModelAndView("redirect:/admin/dispatchOrder", "model", id);
-			return model;
+			return new ModelAndView("thankyou", "model", id);
 		} catch (Exception ex) {
 			return new ModelAndView("redirect:/error.html");
 		}
-	}
-	
-	@RequestMapping(value="/admin/dispatchOrder", method=RequestMethod.GET)
-	public ModelAndView dispatchOrderRedirect(ModelAndView model) { //@NotNull @NonEmpty
-		return model;
 	}
 
 	// demo method
