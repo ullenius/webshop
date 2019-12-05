@@ -91,10 +91,14 @@ public class RestController {
 			final int id = Integer.parseInt(model.getCategory());
 			Category category = categoryService.findById(id);
 			product.setCategory(category);
+			
+			System.out.println("Adding: " + product); // psuedo
+			
+			
 		} catch (CategoryNotFoundException | NumberFormatException ex) {
-			return new ModelAndView("error");
+			return new ModelAndView("redirect:/error.html");
 		}
-		return new ModelAndView("success");
+		return new ModelAndView("redirect:/success.html");
 	}
 
 	// JSON method

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org" lang="en">
 <head>
-<link rel="stylesheet" href="css/main.css" th:href="@{css/main.css}" />
+<link rel="stylesheet" href="css/main.css" th:href="@{../css/main.css}" />
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Webshop &#45; admin pages &#45; Add Products</title> 
@@ -11,7 +11,7 @@
 	<h1>Add New Product</h1>
 	</header>
 	
-		<form action="/saveProduct" method="POST" th:object="${addProductModel}">
+		<form action="/admin/saveProduct" method="POST" th:object="${addProductModel}">
 			<div class="newUserBox">
 				<div class="fieldSection">
 					<div class="fieldTitle">Product name &amp; Price</div>

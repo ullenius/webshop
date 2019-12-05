@@ -79,5 +79,9 @@ public class Category implements Serializable, Comparable<Category>  {
 	public int compareTo(Category category) {
 		return name.compareTo(category.getName());
 	}
+	
+	public String toString() {
+		return "";
+	}
 
 }

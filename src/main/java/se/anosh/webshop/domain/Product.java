@@ -67,10 +67,10 @@ public class Product implements Serializable {
     public void setCategory(Category category) {
     	this.category = Objects.requireNonNull(category, "Category cannot be null");
     }
-
+    
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", price=" + price + "]";
+		return "Product [name=" + name + ", price=" + price + ", category=" + category + "]";
 	}
 
 	@Override
