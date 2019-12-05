@@ -9,14 +9,13 @@
 <body th:with="dispatched=${model.dispatched}, undispatched=${model.undispatched}">
 
 	<header>
-	<h1>Web shop</h1>
+	<h1>Web shop &#45; Admin pages</h1>
+	<hr/>
 	</header>
 	
-	<h2>Admin pages</h2>
+	<h2>Orders</h2>
 	
-	<h3>Orders</h3>
-	
-	<h2>Undispatched orders</h2>
+	<h3>Undispatched Orders</h3>
 	
 	<ol>
 		<li th:each="order : ${undispatched}">
@@ -24,9 +23,18 @@
 			<span><a th:href="@{/admin/order(id=${order.id})}" href="order.html?id=orderId">Details</a></span>
 		</li>
 	</ol>
-	
-	
-	<h2>Dispatched orders</h2>
+
+	<h4>Dispatch order</h4>
+	<p>Please select an order to mark it as dispatched</p>
+	<form action="/admin/updateOrder">
+		<select name="cars">
+			<option th:each="order : ${undispatched}" th:text="${order.id}" th:value="${order.id}">option 1</option>
+			<option value="volvo">volvo</option>
+		</select>
+		<button type="submit" value="Search">Mark as dispatched</button>
+	</form>
+	<hr/>
+	<h3>Dispatched Orders</h3>
 	
 	<ol>
 		<li th:each="order : ${dispatched}">
