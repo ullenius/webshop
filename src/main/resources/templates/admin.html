@@ -26,8 +26,8 @@
 
 	<h4>Dispatch order</h4>
 	<p>Please select an order to mark it as dispatched</p>
-	<form action="/admin/updateOrder">
-		<select name="cars">
+	<form action="/admin/dispatchOrder" method="POST">
+		<select name="orderId">
 			<option th:each="order : ${undispatched}" th:text="${order.id}" th:value="${order.id}">option 1</option>
 			<option value="volvo">volvo</option>
 		</select>
