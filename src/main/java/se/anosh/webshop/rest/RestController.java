@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
+import se.anosh.webshop.dao.exception.OrderNotFoundException;
 import se.anosh.webshop.domain.Category;
 import se.anosh.webshop.domain.Order;
 import se.anosh.webshop.domain.Orderline;
@@ -107,6 +109,22 @@ public class RestController {
 			return new ModelAndView("redirect:/error.html");
 		}
 	}
+
+	// JSON version of above method
+	@RequestMapping(value="/admin/{orderId}", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ErrorMessage> dispatchOrderJson(@PathVariable("orderId") String id) {
+		try {
+			int orderId = Integer.parseInt(id);
+			System.out.println("Argument passed in (JSON version): " + id);
+			orderService.dispatchOrder(orderId);
+			return new ResponseEntity<ErrorMessage>(new ErrorMessage(null), HttpStatus.ACCEPTED);
+		} catch (OrderNotFoundException e) {
+			return new ResponseEntity<ErrorMessage>(new ErrorMessage("Order with id " + id + " not found"), HttpStatus.NOT_FOUND);
+		} catch (NumberFormatException ex) {
+			return new ResponseEntity<ErrorMessage>(new ErrorMessage("Bad input"), HttpStatus.BAD_REQUEST);
+		}
+	}
+
 
 	// demo method
 	@RequestMapping(value="/products", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
