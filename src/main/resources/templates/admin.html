@@ -6,7 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Webshop &#45; admin pages</title>
 </head>
-<body>
+<body th:with="dispatched=${model.dispatched}, undispatched=${model.undispatched}">
+
 	<header>
 	<h1>Web shop</h1>
 	</header>
@@ -18,25 +19,21 @@
 	<h2>Undispatched orders</h2>
 	
 	<ol>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
+		<li th:each="order : ${undispatched}">
+			<span th:text="${order}">undispatched order 1</span>
+			<span><a th:href="@{/admin/order(id=${order.id})}" href="order.html?id=orderId">Details</a></span>
+		</li>
 	</ol>
-	
 	
 	
 	<h2>Dispatched orders</h2>
 	
 	<ol>
-	<li th:each="order : ${model}">
-		<span th:text="${order}">order 1</span>
-		<span><a th:href="@{/admin/order(id=${order.id})}" href="order.html?id=orderId">Details</a></span>	
-	</li>
-	
+		<li th:each="order : ${dispatched}">
+			<span th:text="${order}">dispatched order 1</span>
+			<span><a th:href="@{/admin/order(id=${order.id})}" href="order.html?id=orderId">Details</a></span>	
+		</li>
 	</ol>
 
-
 </body>
-	</html>
+</html>

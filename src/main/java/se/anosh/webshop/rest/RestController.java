@@ -2,6 +2,7 @@ package se.anosh.webshop.rest;
 
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -116,11 +117,16 @@ public class RestController {
 	}
 	
 	@RequestMapping(value="/admin")
-	public ModelAndView adminPage() {
+	public ModelAndView showAllOrders() {
 		
 		List<Order> dispatchedOrders = orderService.findAllDispatchedOrders();
+		List<Order> undispatchedOrders = orderService.findAllUndispatchedOrders();
 		
-		return new ModelAndView("admin", "model", dispatchedOrders);
+		Map<String,Object> model = new HashMap<>();
+		model.put("dispatched", dispatchedOrders);
+		model.put("undispatched", undispatchedOrders);
+		
+		return new ModelAndView("admin", "model", model);
 	}
 	
 	@RequestMapping(value="/admin/order")
