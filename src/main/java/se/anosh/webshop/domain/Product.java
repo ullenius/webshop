@@ -37,7 +37,7 @@ public class Product implements Serializable {
     }
     
     public Product(Category category) {
-    	this.category = Objects.requireNonNull(category, "Category cannot be null");
+    	setCategory(category);
     }
 
     public int getId() {
@@ -62,6 +62,10 @@ public class Product implements Serializable {
     
     public String getCategory() {
     	return category.getName();
+    }
+    
+    public void setCategory(Category category) {
+    	this.category = Objects.requireNonNull(category, "Category cannot be null");
     }
 
 	@Override

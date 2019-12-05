@@ -1,6 +1,7 @@
 package se.anosh.webshop.rest;
 
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -18,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
+import se.anosh.learningthymeleaf.AddUserModel;
+import se.anosh.learningthymeleaf.validator.AddUserModelValidator;
+import se.anosh.webshop.dao.exception.CategoryNotFoundException;
 import se.anosh.webshop.dao.exception.OrderNotFoundException;
 import se.anosh.webshop.domain.Category;
 import se.anosh.webshop.domain.Order;
@@ -75,6 +80,24 @@ public class RestController {
 
 		final List<Category> categories = categoryService.findAll();
 		return new ModelAndView("addproduct", "addProductModel", new AddProductModel(categories));
+	}
+	
+	// called by addProduct template
+	@RequestMapping(value="/admin/saveProduct", method=RequestMethod.POST)
+	public ModelAndView saveUser(@Valid AddProductModel model) {
+		
+		Product product = new Product();
+		product.setName(model.getName());
+		product.setPrice(new BigDecimal(model.getPrice()));
+		
+		try {
+			final int id = Integer.parseInt(model.getCategory());
+			Category category = categoryService.findById(id);
+			product.setCategory(category);
+		} catch (CategoryNotFoundException | NumberFormatException ex) {
+			return new ModelAndView("error");
+		}
+		return new ModelAndView("success");
 	}
 
 	// JSON method
