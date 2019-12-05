@@ -31,6 +31,7 @@ import se.anosh.webshop.domain.Category;
 import se.anosh.webshop.domain.Order;
 import se.anosh.webshop.domain.Orderline;
 import se.anosh.webshop.domain.Product;
+import se.anosh.webshop.model.AddProductModel;
 import se.anosh.webshop.service.CategoryService;
 import se.anosh.webshop.service.OrderService;
 import se.anosh.webshop.service.ProductService;
@@ -68,8 +69,17 @@ public class RestController {
 		return new ModelAndView("admin", "model", model);
 	}
 
+	// /admin/addProduct
+	@RequestMapping(value="/admin/addProduct", method=RequestMethod.GET)
+	public ModelAndView addProduct() { //@NotNull @NonEmpty
+
+		final List<Category> categories = categoryService.findAll();
+		return new ModelAndView("addproduct", "addProductModel", new AddProductModel(categories));
+	}
+
+	// JSON method
 	@RequestMapping(value="/admin/addProduct", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Void> addProduct(@NotNull @Valid @RequestBody Product newProduct) {
+	public ResponseEntity<Void> addProductJson(@NotNull @Valid @RequestBody Product newProduct) {
 		System.out.println("Received: " + newProduct);
 		productService.addProduct(newProduct);
 		return ResponseEntity.accepted().build();
@@ -109,6 +119,7 @@ public class RestController {
 			return new ModelAndView("redirect:/error.html");
 		}
 	}
+	
 
 	// JSON version of above method
 	@RequestMapping(value="/admin/{orderId}", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
@@ -124,7 +135,6 @@ public class RestController {
 			return new ResponseEntity<ErrorMessage>(new ErrorMessage("Bad input"), HttpStatus.BAD_REQUEST);
 		}
 	}
-
 
 	// demo method
 	@RequestMapping(value="/products", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
