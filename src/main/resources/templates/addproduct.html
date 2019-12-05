@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+<link rel="stylesheet" href="css/main.css" th:href="@{css/main.css}" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webshop &#45; admin pages &#45; Add Products</title> 
+</head>
+<body>
+	<header>
+	<h1>Add New Product</h1>
+	</header>
+	
+		<form action="/saveProduct" method="POST" th:object="${addUserModel}" >
+			<div class="newUserBox">
+				<div class="fieldSection">
+					<div class="fieldTitle">Product name &amp; Price</div>
+		
+					<input type="text" name="name" id="name" placeholder="name" required th:field="*{name}" />
+					<input type="number" name="price" id="price" placeholder="100.55" required th:field="*{price}" />
+				</div>
+		
+				<div class="fieldSection">
+					<div class="fieldTitle">Category</div>
+		
+					<select id="category" name="category" required th:field="*{category}" >
+						<option value="title" selected disabled>Title</option>
+						<option value="Mr">Mr</option>
+						<option value="Miss">Miss</option>
+						<option value="Mrs">Mrs</option>
+						<option value="Ms">Ms</option>
+						<option value="Dr">Dr</option>
+					</select>
+		
+					<input type="text" name="firstname" id="firstname" placeholder="First name" required th:field="*{firstName}" />
+					<input type="text" name="secondname" id="secondname" placeholder="Second name" required th:field="*{secondName}" />
+				</div>
+				
+				<input type="submit" value="Save new user" class="button" />
+			</div>
+		</form>
+		
+		
+		</body>
+</html>

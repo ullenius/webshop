@@ -27,7 +27,8 @@
 	<h4>Dispatch order</h4>
 	<p>Please select an order to mark it as dispatched</p>
 	<form action="/admin/dispatchOrder" method="POST">
-		<select name="orderId">
+		<select name="orderId" required>
+			<option value="title" selected disabled>Order id</option>
 			<option th:each="order : ${undispatched}" th:text="${order.id}" th:value="${order.id}">placeholder option 1</option>
 		</select>
 		<button type="submit" value="Search">Mark as dispatched</button>
@@ -41,6 +42,11 @@
 			<span><a th:href="@{/admin/order(id=${order.id})}" href="order.html?id=orderId">Details</a></span>	
 		</li>
 	</ol>
+	
+	<hr/>
+	<h2>Add Products</h2>
+	<p><a href="/admin/addProducts">Add new products</a></p>
+	
 
 </body>
 </html>
