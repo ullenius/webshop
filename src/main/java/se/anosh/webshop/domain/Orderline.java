@@ -36,7 +36,7 @@ public class Orderline implements Serializable {
     public Orderline() {
     }
 
-    public Orderline(Integer id, int quantity) {
+    public Orderline(int id, int quantity) {
         this.id = id;
         this.quantity = quantity;
     }
@@ -49,7 +49,7 @@ public class Orderline implements Serializable {
         return quantity;
     }
 
-    public Order getOrder1() {
+    public Order getOrder() {
         return order;
     }
 
@@ -59,12 +59,6 @@ public class Orderline implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
-    }
-
-
-    @Override
-    public String toString() {
-        return "webshop.Orderlines[ id=" + id + " ]";
     }
 
 	@Override
@@ -88,5 +82,12 @@ public class Orderline implements Serializable {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Orderline [id=" + id + ", quantity=" + quantity + ", order=" + order + ", product=" + product + "]";
+	}
+	
+	
     
 }

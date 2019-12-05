@@ -4,6 +4,7 @@ import java.util.List;
 
 import se.anosh.webshop.dao.exception.OrderNotFoundException;
 import se.anosh.webshop.domain.Order;
+import se.anosh.webshop.domain.Orderline;
 
 public interface OrderService {
 	
@@ -14,5 +15,6 @@ public interface OrderService {
 	public void newOrder(Order newOrder);
 	public void removeOrder(Order order);
 	public void dispatchOrder(Integer id) throws OrderNotFoundException;
-
+	
+	public List<Orderline> findMatchingOrderlines(int orderId);
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import se.anosh.webshop.dao.api.CategoryDao;
+import se.anosh.webshop.dao.exception.CategoryNotFoundException;
 import se.anosh.webshop.domain.Category;
 
 @Service
@@ -38,6 +39,11 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public void updateCategory(Category category) {
 		dao.update(category);
+	}
+
+	@Override
+	public Category findById(int id) throws CategoryNotFoundException {
+		return dao.findById(id);
 	}
 
 }

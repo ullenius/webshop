@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+<link rel="stylesheet" href="css/main.css" th:href="@{../css/main.css}" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webshop &#45; admin pages &#45; Order details</title>
+</head>
+<body>
+	<header>
+	<h1>Web shop</h1>
+	</header>
+	
+	<h2>Admin pages</h2>
+	
+	<h3>Order details for order &#35;<mark><span th:text="${model.get(0).order.id}"></span></mark></h3>
+	
+	<div>
+		<p th:each="orderline : ${model}">
+		<span><strong>Product: </strong></span><span th:text="${orderline.product.name}"></span>
+		<br/>
+		<span><strong>Price per unit: </strong></span><span th:text="${orderline.product.price}"></span>
+		<br/>
+		<span><strong>Quantity: </strong></span><span th:text="${orderline.quantity}"></span>
+	
+	</div>
+	
+	<hr/>
+	<footer>
+	<p>Back to <a href="../admin">Admin page</a></p>
+	</footer>
+
+
+</body>
+	</html>

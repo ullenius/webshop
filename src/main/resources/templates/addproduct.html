@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+<link rel="stylesheet" href="css/main.css" th:href="@{../css/main.css}" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webshop &#45; admin pages &#45; Add Products</title> 
+</head>
+<body>
+	<header>
+	<h1>Add New Product</h1>
+	</header>
+	
+		<form action="/admin/saveProduct" method="POST" th:object="${addProductModel}">
+			<div class="newUserBox">
+				<div class="fieldSection">
+					<div class="fieldTitle">Product name &amp; Price</div>
+		
+					<input type="text" name="name" id="name" placeholder="name" required th:field="*{name}" />
+					<input type="number" name="price" id="price" placeholder="125.90" min="0" max="99999" required th:field="*{price}" />
+				</div>
+		
+				<div class="fieldSection">
+					<br/>
+					<div class="fieldTitle">Category</div>
+					<select id="category" name="category" required th:field="*{category}" >
+						<option value="category" selected disabled>Product category</option>
+						<option th:each="category : ${addProductModel.categories}" th:text="${category.name}" th:value="${category.id}">placeholder option 1</option>
+					</select>
+				</div>
+				<br/>
+				<input type="submit" value="Save new product" class="button" />
+			</div>
+		</form>
+		
+		
+		</body>
+</html>
