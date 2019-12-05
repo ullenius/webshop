@@ -104,7 +104,7 @@ public class RestController {
 			Integer orderId = Integer.parseInt(id);
 			System.out.println("Argument passed in: " + id);
 			orderService.dispatchOrder(orderId);
-			return new ModelAndView("thankyou", "model", id);
+			return new ModelAndView("admin/thankyou", "model", id);
 		} catch (Exception ex) {
 			return new ModelAndView("redirect:/error.html");
 		}
