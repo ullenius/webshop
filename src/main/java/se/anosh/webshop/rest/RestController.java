@@ -93,7 +93,7 @@ public class RestController {
 			product.setCategory(category);
 			
 			System.out.println("Adding: " + product); // psuedo
-			
+			productService.addProduct(product);
 			
 		} catch (CategoryNotFoundException | NumberFormatException ex) {
 			return new ModelAndView("redirect:/error.html");
