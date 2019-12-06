@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+<link rel="stylesheet" href="../static/css/main.css" th:href="@{../css/main.css}" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webshop &#45; Buy Product</title> 
+</head>
+<body>
+	<header>
+	<h1><span th:text="${model.name}">Add to cart</span></h1>
+	</header>
+	
+		<form action="/shoppingCart" method="GET">
+			<div class="newUserBox">
+				<div class="fieldSection">
+					<div class="fieldTitle"></div>
+		
+					<label for="name">Product Name</label>
+					<input type="text" name="name" id="name" value="Coconut" readonly />
+					<br/>
+					<label for="price">Price</label>
+					<input type="number" name="price" id="price" value="259.50" th:value="${model.price}" readonly />
+					<br/>
+					<input type="hidden" name="id" id="id" value="666" th:value="${model.id}" readonly />
+					<label for="name">Amount</label>
+					<input type="number" name="amount" id="amount" placeholder="1" min="0" max="999" required />
+					
+					<hr/>
+					<label for="name">Product Name</label>
+					<input type="text" name="name2" id="name" value="Coconut" readonly />
+					<br/>
+					<label for="price">Price</label>
+					<input type="number" name="price2" id="price" value="259.50" th:value="${model.price}" readonly />
+					<br/>
+					<input type="hidden" name="id2" id="id" value="666" th:value="${model.id}" readonly />
+					<label for="name">Amount</label>
+					<input type="number" name="amount2" id="amount" placeholder="1" min="0" max="999" required />
+					
+				</div>
+				
+				<br/>
+				<input type="submit" value="Add to cart" class="button" />
+			</div>
+		</form>
+
+		<h2>stack overflow</h2>
+		<form id="saveForm" action="/post/dispatch/save" method="GET">
+			<input type="text" name="foo[][name]" />
+			<input type="text" name="foo[][price]" />
+		<!-- several of those here -->
+			<input type="text" name="foo[][name]" />
+			<input type="text" name="foo[][price]" />
+			
+			<input type="submit" value="Add to cart" class="button" />
+		</form>
+
+
+
+	<!--  4 saker
+		
+			1. produkt namn
+			2. pris
+			3. ange antal
+			4. submit (add to cart), update cart or whatever
+		
+		 -->
+		
+		</body>
+</html>
