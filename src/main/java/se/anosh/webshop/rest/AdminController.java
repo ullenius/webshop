@@ -35,8 +35,6 @@ import se.anosh.webshop.service.CategoryService;
 import se.anosh.webshop.service.OrderService;
 import se.anosh.webshop.service.ProductService;
 
-import static se.anosh.webshop.rest.ControllerUtil.errorPage;
-
 @Controller
 @SessionScope
 public class AdminController {
@@ -121,7 +119,6 @@ public class AdminController {
 
 	@RequestMapping(value="/admin/dispatched", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Order>> listDispatchedOrders() {
-
 		return new ResponseEntity<List<Order>>(orderService.findAllDispatchedOrders(), HttpStatus.OK);
 	}
 
@@ -161,6 +158,10 @@ public class AdminController {
 		ErrorMessage(String message) {
 			this.message = message; //null is allowed, JSON ignores it
 		}
+	}
+	
+	private ModelAndView errorPage() { // TODO: duplicate code, fix this (also in RestController)
+		return new ModelAndView("error");
 	}
 
 }

@@ -6,14 +6,14 @@ import java.util.Objects;
 
 import se.anosh.webshop.domain.Category;
 
-// This is a backing bean
+// This is a backing bean used for creating new products
 public class AddProductModel {
 	
 	private String name;
 	private String price;
 	private String category;
 	
-	private List<Category> categories; // for displaying using thymeleaf
+	private final List<Category> categories; // for displaying using thymeleaf
 	
 	public AddProductModel() {
 		categories = Collections.emptyList();

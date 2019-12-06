@@ -1,6 +1,7 @@
 package se.anosh.webshop.rest;
 
 
+
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -26,8 +27,6 @@ import se.anosh.webshop.domain.Product;
 import se.anosh.webshop.service.CategoryService;
 import se.anosh.webshop.service.OrderService;
 import se.anosh.webshop.service.ProductService;
-
-import static se.anosh.webshop.rest.ControllerUtil.errorPage;
 
 @Controller
 @SessionScope
@@ -57,11 +56,16 @@ public class RestController {
 		try {
 			int productId = Integer.parseInt(id);
 			Product product = productService.findById(productId);
-			return new ModelAndView("addproduct", "model", product);
+			return new ModelAndView("product", "model", product);
 		} catch (NumberFormatException | ProductNotFoundException ex) {
 			return errorPage();
 		}
 	}
+	
+	private ModelAndView errorPage() {
+		return new ModelAndView("redirect:/error.html");
+	}
+	
 	
 	// demo method
 	@RequestMapping(value="/products", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
