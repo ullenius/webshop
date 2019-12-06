@@ -35,21 +35,23 @@ import se.anosh.webshop.service.CategoryService;
 import se.anosh.webshop.service.OrderService;
 import se.anosh.webshop.service.ProductService;
 
+import static se.anosh.webshop.rest.ControllerUtil.errorPage;
+
 @Controller
 @SessionScope
 public class AdminController {
-	
+
 	private OrderService orderService;
 	private ProductService productService;
 	private CategoryService categoryService;
-	
+
 	@Autowired
 	public AdminController(OrderService orderService, ProductService productService, CategoryService categoryService) {
 		this.orderService = Objects.requireNonNull(orderService);
 		this.productService = Objects.requireNonNull(productService);
 		this.categoryService = Objects.requireNonNull(categoryService);
 	}
-	
+
 	@RequestMapping(value="/admin")
 	public ModelAndView showAllOrders() {
 
@@ -70,23 +72,23 @@ public class AdminController {
 		final List<Category> categories = categoryService.findAll();
 		return new ModelAndView("addproduct", "addProductModel", new AddProductModel(categories));
 	}
-	
+
 	// called by addProduct template
 	@RequestMapping(value="/admin/saveProduct", method=RequestMethod.POST)
 	public ModelAndView saveUser(@Valid AddProductModel model) {
-		
+
 		Product product = new Product();
 		product.setName(model.getName());
 		product.setPrice(new BigDecimal(model.getPrice()));
-		
+
 		try {
 			final int id = Integer.parseInt(model.getCategory());
 			Category category = categoryService.findById(id);
 			product.setCategory(category);
-			
+
 			System.out.println("Adding: " + product); // psuedo
 			productService.addProduct(product);
-			
+
 		} catch (CategoryNotFoundException | NumberFormatException ex) {
 			return errorPage();
 		}
@@ -135,7 +137,7 @@ public class AdminController {
 			return errorPage();
 		}
 	}
-	
+
 
 	// JSON version of above method
 	@RequestMapping(value="/admin/{orderId}", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
