@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import se.anosh.webshop.dao.exception.CategoryNotFoundException;
 import se.anosh.webshop.dao.exception.OrderNotFoundException;
+import se.anosh.webshop.dao.exception.ProductNotFoundException;
 import se.anosh.webshop.domain.Category;
 import se.anosh.webshop.domain.Order;
 import se.anosh.webshop.domain.Orderline;
@@ -58,6 +59,24 @@ public class RestController {
 		return new ResponseEntity<List<Order>>(orderService.findAllOrders(), HttpStatus.OK);
 	}
 
+	// shopping cart CRUD
+	@RequestMapping(value="/product/{productId}", method=RequestMethod.GET)
+	public ModelAndView addProductToCart(@PathVariable("productId") final String id) {
+		
+		System.out.println("addProductToCart received: " + id);
+		try {
+			int productId = Integer.parseInt(id);
+			Product product = productService.findById(productId);
+			return new ModelAndView("addproduct", "model", product);
+		} catch (NumberFormatException | ProductNotFoundException ex) {
+			return errorPage();
+		}
+	}
+	
+	private ModelAndView errorPage() {
+		return new ModelAndView("error");
+	}
+	
 	@RequestMapping(value="/admin")
 	public ModelAndView showAllOrders() {
 
@@ -96,7 +115,7 @@ public class RestController {
 			productService.addProduct(product);
 			
 		} catch (CategoryNotFoundException | NumberFormatException ex) {
-			return new ModelAndView("redirect:/error.html");
+			return errorPage();
 		}
 		return new ModelAndView("redirect:/success.html");
 	}
@@ -140,7 +159,7 @@ public class RestController {
 			orderService.dispatchOrder(orderId);
 			return new ModelAndView("admin/thankyou", "model", id);
 		} catch (Exception ex) {
-			return new ModelAndView("redirect:/error.html");
+			return errorPage();
 		}
 	}
 	
