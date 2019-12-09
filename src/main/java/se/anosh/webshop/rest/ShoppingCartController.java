@@ -64,10 +64,10 @@ public class ShoppingCartController {
 		allProducts.sort(null);
 		
 		contents.put("products",allProducts);
+		contents.put("totalPrice",cart.calculateTotalPrice());
+		
 		
 		return new ModelAndView("cart","model",contents);
-		
-		
 	}
 //	
 //	void addToCart(Product p);

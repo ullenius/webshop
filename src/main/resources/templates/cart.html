@@ -12,12 +12,14 @@
 	</header>
 	
 	<p>This is the cart...</p>
-	<p>cart here...</p>
 	
 	<div th:if="${model.size() > 0}">
 		<ol>
 			<li th:each="product : ${model.products}" th:text="${product.name}">product 1</li>
 		</ol>
+		<p><strong>Total price:</strong> <span th:text="${model.totalPrice}">price here</span>
+		</p>
+		
 	</div>
 	
 </body>
