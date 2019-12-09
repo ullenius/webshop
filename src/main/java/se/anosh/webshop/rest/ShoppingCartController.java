@@ -1,5 +1,6 @@
 package se.anosh.webshop.rest;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +60,7 @@ public class ShoppingCartController {
 	public ModelAndView displayShoppingCart() {
 		
 		final Map<String,Object> contents = new HashMap<>();
-		final List<Product> allProducts = cart.allProducts();
+		final List<Product> allProducts = new ArrayList<>(cart.allProducts());
 		allProducts.sort(null);
 		
 		contents.put("products",allProducts);
