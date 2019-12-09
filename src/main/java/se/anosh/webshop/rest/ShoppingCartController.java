@@ -1,5 +1,9 @@
 package se.anosh.webshop.rest;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -28,7 +32,7 @@ public class ShoppingCartController {
 		cart = new ShoppingCart();
 	}
 	
-	@RequestMapping(value="/shoppingCart", method=RequestMethod.GET)
+	@RequestMapping(value="/shoppingCart", method=RequestMethod.GET) // TODO change to POST for production
 	public ModelAndView addToCart(
 			@RequestParam(value="id", required=true) String id, 
 				@RequestParam(value="amount", required=true) String amount) {
@@ -51,6 +55,17 @@ public class ShoppingCartController {
 		return new ModelAndView("redirect:/success.html");
 	}
 	
+	@RequestMapping(value="/shoppingCart/contents", method=RequestMethod.GET)
+	public ModelAndView displayShoppingCart() {
+		
+		final Map<String,Object> contents = new HashMap<>();
+		final List<Product> allProducts = cart.allProducts();
+		allProducts.sort(null);
+		
+		contents.put("products",allProducts);
+		
+		
+	}
 //	
 //	void addToCart(Product p);
 //	int frequency(Product product);

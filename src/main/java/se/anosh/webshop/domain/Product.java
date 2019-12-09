@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "products")
 @XmlRootElement
-public class Product implements Serializable {
+public class Product implements Serializable, Comparable<Product> {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -34,6 +34,7 @@ public class Product implements Serializable {
     private Category category;
 
     public Product() {
+    	name = "";
     }
     
     public Product(Category category) {
@@ -93,6 +94,11 @@ public class Product implements Serializable {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Product product) {
+		return this.name.compareTo(product.getName());
 	}
     
 }

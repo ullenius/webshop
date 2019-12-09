@@ -55,6 +55,10 @@ public class ShoppingCart implements Shopping {
 		return sum;
 	}
 	
+	public List<Product> allProducts() {
+		return Collections.unmodifiableList(shoppingCart);
+	}
+	
 	public String toString() {
 		return shoppingCart.toString();
 	}
