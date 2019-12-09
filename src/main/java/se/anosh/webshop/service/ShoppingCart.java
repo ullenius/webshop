@@ -48,7 +48,7 @@ public class ShoppingCart {
 		for (Product product : uniqueItems) {
 			final BigDecimal multiplier = new BigDecimal(frequency(product));
 			BigDecimal total = product.getPrice().multiply(multiplier);
-			sum.add(total);
+			sum = sum.add(total);
 		}
 		
 		return sum;
