@@ -15,9 +15,10 @@
 	
 	<div th:if="${model.size() > 0}">
 		<ol>
-			<li th:each="product : ${model.products}" th:text="${product.name}">product 1</li>
+			<li th:each="product : ${model.products}" th:text="${product.key.name} + ' amount = ' + ${product.value}">product 1</li>
 		</ol>
-		<p><strong>Total price:</strong> <span th:text="${model.totalPrice}">price here</span>
+		<p>
+			<strong>Total price: </strong><span th:text="${model.totalPrice}">price here</span>
 		</p>
 		
 	</div>

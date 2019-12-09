@@ -1,9 +1,9 @@
 package se.anosh.webshop.rest;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -60,10 +60,15 @@ public class ShoppingCartController {
 	public ModelAndView displayShoppingCart() {
 		
 		final Map<String,Object> contents = new HashMap<>();
-		final List<Product> allProducts = new ArrayList<>(cart.allProducts());
-		allProducts.sort(null);
+		final Set<Product> productsInCart = cart.uniqueItems();
 		
-		contents.put("products",allProducts);
+		final Map<Product,Integer> shoppingCartView = new LinkedHashMap<>();
+		for (Product product : productsInCart) {
+			final int amount = cart.frequency(product);
+			shoppingCartView.put(product,amount);
+		}
+		
+		contents.put("products",shoppingCartView);
 		contents.put("totalPrice",cart.calculateTotalPrice());
 		
 		
