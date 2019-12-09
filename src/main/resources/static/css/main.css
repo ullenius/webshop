@@ -25,3 +25,9 @@ header {
 hr {
 	margin-bottom: 1em;
 }
+
+.product {
+	font-weight: bold;
+	font-size: 1.5em;
+	text-transform: capitalize;
+}

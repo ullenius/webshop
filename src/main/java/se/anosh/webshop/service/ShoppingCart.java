@@ -17,7 +17,7 @@ import se.anosh.webshop.domain.Product;
 @Scope(value = WebApplicationContext.SCOPE_SESSION)
 public class ShoppingCart {
 	
-	private final List<Product> shoppingCart;
+	private final List<Product> shoppingCart; // TODO: make thread safe ConcurrentLinkedQueue or LinkedBlockingDeque
 	
 	public ShoppingCart() {
 		shoppingCart = new LinkedList<>();

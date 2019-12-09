@@ -10,30 +10,29 @@
 	<header>
 	<h1>Add to cart</h1>
 	</header>
-		<div>
-		<p><strong><span th:text="${model.name}">Product name</span></strong></p>
-		<p><strong>Price: </strong><span th:text:="${model.price}">price here</span></p>
-	</div>
+	
+
+	<p th:text="${model.name}" class="product">product name</p>
+	<p th:text="${model.price} + ' kr'">price per unit</p>
+	
 
 	<form action="/shoppingCart" method="GET">
-			<div class="addProductBox">
-				<div class="fieldSection">
-					<div class="fieldTitle"></div>
-					<input type="hidden" name="id" id="id" value="666" th:value="${model.id}" readonly />
-					<label for="name">Amount</label>
-					<input type="number" name="amount" id="amount" placeholder="1" min="0" max="999" required />
-				</div>
+			<div>
+					<input type="hidden" name="id" id="id" value="666" th:value="${model.id}" />
+					<label for="amount">Amount</label>
+					<input type="number" name="amount" id="amount" placeholder="0" min="0" max="999" required />
 				<br/>
-				<input type="submit" value="Add to cart" class="button" />
+				<input type="submit" value="Add to cart" />
 			</div>
 		</form>
 
-	<!--  4 saker
+<!-- 	 4 saker
 			1. produkt namn
 			2. pris
 			3. ange antal
-			4. submit (add to cart), update cart or whatever
-		 -->
+			4. submit (add to cart), update cart or whatever -->
 		
+		
+
 		</body>
 </html>

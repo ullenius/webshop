@@ -53,9 +53,13 @@ public class RestController {
 	public ModelAndView addProductToCart(@PathVariable("productId") final String id) {
 		
 		System.out.println("addProductToCart received: " + id);
+		
 		try {
 			int productId = Integer.parseInt(id);
 			Product product = productService.findById(productId);
+			
+			System.out.println(product);
+			
 			return new ModelAndView("product", "model", product);
 		} catch (NumberFormatException | ProductNotFoundException ex) {
 			return errorPage();
