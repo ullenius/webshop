@@ -64,6 +64,8 @@ public class ShoppingCartController {
 		
 		contents.put("products",allProducts);
 		
+		return new ModelAndView("cart","model",contents);
+		
 		
 	}
 //	
