@@ -67,10 +67,8 @@ public class ShoppingCartController {
 			final int amount = cart.frequency(product);
 			shoppingCartView.put(product,amount);
 		}
-		
 		contents.put("products",shoppingCartView);
 		contents.put("totalPrice",cart.calculateTotalPrice());
-		
 		
 		return new ModelAndView("cart","model",contents);
 	}
