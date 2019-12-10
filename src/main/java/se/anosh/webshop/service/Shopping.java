@@ -10,11 +10,19 @@ import se.anosh.webshop.domain.Product;
 public interface Shopping {
 		
 		void addToCart(Product p);
+		
 		int frequency(Product product);
+		
+		void update(final Product product, final int amount);
+		
 		Set<Product> uniqueItems();
+		
 		int uniqueItemCount();
-		BigDecimal calculateTotalPrice();
-		default double calculateTotalPriceAsDouble() { return calculateTotalPrice().doubleValue(); }
+		
 		List<Product> allProducts();
+		
+		BigDecimal calculateTotalPrice();
+
+		default double calculateTotalPriceAsDouble() { return calculateTotalPrice().doubleValue(); }
 
 }

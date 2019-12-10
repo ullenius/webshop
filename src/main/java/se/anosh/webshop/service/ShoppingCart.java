@@ -33,6 +33,9 @@ public class ShoppingCart implements Shopping {
 	}
 
 	public void update(final Product product, final int amount) {
+		
+		if (!shoppingCart.contains(product))
+			return;
 
 		final int frequency = frequency(product);
 		if (amount > frequency) {
