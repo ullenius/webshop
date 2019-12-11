@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,20 +15,33 @@ import se.anosh.webshop.domain.Product;
 class ShoppingCartTest {
 	
 	private Shopping cart;
+	private Product orange;
+	private Product apple;
+	
+	private static final int NUMBER_OF_PIZZAS = 777;
 	private static final int NUMBER_OF_PRODUCTS = 10;
 	private static final int ONE = 1;
+	private static final int TWO = 2;
 
 	@BeforeEach
-	void setUp() throws Exception {
+	void setUp() {
 		
 		cart = new ShoppingCart();
-	}
-
-	@Test
-	void test() {
-		fail("Not yet implemented");
+		
+		orange = new Product();
+		orange.setName("Orange");
+		orange.setPrice(new BigDecimal("19.90"));
+		
+		apple = new Product();
+		apple.setName("Apple");
+		apple.setPrice(new BigDecimal("15.49"));
 	}
 	
+	@AfterEach
+	void after() {
+		cart.clear();
+	}
+
 	@Test
 	void testThatCartIsEmpty() {
 		List<Product> contents = cart.allProducts();
@@ -48,6 +63,8 @@ class ShoppingCartTest {
 		assertTrue(contents.isEmpty());
 	}
 	
+	
+	// Tests frequency() and uniqueItemCount
 	@Test
 	void testProductCounter() {
 		
@@ -65,41 +82,58 @@ class ShoppingCartTest {
 			cart.addToCart(beer);
 		}
 		assertEquals(NUMBER_OF_PRODUCTS, cart.frequency(beer));
-		assertEquals(ONE,cart.frequency(coconut));
+		assertEquals(ONE, cart.frequency(coconut));
+		assertEquals(TWO, cart.uniqueItemCount());
 	}
 	
 	@Test
+	public void testUpdateProduct() {
+		
+		Product pizza = new Product();
+		pizza.setName("Pizza");
+		pizza.setPrice(new BigDecimal("95"));
+		
+		cart.addToCart(pizza);
+		cart.update(pizza, NUMBER_OF_PIZZAS);
+		assertEquals(NUMBER_OF_PIZZAS, cart.frequency(pizza));
+		
+		// reduce the number and test again
+		cart.update(pizza, TWO);
+		assertEquals(TWO, cart.frequency(pizza));
+	}
+	
+	@Test
+	public void testPriceCalculation() {
+		
+		final BigDecimal priceOfTenApples = new BigDecimal("154.9");
+		final BigDecimal priceOfTenOranges = new BigDecimal("199");
+		
+		final BigDecimal total = priceOfTenApples.add(priceOfTenOranges);
+
+		addFakeProducts();
+		assertEquals(total, cart.calculateTotalPrice());
+		
+		final double totalDouble = total.doubleValue();
+		assertEquals(totalDouble, cart.calculateTotalPriceAsDouble());
+	}
 	
 	
+	@Test
+	public void testUniqueItemsSet() {
+		addFakeProducts();
+		Set<Product> myProducts = cart.uniqueItems();
+		
+		assertTrue(myProducts.contains(apple));
+		assertTrue(myProducts.contains(orange));
+	}
 	
 	// Adds 2 different products, 10 each (20 in total)
 	private void addFakeProducts() {
-		
-		Product orange = new Product();
-		orange.setName("Orange");
-		orange.setPrice(new BigDecimal("19.90"));
-		
-		Product apple = new Product();
-		apple.setName("Apple");
-		apple.setPrice(new BigDecimal("15.49"));
 		
 		for (int i = 0; i < 10; i++) {
 			cart.addToCart(orange);
 			cart.addToCart(apple);
 		}
 	}
-	
-	
-	
-//	void addToCart(Product p);
-//	int frequency(Product product);
-//	void update(final Product product, final int amount);
-//	Set<Product> uniqueItems();
-//	int uniqueItemCount();
-//	List<Product> allProducts();
-//	BigDecimal calculateTotalPrice();
-//	default double calculateTotalPriceAsDouble() { return calculateTotalPrice().doubleValue(); }
-//	void clear();
-
 
 }

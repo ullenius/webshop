@@ -102,6 +102,14 @@ public class ShoppingCartController {
 		return new ModelAndView("redirect:/success.html");
 	}
 	
+	public void submitOrder() {
+		// do stuff
+		
+		cart.clear();
+		
+	}
+	
+	
 	
 	@FunctionalInterface
 	private static interface TriConsumer {
