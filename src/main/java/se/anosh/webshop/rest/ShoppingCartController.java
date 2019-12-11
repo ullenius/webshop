@@ -92,5 +92,31 @@ public class ShoppingCartController {
 		System.out.println("UPDATED - Contents of cart: " + cart);
 		return new ModelAndView("redirect:/success.html");
 	}
+	
+	/// demo stuff
+	public ModelAndView performCrudOperation(String id, String amount, ProductConsumer operation) {
+			
+		final int productId = Integer.parseInt(id);
+		final int productAmount = Integer.parseInt(amount);
+		
+		final Product product = null;
+		try {
+			operation.accept(product);
+//			product = productService.findById(productId);
+//			cart.update(product, productAmount);
+		} catch (ProductNotFoundException e) {
+			e.printStackTrace();
+			return new ModelAndView("redirect:/error.html");
+		}
+		
+		System.out.println("UPDATED - Contents of cart: " + cart);
+		return new ModelAndView("redirect:/success.html");
+	}
+	
+	@FunctionalInterface
+	private static interface ProductConsumer {
+		void accept(Product product) throws ProductNotFoundException;
+	}
+	
 
 }
