@@ -51,26 +51,26 @@ public class RestController {
 	// shopping cart CRUD
 	@RequestMapping(value="/product/{productId}", method=RequestMethod.GET)
 	public ModelAndView addProductToCart(@PathVariable("productId") final String id) {
-		
+
 		System.out.println("addProductToCart received: " + id);
-		
+
 		try {
 			int productId = Integer.parseInt(id);
 			Product product = productService.findById(productId);
-			
+
 			System.out.println(product);
-			
+
 			return new ModelAndView("product", "model", product);
 		} catch (NumberFormatException | ProductNotFoundException ex) {
 			return errorPage();
 		}
 	}
-	
+
 	private ModelAndView errorPage() {
 		return new ModelAndView("redirect:/error.html");
 	}
-	
-	
+
+
 	// demo method
 	@RequestMapping(value="/products", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Product>> listProducts() {
@@ -88,14 +88,14 @@ public class RestController {
 				? Collections.emptyList()
 						: productService.findByName(products);
 
-				System.out.println("Products = " + matchingProducts);
+		System.out.println("Products = " + matchingProducts);
 
-				List<Category> categories = categoryService.findAll();
-				System.out.println("Size of categories = " + categories.size());
-				model.put("categories",categories);
-				model.put("products", matchingProducts);
+		List<Category> categories = categoryService.findAll();
+		System.out.println("Size of categories = " + categories.size());
+		model.put("categories",categories);
+		model.put("products", matchingProducts);
 
-				return new ModelAndView("main", "model", model);
+		return new ModelAndView("main", "model", model);
 	}
 
 
