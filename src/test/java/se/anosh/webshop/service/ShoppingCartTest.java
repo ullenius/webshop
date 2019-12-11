@@ -105,7 +105,7 @@ class ShoppingCartTest {
 	@Test
 	public void testPriceCalculation() {
 		
-		final BigDecimal priceOfTenApples = new BigDecimal("154.9");
+		final BigDecimal priceOfTenApples = new BigDecimal("154.90");
 		final BigDecimal priceOfTenOranges = new BigDecimal("199");
 		
 		final BigDecimal total = priceOfTenApples.add(priceOfTenOranges);
@@ -121,13 +121,12 @@ class ShoppingCartTest {
 	@Test
 	public void testUniqueItemsSet() {
 		addFakeProducts();
-		Set<Product> myProducts = cart.uniqueItems();
+		final Set<Product> myProducts = cart.uniqueItems();
 		
 		assertTrue(myProducts.contains(apple));
 		assertTrue(myProducts.contains(orange));
 	}
 	
-	// Adds 2 different products, 10 each (20 in total)
 	private void addFakeProducts() {
 		
 		for (int i = 0; i < 10; i++) {
