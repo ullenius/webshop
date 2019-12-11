@@ -64,7 +64,7 @@ public class ShoppingCartController {
 		});
 	}
 	
-	@RequestMapping(value="/shoppingCart/update", method=RequestMethod.GET)
+	@RequestMapping(value="/shoppingCart/update", method=RequestMethod.POST)
 	public ModelAndView updateCart(
 			@RequestParam(value="id", required=true) String id, 
 				@RequestParam(value="amount", required=true) String amount) {

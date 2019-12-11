@@ -18,14 +18,14 @@
 			<li th:each="product : ${model.products}">
 			<span th:text="${product.key.name} + ' amount = ' + ${product.value}"></span>
 				<small><a th:href="@{/shoppingCart/remove(id=${product.key.id})}">Remove from cart</a></small>
-				<span>
-					<form action="/shoppingCart/update" method="GET">
+				<div>
+					<form action="/shoppingCart/update" method="POST">
 						<input type="hidden" name="id" id="id" value="666" th:value="${product.key.id}" />
 						<label for="amount"><small>Edit amount</small></label>
 						<input type="number" name="amount" id="amount" th:value="${product.value}" min="1" max="999" required />
 						<input type="submit" value="Submit change" />
 					</form>
-				</span>	
+				</div>	
 			</li>
 		</ol>
 		<p>
