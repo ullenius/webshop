@@ -74,12 +74,14 @@ public class ShoppingCartController {
 	
 	@RequestMapping(value="/shoppingCart/remove", method=RequestMethod.GET)
 	public ModelAndView removeProductFromCart(
-			@RequestParam(value="id", required=true) String id, 
-				@RequestParam(value="amount", required=true) String amount) {
+			@RequestParam(value="id", required=true) String id) {
 		
-		return performCrudOperation(id,amount, (idNumber,productAmount,product) -> cart.update(product,ZERO));
+		return performCrudOperation(id, (idNumber,productAmount,product) -> cart.update(product,ZERO));
 	}
 	
+	private ModelAndView performCrudOperation(final String id, final TriConsumer operation) {
+		return performCrudOperation(id, null, operation);
+	}
 	
 	private ModelAndView performCrudOperation(String id, String amount, TriConsumer operation) {
 			

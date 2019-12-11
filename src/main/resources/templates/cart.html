@@ -16,12 +16,14 @@
 	<div th:if="${model.size() > 0}">
 		<ol>
 			<li th:each="product : ${model.products}" th:text="${product.key.name} + ' amount = ' + ${product.value}">product 1</li>
+			
+			<p>remove item<img src="../static/remove.svg" alt="Remove this product from cart" /></p>
+			
 		</ol>
 		<p>
 			<strong>Total price: </strong><span th:text="${model.totalPrice}">price here</span>
 		</p>
 	</div>
-	
 	
 	<!--  @RequestMapping(value="/shoppingCart/update", method=RequestMethod.GET)  -->
 	
