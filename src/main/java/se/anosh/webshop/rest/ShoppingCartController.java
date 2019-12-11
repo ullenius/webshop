@@ -86,7 +86,8 @@ public class ShoppingCartController {
 	private ModelAndView performCrudOperation(String id, String amount, TriConsumer operation) {
 			
 		final int productId = Integer.parseInt(id);
-		final int productAmount = Integer.parseInt(amount);
+		final int productAmount = 
+				(amount == null) ? ZERO : Integer.parseInt(amount);
 		
 		final Product product;
 		try {
