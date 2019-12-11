@@ -33,7 +33,7 @@ public class ShoppingCartController {
 		cart = new ShoppingCart();
 	}
 	
-	@RequestMapping(value="/shoppingCart", method=RequestMethod.GET) // TODO change to POST for production
+	@RequestMapping(value="/shoppingCart", method=RequestMethod.POST)
 	public ModelAndView addToCart(
 			@RequestParam(value="id", required=true) String id, 
 				@RequestParam(value="amount", required=true) String amount) {
@@ -53,6 +53,23 @@ public class ShoppingCartController {
 		}
 		System.out.println("Contents of cart: " + cart);
 		return new ModelAndView("redirect:/success.html");
+	}
+	
+	@RequestMapping(value="/shoppingCart", method=RequestMethod.GET)
+	public ModelAndView displayShoppingCart() {
+		
+		final Map<String,Object> contents = new HashMap<>();
+		final Set<Product> productsInCart = cart.uniqueItems();
+		
+		final Map<Product,Integer> shoppingCartView = new LinkedHashMap<>();
+		for (Product product : productsInCart) {
+			final int amount = cart.frequency(product);
+			shoppingCartView.put(product,amount);
+		}
+		contents.put("products",shoppingCartView);
+		contents.put("totalPrice",cart.calculateTotalPrice());
+		
+		return new ModelAndView("cart","model",contents);
 	}
 	
 	@RequestMapping(value="/shoppingCart/update", method=RequestMethod.GET)
@@ -75,30 +92,5 @@ public class ShoppingCartController {
 		System.out.println("UPDATED - Contents of cart: " + cart);
 		return new ModelAndView("redirect:/success.html");
 	}
-	
-	
-	@RequestMapping(value="/shoppingCart/contents", method=RequestMethod.GET)
-	public ModelAndView displayShoppingCart() {
-		
-		final Map<String,Object> contents = new HashMap<>();
-		final Set<Product> productsInCart = cart.uniqueItems();
-		
-		final Map<Product,Integer> shoppingCartView = new LinkedHashMap<>();
-		for (Product product : productsInCart) {
-			final int amount = cart.frequency(product);
-			shoppingCartView.put(product,amount);
-		}
-		contents.put("products",shoppingCartView);
-		contents.put("totalPrice",cart.calculateTotalPrice());
-		
-		return new ModelAndView("cart","model",contents);
-	}
-//	
-//	void addToCart(Product p);
-//	int frequency(Product product);
-//	Set<Product> uniqueItems();
-//	int uniqueItemCount();
-//	BigDecimal calculateTotalPrice();
-//	default double calculateTotalPriceAsDouble() { return calculateTotalPrice().doubleValue(); }
 
 }
