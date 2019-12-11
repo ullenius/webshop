@@ -24,5 +24,7 @@ public interface Shopping {
 		BigDecimal calculateTotalPrice();
 
 		default double calculateTotalPriceAsDouble() { return calculateTotalPrice().doubleValue(); }
+		
+		void clear();
 
 }

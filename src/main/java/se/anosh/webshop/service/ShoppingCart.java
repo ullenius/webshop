@@ -86,9 +86,14 @@ public class ShoppingCart implements Shopping {
 	public List<Product> allProducts() {
 		return Collections.unmodifiableList(shoppingCart);
 	}
-
+	
 	public String toString() {
 		return shoppingCart.toString();
+	}
+
+	@Override
+	public void clear() {
+		shoppingCart.clear();
 	}
 
 
