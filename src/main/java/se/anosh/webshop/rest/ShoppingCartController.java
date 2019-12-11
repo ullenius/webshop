@@ -27,6 +27,7 @@ public class ShoppingCartController {
 	
 	private Shopping cart;
 	private ProductService productService;
+	private static final int ZERO = 0;
 	
 	@Autowired
 	public ShoppingCartController(ProductService productService) {
@@ -71,6 +72,15 @@ public class ShoppingCartController {
 		return performCrudOperation(id,amount, (idNumber,productAmount,product) -> cart.update(product,productAmount));
 	}
 	
+	@RequestMapping(value="/shoppingCart/remove", method=RequestMethod.GET)
+	public ModelAndView removeProductFromCart(
+			@RequestParam(value="id", required=true) String id, 
+				@RequestParam(value="amount", required=true) String amount) {
+		
+		return performCrudOperation(id,amount, (idNumber,productAmount,product) -> cart.update(product,ZERO));
+	}
+	
+	
 	private ModelAndView performCrudOperation(String id, String amount, TriConsumer operation) {
 			
 		final int productId = Integer.parseInt(id);
@@ -88,6 +98,7 @@ public class ShoppingCartController {
 		System.out.println("UPDATED - Contents of cart: " + cart);
 		return new ModelAndView("redirect:/success.html");
 	}
+	
 	
 	@FunctionalInterface
 	private static interface TriConsumer {
