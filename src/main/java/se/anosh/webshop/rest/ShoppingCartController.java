@@ -1,7 +1,9 @@
 package se.anosh.webshop.rest;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -16,7 +18,9 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
 import se.anosh.webshop.dao.exception.ProductNotFoundException;
+import se.anosh.webshop.domain.Order;
 import se.anosh.webshop.domain.Product;
+import se.anosh.webshop.service.OrderService;
 import se.anosh.webshop.service.ProductService;
 import se.anosh.webshop.service.Shopping;
 import se.anosh.webshop.service.ShoppingCart;
@@ -102,7 +106,40 @@ public class ShoppingCartController {
 		return new ModelAndView("redirect:/success.html");
 	}
 	
-	public void submitOrder() {
+	// RequestMapping here (POST)
+	public ModelAndView orderMapping() {
+		
+		try {
+			submitOrder(); // return the order number?
+		} catch (IllegalStateException ex) {
+			return new ModelAndView("redirect:/error.html");
+		}
+		
+		return new ModelAndView("completed"); // need the order # to print out the details
+	}
+	
+	private void submitOrder() {
+		
+		Set<Product> uniqueItems = cart.uniqueItems();
+		if (uniqueItems.isEmpty()) {
+			throw new IllegalStateException("Cart is empty. Cannot create order");
+		}
+		
+		int personId = 99; // Bob
+		// create 1 order
+		// create several orderlines
+		
+		for (Product p : uniqueItems) {
+			
+			final int amount = cart.frequency(p);
+			// orderlineService create line
+			// order id = ?
+			// product = p
+			// amount = amount
+			
+		}
+		
+		
 		// do stuff
 		
 		cart.clear();
