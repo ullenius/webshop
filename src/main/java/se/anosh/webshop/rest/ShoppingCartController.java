@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -33,28 +34,6 @@ public class ShoppingCartController {
 		cart = new ShoppingCart();
 	}
 	
-	@RequestMapping(value="/shoppingCart", method=RequestMethod.POST)
-	public ModelAndView addToCart(
-			@RequestParam(value="id", required=true) String id, 
-				@RequestParam(value="amount", required=true) String amount) {
-			
-		final int productId = Integer.parseInt(id);
-		final int productAmount = Integer.parseInt(amount);
-		
-		final Product product;
-		try {
-			product = productService.findById(productId);
-			for (int i = 0; i < productAmount; i++) {
-				cart.addToCart(product);
-			}
-		} catch (ProductNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("Contents of cart: " + cart);
-		return new ModelAndView("redirect:/success.html");
-	}
-	
 	@RequestMapping(value="/shoppingCart", method=RequestMethod.GET)
 	public ModelAndView displayShoppingCart() {
 		
@@ -72,10 +51,27 @@ public class ShoppingCartController {
 		return new ModelAndView("cart","model",contents);
 	}
 	
+	@RequestMapping(value="/shoppingCart", method=RequestMethod.POST)
+	public ModelAndView addToCart(
+			@RequestParam(value="id", required=true) String id, 
+				@RequestParam(value="amount", required=true) String amount) {
+			
+		return performCrudOperation(id,amount, (idNumber,productAmount,product) -> {
+			for (int i = 0; i < productAmount; i++) {
+				cart.addToCart(product);
+			}
+		});
+	}
+	
 	@RequestMapping(value="/shoppingCart/update", method=RequestMethod.GET)
 	public ModelAndView updateCart(
 			@RequestParam(value="id", required=true) String id, 
 				@RequestParam(value="amount", required=true) String amount) {
+		
+		return performCrudOperation(id,amount, (idNumber,productAmount,product) -> cart.update(product,productAmount));
+	}
+	
+	private ModelAndView performCrudOperation(String id, String amount, TriConsumer operation) {
 			
 		final int productId = Integer.parseInt(id);
 		final int productAmount = Integer.parseInt(amount);
@@ -83,27 +79,7 @@ public class ShoppingCartController {
 		final Product product;
 		try {
 			product = productService.findById(productId);
-			cart.update(product, productAmount);
-		} catch (ProductNotFoundException e) {
-			e.printStackTrace();
-			return new ModelAndView("redirect:/error.html");
-		}
-		
-		System.out.println("UPDATED - Contents of cart: " + cart);
-		return new ModelAndView("redirect:/success.html");
-	}
-	
-	/// demo stuff
-	public ModelAndView performCrudOperation(String id, String amount, ProductConsumer operation) {
-			
-		final int productId = Integer.parseInt(id);
-		final int productAmount = Integer.parseInt(amount);
-		
-		final Product product = null;
-		try {
-			operation.accept(product);
-//			product = productService.findById(productId);
-//			cart.update(product, productAmount);
+			operation.accept(productId, productAmount, product);
 		} catch (ProductNotFoundException e) {
 			e.printStackTrace();
 			return new ModelAndView("redirect:/error.html");
@@ -114,9 +90,8 @@ public class ShoppingCartController {
 	}
 	
 	@FunctionalInterface
-	private static interface ProductConsumer {
-		void accept(Product product) throws ProductNotFoundException;
+	private static interface TriConsumer {
+		void accept(int id, int amount, Product product) throws ProductNotFoundException;
 	}
-	
 
 }
