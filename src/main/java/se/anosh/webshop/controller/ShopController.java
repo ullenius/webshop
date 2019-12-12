@@ -58,8 +58,7 @@ public class ShopController {
 					? Collections.emptyList()
 					: productService.findByName(products);
 
-		List<Category> categories = categoryService.findAll(); // TODO: repeatable code
-		model.put("categories",categories);
+		model.put("categories",findAllCategories());
 		model.put("products", matchingProducts);
 
 		return new ModelAndView("main", "model", model);
@@ -83,13 +82,27 @@ public class ShopController {
 			
 		}
 		
-		List<Category> categories = categoryService.findAll(); // TODO: redundant code...
-		model.put("categories",categories);
+		model.put("categories",findAllCategories());
 		model.put("products", matchingProducts);
 		model.put("urlId", categoryId);
 
 		return new ModelAndView("main", "model", model);
 	}
 	
+	@GetMapping(value="/shop/allproducts")
+	public ModelAndView listAllProducts() {
+		
+		final Map<String,Object> model = new LinkedHashMap<>();
+		final List<Product> matchingProducts = productService.findAllProducts();
+		
+		model.put("categories",findAllCategories());
+		model.put("products", matchingProducts);
+
+		return new ModelAndView("main", "model", model);
+	}
+	
+	private List<Category> findAllCategories() {
+		return categoryService.findAll();
+	}
 
 }

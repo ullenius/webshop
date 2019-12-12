@@ -19,7 +19,7 @@
 			<div th:if="${model.containsKey('urlId')}">
 				<span>
 					<a th:href="@{'/shop/' + ${category.id}}" 
-					th:utext="${model.urlId == category.id} ? ${category.name} : '<mark>' + ${category.name} + '</mark>'">category name</a>
+					th:utext="${model.urlId == category.id} ? '<mark>' + ${category.name} + '</mark>' : ${category.name}">category name</a>
 				</span>
 			</div>
 			<div th:unless="${model.containsKey('urlId')}">
@@ -36,7 +36,6 @@
 		<input type="submit" value="Search">
 	</form>
 	
-	
 	<div th:if="${model.products.isEmpty() == false}">
 		<h2>Search results</h2>
 		
@@ -51,6 +50,10 @@
 	<br/>
 	<hr/>
 	
+	<h3>All products</h3>
+	<p><a href="/shop/allproducts">List all products</a> in the database</p>
+	
+	<hr />
 	<h2>Shopping cart</h2>
 	
 	<p><a href="/shoppingCart" target="_blank">View shopping cart</a></p>
