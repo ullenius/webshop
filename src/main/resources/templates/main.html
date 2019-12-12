@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org" lang="en">
 <head>
-<link rel="stylesheet" href="css/main.css" th:href="@{css/main.css}" />
+<link rel="stylesheet" href="../css/main.css" th:href="@{css/main.css}" />
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Webshop</title>
@@ -15,7 +15,18 @@
 	<p>Available categories:</p>
 
 	<ol>	
-		<li th:each="category : ${model.categories}" th:text="${category.name}">category 1</li>
+		<li th:each="category : ${model.categories}">
+			<div th:if="${model.containsKey('urlId')}">
+				<span>
+					<a th:href="@{'/shop/' + ${category.id}}" 
+					th:utext="${model.urlId == category.id} ? ${category.name} : '<mark>' + ${category.name} + '</mark>'">category name</a>
+				</span>
+			</div>
+			<div th:unless="${model.containsKey('urlId')}">
+				<a th:href="@{'/shop/' + ${category.id}}" th:text="${category.name}">category name</a>
+			</div>
+			
+		</li>
 	</ol>
 
 	<hr/>
@@ -46,4 +57,4 @@
 
 
 </body>
-	</html>
+</html>

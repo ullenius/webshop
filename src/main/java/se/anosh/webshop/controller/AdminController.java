@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -89,7 +90,7 @@ public class AdminController {
 	}
 	
 	@PostMapping(value="/admin/dispatchOrder")
-	public ModelAndView dispatchOrder(@RequestParam("orderId") String id) { //@NotNull @NonEmpty
+	public ModelAndView dispatchOrder(@RequestParam("orderId") @NotEmpty String id) {
 
 		try {
 			Integer orderId = Integer.parseInt(id);
