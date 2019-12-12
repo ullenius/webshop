@@ -1,5 +1,6 @@
 package se.anosh.webshop.dao;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import se.anosh.webshop.dao.api.ProductDao;
 import se.anosh.webshop.dao.exception.ProductNotFoundException;
+import se.anosh.webshop.domain.Category;
 import se.anosh.webshop.domain.Product;
 @Repository
 public class ProductDaoImplementation implements ProductDao {
@@ -36,6 +38,21 @@ public class ProductDaoImplementation implements ProductDao {
 		}
 	}
 
+	@Override
+	public List<Product> findByCategory(final Category category) {
+		
+		List<Product> allProducts = findAll();
+		List<Product> results = new ArrayList<>();
+		
+		for (Product product : allProducts) {
+			if (product.getCategory().equals(category.getName()))
+				results.add(product);
+		}
+		results.sort(null);
+		return Collections.unmodifiableList(results);
+	}
+	
+	
 	@Override
 	public void add(Product item) {
 		em.persist(item);

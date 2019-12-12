@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import se.anosh.webshop.dao.api.ProductDao;
 import se.anosh.webshop.dao.exception.ProductNotFoundException;
+import se.anosh.webshop.domain.Category;
 import se.anosh.webshop.domain.Product;
 
 @Service
@@ -56,6 +57,11 @@ public class ProductServiceImpl implements ProductService {
 				matching.add(product);
 		}
 		return Collections.unmodifiableList(matching);
+	}
+
+	@Override
+	public List<Product> findByCategory(Category category) {
+		return dao.findByCategory(category);
 	}
 	
 
