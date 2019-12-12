@@ -48,7 +48,6 @@ public class RestController {
 		return new ResponseEntity<List<Order>>(orderService.findAllOrders(), HttpStatus.OK);
 	}
 
-	// shopping cart CRUD
 	@RequestMapping(value="/product/{productId}", method=RequestMethod.GET)
 	public ModelAndView addProductToCart(@PathVariable("productId") final String id) {
 
@@ -66,7 +65,6 @@ public class RestController {
 		}
 	}
 
-	// demo method
 	@RequestMapping(value="/products", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Product>> listProducts() {
 		return new ResponseEntity<List<Product>>(productService.findAllProducts(), HttpStatus.OK);
@@ -77,16 +75,12 @@ public class RestController {
 
 		final Map<String,Object> model = new LinkedHashMap<>();
 
-		System.out.println("products = " + products);
-		List<Product> matchingProducts;
-		matchingProducts = (products == null) 
-				? Collections.emptyList()
-						: productService.findByName(products);
-
-		System.out.println("Products = " + matchingProducts);
+		final List<Product> matchingProducts = 
+				(products == null) 
+					? Collections.emptyList()
+					: productService.findByName(products);
 
 		List<Category> categories = categoryService.findAll();
-		System.out.println("Size of categories = " + categories.size());
 		model.put("categories",categories);
 		model.put("products", matchingProducts);
 
