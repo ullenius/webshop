@@ -33,6 +33,7 @@ public class Order implements Serializable {
     @ManyToOne(optional = false)
     private Person customer;
     @Transient
+    @Deprecated // add to database-table or remove
     private final long creationTimeStampNanoSeconds;
 
     public Order() {

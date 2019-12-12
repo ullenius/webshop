@@ -81,7 +81,7 @@ public class Category implements Serializable, Comparable<Category>  {
 	}
 	
 	public String toString() {
-		return "";
+		return name;
 	}
 
 }
