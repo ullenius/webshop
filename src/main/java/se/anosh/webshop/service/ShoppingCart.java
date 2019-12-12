@@ -17,23 +17,23 @@ import se.anosh.webshop.domain.Product;
 @Scope(value = WebApplicationContext.SCOPE_SESSION)
 public class ShoppingCart implements Shopping {
 
-	private final List<Product> shoppingCart; // TODO: make thread safe ConcurrentLinkedQueue or LinkedBlockingDeque
+	private final List<Product> cart; // TODO: make thread safe ConcurrentLinkedQueue or LinkedBlockingDeque
 
 	public ShoppingCart() {
-		shoppingCart = new LinkedList<>();
+		cart = new LinkedList<>();
 	}
 
 	public void addToCart(Product p) {
-		shoppingCart.add(p);
+		cart.add(p);
 	}
 
 	public int frequency(Product product) {
-		return Collections.frequency(shoppingCart, product);
+		return Collections.frequency(cart, product);
 	}
 
 	public void update(final Product product, final int amount) {
 		
-		if (!shoppingCart.contains(product))
+		if (!cart.contains(product))
 			return;
 
 		final int frequency = frequency(product);
@@ -47,20 +47,20 @@ public class ShoppingCart implements Shopping {
 
 	private void add(Product product, int amount) {
 		for (int i = 0; i < amount; i++)
-			shoppingCart.add(product);
+			cart.add(product);
 	}
 
 	private void remove(final Product product, final int amount) {
 
-		if (shoppingCart.contains(product)) {
+		if (cart.contains(product)) {
 			for (int i = 0; i < amount; i++) {
-				shoppingCart.remove(product);
+				cart.remove(product);
 			}
 		}
 	}
 
 	public Set<Product> uniqueItems() {
-		return Collections.unmodifiableSet(new HashSet<>(shoppingCart));
+		return Collections.unmodifiableSet(new HashSet<>(cart));
 	}
 
 	public int uniqueItemCount() {
@@ -83,16 +83,16 @@ public class ShoppingCart implements Shopping {
 	}
 
 	public List<Product> allProducts() {
-		return Collections.unmodifiableList(shoppingCart);
+		return Collections.unmodifiableList(cart);
 	}
 	
 	public String toString() {
-		return shoppingCart.toString();
+		return cart.toString();
 	}
 
 	@Override
 	public void clear() {
-		shoppingCart.clear();
+		cart.clear();
 	}
 
 
