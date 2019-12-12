@@ -40,19 +40,4 @@ public class ProductDaoImplementation implements ProductDao {
 		em.persist(item);
 	}
 
-	@Override
-	public void remove(Product item) {
-		em.remove(item);
-	}
-
-	@Override
-	public void update(Product item) {
-		em.merge(item);
-	}
-	
-	
-	
-	
-	
-
 }

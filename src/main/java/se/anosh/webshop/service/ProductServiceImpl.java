@@ -39,16 +39,6 @@ public class ProductServiceImpl implements ProductService {
 	public void addProduct(Product newProduct) {
 		dao.add(newProduct);
 	}
-
-	@Override
-	public void removeProduct(Product product) {
-		dao.remove(product);
-	}
-
-	@Override
-	public void updateProduct(Product updatedProduct) {
-		dao.update(updatedProduct);
-	}
 	
 	@Override
 	public List<Product> findByName(String match) {
