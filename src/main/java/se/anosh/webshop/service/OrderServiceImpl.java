@@ -11,11 +11,13 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import se.anosh.webshop.dao.OrderDaoImplementation;
 import se.anosh.webshop.dao.api.OrderDao;
 import se.anosh.webshop.dao.api.OrderLineDao;
 import se.anosh.webshop.dao.exception.OrderNotFoundException;
 import se.anosh.webshop.domain.Order;
 import se.anosh.webshop.domain.Orderline;
+import se.anosh.webshop.domain.Product;
 
 @Service
 @Transactional
@@ -63,8 +65,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void newOrder(Order newOrder) {
-		dao.add(newOrder);
+	public int newOrder(int customerId) {
+		return dao.add(customerId);
 	}
 
 	@Override
@@ -80,6 +82,11 @@ public class OrderServiceImpl implements OrderService {
 			throw new IllegalStateException("Order has already been dispatched");
 		order.setDate(new Date());
 		dao.update(order);
+	}
+
+	@Override
+	public void createLine(int orderId, Product product, int amount) {
+		dao.createLine(orderId, product, amount);
 	}
 
 }

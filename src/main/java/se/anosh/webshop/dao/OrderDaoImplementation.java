@@ -1,17 +1,21 @@
 package se.anosh.webshop.dao;
 
 import java.util.List;
+import java.util.OptionalInt;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
 import se.anosh.webshop.dao.api.OrderDao;
 import se.anosh.webshop.dao.exception.OrderNotFoundException;
+import se.anosh.webshop.dao.exception.PersonNotFoundException;
 import se.anosh.webshop.domain.Order;
+import se.anosh.webshop.domain.Product;
 
 @Repository
 public class OrderDaoImplementation implements OrderDao {
@@ -36,8 +40,20 @@ public class OrderDaoImplementation implements OrderDao {
 	}
 
 	@Override
-	public void add(Order item) {
-		em.persist(item);
+	public int add(final int customerId) {
+		
+		Query query = em.createNativeQuery("INSERT INTO orders (customer) VALUES (:id)");
+		query.setParameter("id", customerId);
+		int result = query.executeUpdate();
+		System.out.println("Rows affected: " + result);
+		if (result == 0) 
+			throw new IllegalArgumentException("Customer with id: " + customerId + " not found");
+		
+		Query idQuery = em.createNativeQuery("SELECT id FROM orders WHERE customer = :id");
+		idQuery.setParameter("id", customerId);
+		int orderId = ((Number) idQuery.getSingleResult()).intValue();
+		System.out.println("Order id created: " + orderId);
+		return orderId;
 	}
 
 	@Override
@@ -48,6 +64,20 @@ public class OrderDaoImplementation implements OrderDao {
 	@Override
 	public void update(Order item) {
 		em.merge(item);
+	}
+
+	@Override
+	public void createLine(final int orderId, final Product product, final int amount) {
+		
+		final Query query = em.createNativeQuery(
+				"INSERT INTO orderlines (orderlines.order, product, quantity) "
+				+ "VALUES (:order, :product, :quantity)");
+		query.setParameter("order", orderId);
+		query.setParameter("product", product.getId());
+		query.setParameter("quantity", amount);
+		
+		int rowsAffected = query.executeUpdate();
+		System.out.println("Rows affected: " + rowsAffected);
 	}
 
 }
