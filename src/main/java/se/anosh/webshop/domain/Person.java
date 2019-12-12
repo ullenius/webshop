@@ -55,11 +55,11 @@ public class Person implements Serializable {
     public void setCity(String city) {
         this.city = city;
     }
-
-    @Override
-    public String toString() {
-        return "webshop.Persons[ id=" + id + " ]";
-    }
+    
+	@Override
+	public String toString() {
+		return "Person [name=" + name + ", yearOfbirth=" + yearOfbirth + ", city=" + city + "]";
+	}
 
 	@Override
 	public int hashCode() {
