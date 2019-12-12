@@ -15,6 +15,7 @@ import se.anosh.webshop.dao.api.OrderDao;
 import se.anosh.webshop.dao.exception.OrderNotFoundException;
 import se.anosh.webshop.dao.exception.PersonNotFoundException;
 import se.anosh.webshop.domain.Order;
+import se.anosh.webshop.domain.Product;
 
 @Repository
 public class OrderDaoImplementation implements OrderDao {
@@ -63,6 +64,19 @@ public class OrderDaoImplementation implements OrderDao {
 	@Override
 	public void update(Order item) {
 		em.merge(item);
+	}
+
+	@Override
+	public void createLine(final int orderId, final Product product, final int amount) {
+		
+		final Query query = em.createNativeQuery(
+				"INSERT INTO orderlines (order,product,quantity) " + "VALUES (:order, :product, :quantity)");
+		query.setParameter("order", orderId);
+		query.setParameter("product", product.getId());
+		query.setParameter("quantity", amount);
+		
+		int rowsAffected = query.executeUpdate();
+		System.out.println("Rows affected: " + rowsAffected);
 	}
 
 }

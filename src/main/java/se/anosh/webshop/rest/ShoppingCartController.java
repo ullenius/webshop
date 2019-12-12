@@ -1,5 +1,6 @@
 package se.anosh.webshop.rest;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -15,7 +16,6 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
 import se.anosh.webshop.dao.exception.ProductNotFoundException;
-import se.anosh.webshop.domain.Order;
 import se.anosh.webshop.domain.Product;
 import se.anosh.webshop.service.OrderService;
 import se.anosh.webshop.service.ProductService;
@@ -42,13 +42,7 @@ public class ShoppingCartController {
 	public ModelAndView displayShoppingCart() {
 		
 		final Map<String,Object> contents = new HashMap<>();
-		final Set<Product> productsInCart = cart.uniqueItems();
-		
-		final Map<Product,Integer> shoppingCartView = new LinkedHashMap<>();
-		for (Product product : productsInCart) {
-			final int amount = cart.frequency(product);
-			shoppingCartView.put(product,amount);
-		}
+		final Map<Product,Integer> shoppingCartView = createShoppingList();
 		contents.put("products",shoppingCartView);
 		contents.put("totalPrice",cart.calculateTotalPrice());
 		
@@ -111,7 +105,8 @@ public class ShoppingCartController {
 	public ModelAndView orderMapping() {
 		
 		try {
-			submitOrder(); // return the order number?
+			int orderId = submitOrder(); // return the order number?
+			System.out.println("Successfully created order with id: " + orderId);
 		} catch (IllegalStateException ex) {
 			return Redirect.error();
 		}
@@ -119,7 +114,7 @@ public class ShoppingCartController {
 		return Redirect.success(); // TODO: need the order # to print out the details
 	}
 	
-	private void submitOrder() {
+	private int submitOrder() { // TODO: OptionalInt?
 		
 		Set<Product> uniqueItems = cart.uniqueItems();
 		if (uniqueItems.isEmpty()) {
@@ -127,24 +122,29 @@ public class ShoppingCartController {
 		}
 		
 		final int personId = 99; // Bob
+		final int orderId = orderService.newOrder(personId);
+		Map<Product,Integer> shoppingList = createShoppingList();
 		
-		int orderId = orderService.newOrder(personId);
+		for (Product product : shoppingList.keySet()) {
+			orderService.createLine(orderId, product, shoppingList.get(product));
+		}
 		
-//		for (Product p : uniqueItems) {
-//			
-//			final int amount = cart.frequency(p);
-//			
-//			
-//			
-//			// orderlineService create line
-//			// order id = ?
-//			// product = p
-//			// amount = amount
-//		}
-//		// do stuff
-//		
-//		cart.clear();
+		cart.clear();
+		return orderId;
 	}
+	
+	private Map<Product,Integer> createShoppingList() {
+		
+		final Set<Product> productsInCart = cart.uniqueItems();
+		
+		final Map<Product,Integer> shoppingList = new LinkedHashMap<>();
+		for (Product product : productsInCart) {
+			final int amount = cart.frequency(product);
+			shoppingList.put(product,amount);
+		}
+		return Collections.unmodifiableMap(shoppingList);
+	}
+	
 	
 	@FunctionalInterface
 	private static interface TriConsumer {

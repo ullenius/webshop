@@ -17,6 +17,7 @@ import se.anosh.webshop.dao.api.OrderLineDao;
 import se.anosh.webshop.dao.exception.OrderNotFoundException;
 import se.anosh.webshop.domain.Order;
 import se.anosh.webshop.domain.Orderline;
+import se.anosh.webshop.domain.Product;
 
 @Service
 @Transactional
@@ -81,6 +82,11 @@ public class OrderServiceImpl implements OrderService {
 			throw new IllegalStateException("Order has already been dispatched");
 		order.setDate(new Date());
 		dao.update(order);
+	}
+
+	@Override
+	public void createLine(int orderId, Product product, int amount) {
+		dao.createLine(orderId, product, amount);
 	}
 
 }
