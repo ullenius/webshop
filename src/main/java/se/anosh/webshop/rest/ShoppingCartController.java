@@ -71,7 +71,7 @@ public class ShoppingCartController {
 		return performCrudOperation(id,amount, (idNumber,productAmount,product) -> cart.update(product,productAmount));
 	}
 	
-	@GetMapping(value="/shoppingCart/remove")
+	@GetMapping(value="/shoppingCart/remove") // TODO: ought to be POST, not an imdempotent
 	public ModelAndView removeProductFromCart(
 			@RequestParam(value="id", required=true) final String id) {
 		
@@ -94,21 +94,17 @@ public class ShoppingCartController {
 		} catch (ProductNotFoundException e) {
 			return Redirect.error();
 		}
-		
-		System.out.println("UPDATED - Contents of cart: " + cart);
 		return Redirect.success();
 	}
 	
-	@RequestMapping(value="/shoppingCart/submitOrder", method=RequestMethod.POST)
+	@PostMapping(value="/shoppingCart/submitOrder")
 	public ModelAndView orderMapping() {
 		
 		try {
 			int orderId = submitOrder(); // return the order number?
-			System.out.println("Successfully created order with id: " + orderId);
 		} catch (IllegalStateException ex) {
 			return Redirect.error();
 		}
-		
 		return Redirect.success(); // TODO: need the order # to print out the details
 	}
 	

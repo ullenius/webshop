@@ -17,7 +17,7 @@ import se.anosh.webshop.domain.Product;
 @Scope(value = WebApplicationContext.SCOPE_SESSION)
 public class ShoppingCart implements Shopping {
 
-	private final List<Product> cart; // TODO: make thread safe ConcurrentLinkedQueue or LinkedBlockingDeque
+	private final List<Product> cart;
 
 	public ShoppingCart() {
 		cart = new LinkedList<>();
@@ -78,7 +78,6 @@ public class ShoppingCart implements Shopping {
 			BigDecimal total = product.getPrice().multiply(multiplier);
 			sum = sum.add(total);
 		}
-
 		return sum;
 	}
 
