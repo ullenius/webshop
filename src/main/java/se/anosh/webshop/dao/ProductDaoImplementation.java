@@ -32,7 +32,6 @@ public class ProductDaoImplementation implements ProductDao {
 		} catch (NoResultException e) {
 			throw new ProductNotFoundException("Product with id: " + id + " not found");
 		}
-		
 	}
 
 	@Override

@@ -27,21 +27,6 @@ public class CategoryDaoImplementation implements CategoryDao {
 	}
 
 	@Override
-	public void add(Category category) {
-		em.persist(category);
-	}
-
-	@Override
-	public void remove(Category category) {
-		em.remove(category);
-	}
-
-	@Override
-	public void update(Category category) {
-		em.merge(category);
-	}
-
-	@Override
 	public Category findById(int id) throws CategoryNotFoundException {
 		
 		try {
