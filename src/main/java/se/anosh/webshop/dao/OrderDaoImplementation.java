@@ -43,14 +43,12 @@ public class OrderDaoImplementation implements OrderDao {
 		Query query = em.createNativeQuery("INSERT INTO orders (customer) VALUES (:id)");
 		query.setParameter("id", customerId);
 		int result = query.executeUpdate();
-		System.out.println("Rows affected: " + result);
 		if (result == 0) 
 			throw new IllegalArgumentException("Customer with id: " + customerId + " not found");
 		
 		Query idQuery = em.createNativeQuery("SELECT id FROM orders WHERE customer = :id");
 		idQuery.setParameter("id", customerId);
 		int orderId = ((Number) idQuery.getSingleResult()).intValue();
-		System.out.println("Order id created: " + orderId);
 		return orderId;
 	}
 
@@ -69,8 +67,7 @@ public class OrderDaoImplementation implements OrderDao {
 		query.setParameter("product", product.getId());
 		query.setParameter("quantity", amount);
 		
-		int rowsAffected = query.executeUpdate();
-		System.out.println("Rows affected: " + rowsAffected);
+		query.executeUpdate();
 	}
 
 }

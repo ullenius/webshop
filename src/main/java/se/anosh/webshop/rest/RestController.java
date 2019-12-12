@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,21 +44,17 @@ public class RestController {
 		this.categoryService = Objects.requireNonNull(categoryService);
 	}
 
-	@RequestMapping(value="/api", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/api", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Order>> listOrders() {
 		return new ResponseEntity<List<Order>>(orderService.findAllOrders(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value="/product/{productId}", method=RequestMethod.GET)
+	@GetMapping(value="/product/{productId}")
 	public ModelAndView addProductToCart(@PathVariable("productId") final String id) {
-
-		System.out.println("addProductToCart received: " + id);
 
 		try {
 			int productId = Integer.parseInt(id);
 			Product product = productService.findById(productId);
-
-			System.out.println(product);
 
 			return new ModelAndView("product", "model", product);
 		} catch (NumberFormatException | ProductNotFoundException ex) {
@@ -65,12 +62,12 @@ public class RestController {
 		}
 	}
 
-	@RequestMapping(value="/products", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/products", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Product>> listProducts() {
 		return new ResponseEntity<List<Product>>(productService.findAllProducts(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value="/shop")
+	@GetMapping(value="/shop")
 	public ModelAndView search(@RequestParam(value="products", required=false)final String products) {
 
 		final Map<String,Object> model = new LinkedHashMap<>();
