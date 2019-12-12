@@ -11,7 +11,6 @@ public interface OrderDao {
 	public List<Order> findAll();
 	public Order findById(int id) throws OrderNotFoundException;
 	public int add(int customerId);
-	public void remove(Order item);
 	public void update(Order item);
 	public void createLine(int orderId, Product product, int amount);
 

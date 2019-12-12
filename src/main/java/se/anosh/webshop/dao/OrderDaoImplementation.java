@@ -1,7 +1,6 @@
 package se.anosh.webshop.dao;
 
 import java.util.List;
-import java.util.OptionalInt;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import se.anosh.webshop.dao.api.OrderDao;
 import se.anosh.webshop.dao.exception.OrderNotFoundException;
-import se.anosh.webshop.dao.exception.PersonNotFoundException;
 import se.anosh.webshop.domain.Order;
 import se.anosh.webshop.domain.Product;
 
@@ -54,11 +52,6 @@ public class OrderDaoImplementation implements OrderDao {
 		int orderId = ((Number) idQuery.getSingleResult()).intValue();
 		System.out.println("Order id created: " + orderId);
 		return orderId;
-	}
-
-	@Override
-	public void remove(Order item) {
-		em.remove(item);
 	}
 
 	@Override

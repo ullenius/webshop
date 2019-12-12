@@ -3,7 +3,6 @@ package se.anosh.webshop.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,6 +32,7 @@ public class Order implements Serializable {
     @ManyToOne(optional = false)
     private Person customer;
     @Transient
+    @Deprecated // add to database-table or remove
     private final long creationTimeStampNanoSeconds;
 
     public Order() {

@@ -18,8 +18,12 @@ import se.anosh.webshop.domain.Product;
 @Transactional
 public class ProductServiceImpl implements ProductService {
 
-	@Autowired
 	private ProductDao dao;
+	
+	@Autowired
+	public ProductServiceImpl(ProductDao dao) {
+		this.dao = dao;
+	}
 	
 	@Override
 	public List<Product> findAllProducts() {
@@ -34,16 +38,6 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void addProduct(Product newProduct) {
 		dao.add(newProduct);
-	}
-
-	@Override
-	public void removeProduct(Product product) {
-		dao.remove(product);
-	}
-
-	@Override
-	public void updateProduct(Product updatedProduct) {
-		dao.update(updatedProduct);
 	}
 	
 	@Override

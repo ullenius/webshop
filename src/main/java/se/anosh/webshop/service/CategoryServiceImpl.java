@@ -27,21 +27,6 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public void addCategory(Category newCategory) {
-		dao.add(newCategory);
-	}
-
-	@Override
-	public void removeCategory(Category category) {
-		dao.remove(category);
-	}
-
-	@Override
-	public void updateCategory(Category category) {
-		dao.update(category);
-	}
-
-	@Override
 	public Category findById(int id) throws CategoryNotFoundException {
 		return dao.findById(id);
 	}

@@ -11,9 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import se.anosh.webshop.dao.api.CategoryDao;
 import se.anosh.webshop.dao.exception.CategoryNotFoundException;
-import se.anosh.webshop.dao.exception.ProductNotFoundException;
 import se.anosh.webshop.domain.Category;
-import se.anosh.webshop.domain.Product;
 
 @Repository
 public class CategoryDaoImplementation implements CategoryDao {
@@ -24,21 +22,6 @@ public class CategoryDaoImplementation implements CategoryDao {
 	@Override
 	public List<Category> findAll() {
 		return em.createQuery("select category from Category as category", Category.class).getResultList();
-	}
-
-	@Override
-	public void add(Category category) {
-		em.persist(category);
-	}
-
-	@Override
-	public void remove(Category category) {
-		em.remove(category);
-	}
-
-	@Override
-	public void update(Category category) {
-		em.merge(category);
 	}
 
 	@Override

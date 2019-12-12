@@ -2,7 +2,6 @@ package se.anosh.webshop.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -55,11 +54,11 @@ public class Person implements Serializable {
     public void setCity(String city) {
         this.city = city;
     }
-
-    @Override
-    public String toString() {
-        return "webshop.Persons[ id=" + id + " ]";
-    }
+    
+	@Override
+	public String toString() {
+		return "Person [name=" + name + ", yearOfbirth=" + yearOfbirth + ", city=" + city + "]";
+	}
 
 	@Override
 	public int hashCode() {
