@@ -11,6 +11,10 @@ h1, h2, h3 {
 	line-height: 1.2
 }
 
+h2 {
+	text-transform: uppercase;
+}
+
 li {
 	padding: 1em;
 }
@@ -30,4 +34,13 @@ hr {
 	font-weight: bold;
 	font-size: 1.5em;
 	text-transform: capitalize;
+}
+
+.submit-order {
+	position: fixed;
+	text-align: center;
+	left: 0;
+	bottom: 5em;
+	padding: 1em;
+	width: 100%;
 }

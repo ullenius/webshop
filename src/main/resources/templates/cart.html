@@ -13,7 +13,7 @@
 	
 	<p>This is the cart...</p>
 	
-	<div th:if="${model.size() > 0}">
+	<div th:if="${model.products.size() > 0}">
 		<ol>
 			<li th:each="product : ${model.products}">
 			<span th:text="${product.key.name} + ' amount = ' + ${product.value}"></span>
@@ -31,6 +31,14 @@
 		<p>
 			<strong>Total price: </strong><span th:text="${model.totalPrice}">price here</span>
 		</p>
+	</div>
+	
+	<hr />
+	<div th:if="${model.products.size() > 0}" class="submit-order">
+	<h2>Submit order</h2>
+		<form action="/shoppingCart/submitOrder" method="POST">
+				<input type="submit" value="Submit" />
+		</form>
 	</div>
 	
 	

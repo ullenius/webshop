@@ -96,12 +96,10 @@ public class ShoppingCartController {
 		}
 		
 		System.out.println("UPDATED - Contents of cart: " + cart);
-		
 		return Redirect.success();
 	}
 	
-	// RequestMapping here (POST)
-	@RequestMapping(value="/shoppingCart/submitOrder", method=RequestMethod.GET)
+	@RequestMapping(value="/shoppingCart/submitOrder", method=RequestMethod.POST)
 	public ModelAndView orderMapping() {
 		
 		try {

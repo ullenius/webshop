@@ -4,6 +4,7 @@ import java.util.Date;
 
 import se.anosh.webshop.domain.Order;
 
+@Deprecated
 public class PojoDemo {
 	
 	public static void main(String[] args) {
