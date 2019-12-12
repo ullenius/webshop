@@ -88,7 +88,7 @@ public class AdminController {
 			productService.addProduct(product);
 
 		} catch (CategoryNotFoundException | NumberFormatException ex) {
-			return errorPage();
+			return Redirect.error();
 		}
 		return Redirect.success();
 	}
@@ -131,7 +131,7 @@ public class AdminController {
 			orderService.dispatchOrder(orderId);
 			return new ModelAndView("admin/thankyou", "model", id);
 		} catch (Exception ex) {
-			return errorPage();
+			return Redirect.error();
 		}
 	}
 
@@ -158,10 +158,6 @@ public class AdminController {
 		ErrorMessage(String message) {
 			this.message = message; //null is allowed, JSON ignores it
 		}
-	}
-	
-	private ModelAndView errorPage() { // TODO: duplicate code, fix this (also in RestController)
-		return new ModelAndView("error");
 	}
 
 }

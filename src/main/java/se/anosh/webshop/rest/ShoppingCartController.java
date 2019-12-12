@@ -98,7 +98,7 @@ public class ShoppingCartController {
 			operation.accept(productId, productAmount, product);
 		} catch (ProductNotFoundException e) {
 			e.printStackTrace();
-			return new ModelAndView("redirect:/error.html");
+			return Redirect.error();
 		}
 		
 		System.out.println("UPDATED - Contents of cart: " + cart);
@@ -113,7 +113,7 @@ public class ShoppingCartController {
 		try {
 			submitOrder(); // return the order number?
 		} catch (IllegalStateException ex) {
-			return new ModelAndView("redirect:/error.html");
+			return Redirect.error();
 		}
 		
 		return Redirect.success(); // TODO: need the order # to print out the details

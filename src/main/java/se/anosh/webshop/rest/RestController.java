@@ -62,14 +62,9 @@ public class RestController {
 
 			return new ModelAndView("product", "model", product);
 		} catch (NumberFormatException | ProductNotFoundException ex) {
-			return errorPage();
+			return Redirect.error();
 		}
 	}
-
-	private ModelAndView errorPage() {
-		return new ModelAndView("redirect:/error.html");
-	}
-
 
 	// demo method
 	@RequestMapping(value="/products", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
@@ -97,6 +92,5 @@ public class RestController {
 
 		return new ModelAndView("main", "model", model);
 	}
-
 
 }
