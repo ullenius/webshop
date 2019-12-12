@@ -22,8 +22,7 @@ public class CategoryDaoImplementation implements CategoryDao {
 
 	@Override
 	public List<Category> findAll() {
-		List<Category> allCategories = em.createQuery("select category from Category as category", Category.class).getResultList();
-		return Collections.unmodifiableList(allCategories);
+		return em.createQuery("select category from Category as category", Category.class).getResultList();
 	}
 
 	@Override
