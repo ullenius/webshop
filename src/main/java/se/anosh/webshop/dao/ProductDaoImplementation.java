@@ -1,5 +1,6 @@
 package se.anosh.webshop.dao;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -20,7 +21,8 @@ public class ProductDaoImplementation implements ProductDao {
 
 	@Override
 	public List<Product> findAll() {
-		return em.createQuery("select product from Product as product", Product.class).getResultList();
+		List<Product> allProducts = em.createQuery("SELECT product FROM Product as product", Product.class).getResultList();
+		return Collections.unmodifiableList(allProducts);
 	}
 
 	@Override

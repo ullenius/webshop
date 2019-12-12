@@ -1,5 +1,6 @@
 package se.anosh.webshop.dao;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -24,9 +25,7 @@ public class OrderlineDaoImplementation implements OrderLineDao {
 		
 		List<Orderline> orderlines = (List<Orderline>) query.getResultList();
 		
-		System.out.println("Made this: " + orderlines + " " + orderlines.getClass().toString());
-		
-		return orderlines;
+		return Collections.unmodifiableList(orderlines);
 	}
 
 }

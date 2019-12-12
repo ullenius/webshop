@@ -1,5 +1,6 @@
 package se.anosh.webshop.dao;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -21,7 +22,8 @@ public class CategoryDaoImplementation implements CategoryDao {
 
 	@Override
 	public List<Category> findAll() {
-		return em.createQuery("select category from Category as category", Category.class).getResultList();
+		List<Category> allCategories = em.createQuery("select category from Category as category", Category.class).getResultList();
+		return Collections.unmodifiableList(allCategories);
 	}
 
 	@Override

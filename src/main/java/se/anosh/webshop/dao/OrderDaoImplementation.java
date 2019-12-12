@@ -1,5 +1,6 @@
 package se.anosh.webshop.dao;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -23,7 +24,8 @@ public class OrderDaoImplementation implements OrderDao {
 
 	@Override
 	public List<Order> findAll() {
-		return em.createQuery("SELECT order FROM Order as order", Order.class).getResultList();
+		List<Order> allOrders = em.createQuery("SELECT order FROM Order as order", Order.class).getResultList();
+		return Collections.unmodifiableList(allOrders);
 	}
 
 	@Override

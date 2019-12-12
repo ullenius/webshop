@@ -61,7 +61,6 @@ public class AdminRestController {
 	public ResponseEntity<ErrorMessage> dispatchOrderJson(@PathVariable("orderId") String id) {
 		try {
 			int orderId = Integer.parseInt(id);
-			System.out.println("Argument passed in (JSON version): " + id);
 			orderService.dispatchOrder(orderId);
 			return new ResponseEntity<ErrorMessage>(new ErrorMessage(null), HttpStatus.ACCEPTED);
 		} catch (OrderNotFoundException e) {

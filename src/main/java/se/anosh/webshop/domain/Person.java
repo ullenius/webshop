@@ -25,6 +25,7 @@ public class Person implements Serializable {
     private String city;
 
     public Person() {
+    	//default constructor required by JPA
     }
     
     public int getId() {

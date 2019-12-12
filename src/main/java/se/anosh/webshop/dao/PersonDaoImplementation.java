@@ -1,5 +1,6 @@
 package se.anosh.webshop.dao;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -21,7 +22,8 @@ public class PersonDaoImplementation implements PersonDao {
 	
 	@Override
 	public List<Person> findAll() {
-		return em.createQuery("select person from Person as person", Person.class).getResultList();
+		List<Person> allPersons = em.createQuery("SELECT person FROM Person as person", Person.class).getResultList();
+		return Collections.unmodifiableList(allPersons);
 	}
 
 	@Override
