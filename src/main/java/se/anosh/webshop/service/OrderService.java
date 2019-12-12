@@ -14,7 +14,6 @@ public interface OrderService {
 	public List<Order> findAllUndispatchedOrders();
 	public Order findById(int id) throws OrderNotFoundException;
 	public int newOrder(int customerId);
-	public void removeOrder(Order order);
 	public void dispatchOrder(Integer id) throws OrderNotFoundException;
 	
 	public List<Orderline> findMatchingOrderlines(int orderId);

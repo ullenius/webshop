@@ -57,11 +57,6 @@ public class OrderDaoImplementation implements OrderDao {
 	}
 
 	@Override
-	public void remove(Order item) {
-		em.remove(item);
-	}
-
-	@Override
 	public void update(Order item) {
 		em.merge(item);
 	}

@@ -70,11 +70,6 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void removeOrder(Order order) {
-		dao.remove(order);
-	}
-
-	@Override
 	public void dispatchOrder(Integer id) throws OrderNotFoundException {
 		final Order order = findById(id);
 		
