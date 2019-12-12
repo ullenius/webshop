@@ -90,7 +90,7 @@ public class AdminController {
 		} catch (CategoryNotFoundException | NumberFormatException ex) {
 			return errorPage();
 		}
-		return new ModelAndView("redirect:/success.html");
+		return Redirect.success();
 	}
 
 	// JSON method

@@ -102,7 +102,8 @@ public class ShoppingCartController {
 		}
 		
 		System.out.println("UPDATED - Contents of cart: " + cart);
-		return new ModelAndView("redirect:/success.html");
+		
+		return Redirect.success();
 	}
 	
 	// RequestMapping here (POST)
@@ -115,7 +116,7 @@ public class ShoppingCartController {
 			return new ModelAndView("redirect:/error.html");
 		}
 		
-		return new ModelAndView("redirect:/success.html"); // need the order # to print out the details
+		return Redirect.success(); // TODO: need the order # to print out the details
 	}
 	
 	private void submitOrder() {
