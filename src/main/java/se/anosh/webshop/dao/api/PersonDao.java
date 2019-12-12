@@ -13,6 +13,4 @@ public interface PersonDao {
 	public void add(Person item);
 	public void remove(Person item);
 	public void update(Person item);
-
-
 }

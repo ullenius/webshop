@@ -9,6 +9,8 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,7 +40,7 @@ public class ShoppingCartController {
 		cart = new ShoppingCart();
 	}
 	
-	@RequestMapping(value="/shoppingCart", method=RequestMethod.GET)
+	@GetMapping(value="/shoppingCart")
 	public ModelAndView displayShoppingCart() {
 		
 		final Map<String,Object> contents = new HashMap<>();
@@ -49,10 +51,10 @@ public class ShoppingCartController {
 		return new ModelAndView("cart","model",contents);
 	}
 	
-	@RequestMapping(value="/shoppingCart", method=RequestMethod.POST)
+	@PostMapping(value="/shoppingCart")
 	public ModelAndView addToCart(
-			@RequestParam(value="id", required=true) String id, 
-				@RequestParam(value="amount", required=true) String amount) {
+			@RequestParam(value="id", required=true) final String id, 
+				@RequestParam(value="amount", required=true) final String amount) {
 			
 		return performCrudOperation(id,amount, (idNumber,productAmount,product) -> {
 			for (int i = 0; i < productAmount; i++) {
@@ -61,17 +63,17 @@ public class ShoppingCartController {
 		});
 	}
 	
-	@RequestMapping(value="/shoppingCart/update", method=RequestMethod.POST)
+	@PostMapping(value="/shoppingCart/update")
 	public ModelAndView updateCart(
-			@RequestParam(value="id", required=true) String id, 
-				@RequestParam(value="amount", required=true) String amount) {
+			@RequestParam(value="id", required=true) final String id, 
+				@RequestParam(value="amount", required=true) final String amount) {
 		
 		return performCrudOperation(id,amount, (idNumber,productAmount,product) -> cart.update(product,productAmount));
 	}
 	
-	@RequestMapping(value="/shoppingCart/remove", method=RequestMethod.GET)
+	@GetMapping(value="/shoppingCart/remove")
 	public ModelAndView removeProductFromCart(
-			@RequestParam(value="id", required=true) String id) {
+			@RequestParam(value="id", required=true) final String id) {
 		
 		return performCrudOperation(id, (idNumber,productAmount,product) -> cart.update(product,ZERO));
 	}
@@ -80,18 +82,16 @@ public class ShoppingCartController {
 		return performCrudOperation(id, null, operation);
 	}
 	
-	private ModelAndView performCrudOperation(String id, String amount, TriConsumer operation) {
+	private ModelAndView performCrudOperation(final String id, final String amount, final TriConsumer operation) {
 			
 		final int productId = Integer.parseInt(id);
 		final int productAmount = 
 				(amount == null) ? ZERO : Integer.parseInt(amount);
 		
-		final Product product;
 		try {
-			product = productService.findById(productId);
+			final Product product = productService.findById(productId);
 			operation.accept(productId, productAmount, product);
 		} catch (ProductNotFoundException e) {
-			e.printStackTrace();
 			return Redirect.error();
 		}
 		
@@ -126,7 +126,6 @@ public class ShoppingCartController {
 		for (Product product : shoppingList.keySet()) {
 			orderService.createLine(orderId, product, shoppingList.get(product));
 		}
-		
 		cart.clear();
 		return orderId;
 	}
@@ -134,8 +133,8 @@ public class ShoppingCartController {
 	private Map<Product,Integer> createShoppingList() {
 		
 		final Set<Product> productsInCart = cart.uniqueItems();
-		
 		final Map<Product,Integer> shoppingList = new LinkedHashMap<>();
+		
 		for (Product product : productsInCart) {
 			final int amount = cart.frequency(product);
 			shoppingList.put(product,amount);

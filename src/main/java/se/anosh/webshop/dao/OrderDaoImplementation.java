@@ -23,7 +23,7 @@ public class OrderDaoImplementation implements OrderDao {
 
 	@Override
 	public List<Order> findAll() {
-		return em.createQuery("select order from Order as order", Order.class).getResultList();
+		return em.createQuery("SELECT order FROM Order as order", Order.class).getResultList();
 	}
 
 	@Override

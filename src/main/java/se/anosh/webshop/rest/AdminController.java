@@ -64,13 +64,12 @@ public class AdminController {
 	}
 
 	@GetMapping(value="/admin/addProduct")
-	public ModelAndView addProduct() { //@NotNull @NonEmpty
+	public ModelAndView addProduct() {
 
 		final List<Category> categories = categoryService.findAll();
 		return new ModelAndView("addproduct", "addProductModel", new AddProductModel(categories));
 	}
 
-	// called by addProduct template
 	@PostMapping(value="/admin/saveProduct")
 	public ModelAndView saveUser(@Valid AddProductModel model) {
 

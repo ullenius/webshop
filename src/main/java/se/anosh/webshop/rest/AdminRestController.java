@@ -56,7 +56,7 @@ public class AdminRestController {
 		return new ResponseEntity<List<Order>>(orderService.findAllDispatchedOrders(), HttpStatus.OK);
 	}
 
-	// JSON version of above method (/admin/dispatchOrder)
+	// JSON version of (/admin/dispatchOrder)
 	@PostMapping(value="/admin/{orderId}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ErrorMessage> dispatchOrderJson(@PathVariable("orderId") String id) {
 		try {
