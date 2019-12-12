@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
 

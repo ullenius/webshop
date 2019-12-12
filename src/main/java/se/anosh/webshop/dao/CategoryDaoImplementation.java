@@ -11,9 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import se.anosh.webshop.dao.api.CategoryDao;
 import se.anosh.webshop.dao.exception.CategoryNotFoundException;
-import se.anosh.webshop.dao.exception.ProductNotFoundException;
 import se.anosh.webshop.domain.Category;
-import se.anosh.webshop.domain.Product;
 
 @Repository
 public class CategoryDaoImplementation implements CategoryDao {
