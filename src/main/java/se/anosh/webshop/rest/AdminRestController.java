@@ -17,15 +17,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.annotation.SessionScope;
-import org.springframework.web.servlet.ModelAndView;
 
 import se.anosh.webshop.dao.exception.OrderNotFoundException;
 import se.anosh.webshop.domain.Order;
-import se.anosh.webshop.domain.Orderline;
 import se.anosh.webshop.domain.Product;
 import se.anosh.webshop.service.CategoryService;
 import se.anosh.webshop.service.OrderService;
@@ -51,18 +46,18 @@ public class AdminRestController {
 		return ResponseEntity.accepted().build();
 	}
 
-	@RequestMapping(value="/admin/undispatched", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/admin/undispatched", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Order>> listUndispatchedOrders() {
 		return new ResponseEntity<List<Order>>(orderService.findAllUndispatchedOrders(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value="/admin/dispatched", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/admin/dispatched", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Order>> listDispatchedOrders() {
 		return new ResponseEntity<List<Order>>(orderService.findAllDispatchedOrders(), HttpStatus.OK);
 	}
 
 	// JSON version of above method (/admin/dispatchOrder)
-	@RequestMapping(value="/admin/{orderId}", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value="/admin/{orderId}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ErrorMessage> dispatchOrderJson(@PathVariable("orderId") String id) {
 		try {
 			int orderId = Integer.parseInt(id);
