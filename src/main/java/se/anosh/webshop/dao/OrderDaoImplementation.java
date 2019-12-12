@@ -70,7 +70,8 @@ public class OrderDaoImplementation implements OrderDao {
 	public void createLine(final int orderId, final Product product, final int amount) {
 		
 		final Query query = em.createNativeQuery(
-				"INSERT INTO orderlines (order,product,quantity) " + "VALUES (:order, :product, :quantity)");
+				"INSERT INTO orderlines (orderlines.order, product, quantity) "
+				+ "VALUES (:order, :product, :quantity)");
 		query.setParameter("order", orderId);
 		query.setParameter("product", product.getId());
 		query.setParameter("quantity", amount);

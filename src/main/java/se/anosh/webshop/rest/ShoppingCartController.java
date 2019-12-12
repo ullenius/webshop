@@ -145,7 +145,6 @@ public class ShoppingCartController {
 		return Collections.unmodifiableMap(shoppingList);
 	}
 	
-	
 	@FunctionalInterface
 	private static interface TriConsumer {
 		void accept(int id, int amount, Product product) throws ProductNotFoundException;
