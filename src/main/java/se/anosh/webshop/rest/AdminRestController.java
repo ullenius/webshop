@@ -13,7 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,18 +45,10 @@ public class AdminRestController {
 	}
 
 	// JSON method
-	@RequestMapping(value="/admin/addProduct", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value="/admin/addProduct", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> addProductJson(@NotNull @Valid @RequestBody Product newProduct) {
 		productService.addProduct(newProduct);
 		return ResponseEntity.accepted().build();
-	}
-
-	@RequestMapping(value="/admin/order")
-	public ModelAndView orderDetails(@RequestParam(value="id", required=true)final String id) {
-
-		final int orderId = Integer.parseInt(id);
-		List<Orderline> orderLines = orderService.findMatchingOrderlines(orderId);
-		return new ModelAndView("orderdetails", "model", orderLines);
 	}
 
 	@RequestMapping(value="/admin/undispatched", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)

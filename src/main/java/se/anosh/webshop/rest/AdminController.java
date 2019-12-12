@@ -7,25 +7,17 @@ import java.util.Map;
 import java.util.Objects;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import se.anosh.webshop.dao.exception.CategoryNotFoundException;
-import se.anosh.webshop.dao.exception.OrderNotFoundException;
 import se.anosh.webshop.domain.Category;
 import se.anosh.webshop.domain.Order;
 import se.anosh.webshop.domain.Orderline;
@@ -50,7 +42,7 @@ public class AdminController {
 		this.categoryService = Objects.requireNonNull(categoryService);
 	}
 
-	@RequestMapping(value="/admin")
+	@GetMapping(value="/admin")
 	public ModelAndView showAllOrders() {
 
 		List<Order> dispatchedOrders = orderService.findAllDispatchedOrders();
@@ -62,8 +54,16 @@ public class AdminController {
 
 		return new ModelAndView("admin", "model", model);
 	}
+	
+	@GetMapping(value="/admin/order")
+	public ModelAndView orderDetails(@RequestParam(value="id", required=true)final String id) {
 
-	@RequestMapping(value="/admin/addProduct", method=RequestMethod.GET)
+		final int orderId = Integer.parseInt(id);
+		List<Orderline> orderLines = orderService.findMatchingOrderlines(orderId);
+		return new ModelAndView("orderdetails", "model", orderLines);
+	}
+
+	@GetMapping(value="/admin/addProduct")
 	public ModelAndView addProduct() { //@NotNull @NonEmpty
 
 		final List<Category> categories = categoryService.findAll();
@@ -71,7 +71,7 @@ public class AdminController {
 	}
 
 	// called by addProduct template
-	@RequestMapping(value="/admin/saveProduct", method=RequestMethod.POST)
+	@PostMapping(value="/admin/saveProduct")
 	public ModelAndView saveUser(@Valid AddProductModel model) {
 
 		Product product = new Product();
@@ -82,8 +82,6 @@ public class AdminController {
 			final int id = Integer.parseInt(model.getCategory());
 			Category category = categoryService.findById(id);
 			product.setCategory(category);
-
-			System.out.println("Adding: " + product); // psuedo
 			productService.addProduct(product);
 
 		} catch (CategoryNotFoundException | NumberFormatException ex) {
@@ -92,12 +90,11 @@ public class AdminController {
 		return Redirect.success();
 	}
 	
-	@RequestMapping(value="/admin/dispatchOrder", method=RequestMethod.POST)
+	@PostMapping(value="/admin/dispatchOrder")
 	public ModelAndView dispatchOrder(@RequestParam("orderId") String id) { //@NotNull @NonEmpty
 
 		try {
 			Integer orderId = Integer.parseInt(id);
-			System.out.println("Argument passed in: " + id);
 			orderService.dispatchOrder(orderId);
 			return new ModelAndView("admin/thankyou", "model", id);
 		} catch (Exception ex) {
