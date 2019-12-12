@@ -12,7 +12,7 @@ public interface OrderService {
 	public List<Order> findAllDispatchedOrders();
 	public List<Order> findAllUndispatchedOrders();
 	public Order findById(int id) throws OrderNotFoundException;
-	public void newOrder(Order newOrder);
+	public int newOrder(int customerId);
 	public void removeOrder(Order order);
 	public void dispatchOrder(Integer id) throws OrderNotFoundException;
 	

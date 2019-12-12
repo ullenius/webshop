@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import se.anosh.webshop.dao.OrderDaoImplementation;
 import se.anosh.webshop.dao.api.OrderDao;
 import se.anosh.webshop.dao.api.OrderLineDao;
 import se.anosh.webshop.dao.exception.OrderNotFoundException;
@@ -63,8 +64,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void newOrder(Order newOrder) {
-		dao.add(newOrder);
+	public int newOrder(int customerId) {
+		return dao.add(customerId);
 	}
 
 	@Override

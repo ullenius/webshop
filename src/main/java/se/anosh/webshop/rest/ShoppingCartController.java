@@ -1,12 +1,9 @@
 package se.anosh.webshop.rest;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -31,11 +28,13 @@ public class ShoppingCartController {
 	
 	private Shopping cart;
 	private ProductService productService;
+	private OrderService orderService;
 	private static final int ZERO = 0;
 	
 	@Autowired
-	public ShoppingCartController(ProductService productService) {
+	public ShoppingCartController(ProductService productService, OrderService orderService) {
 		this.productService = productService;
+		this.orderService = orderService;
 		cart = new ShoppingCart();
 	}
 	
@@ -107,6 +106,7 @@ public class ShoppingCartController {
 	}
 	
 	// RequestMapping here (POST)
+	@RequestMapping(value="/shoppingCart/submitOrder", method=RequestMethod.GET)
 	public ModelAndView orderMapping() {
 		
 		try {
@@ -115,7 +115,7 @@ public class ShoppingCartController {
 			return new ModelAndView("redirect:/error.html");
 		}
 		
-		return new ModelAndView("completed"); // need the order # to print out the details
+		return new ModelAndView("redirect:/success.html"); // need the order # to print out the details
 	}
 	
 	private void submitOrder() {
@@ -125,28 +125,25 @@ public class ShoppingCartController {
 			throw new IllegalStateException("Cart is empty. Cannot create order");
 		}
 		
-		int personId = 99; // Bob
-		// create 1 order
-		// create several orderlines
+		final int personId = 99; // Bob
 		
-		for (Product p : uniqueItems) {
-			
-			final int amount = cart.frequency(p);
-			// orderlineService create line
-			// order id = ?
-			// product = p
-			// amount = amount
-			
-		}
+		int orderId = orderService.newOrder(personId);
 		
-		
-		// do stuff
-		
-		cart.clear();
-		
+//		for (Product p : uniqueItems) {
+//			
+//			final int amount = cart.frequency(p);
+//			
+//			
+//			
+//			// orderlineService create line
+//			// order id = ?
+//			// product = p
+//			// amount = amount
+//		}
+//		// do stuff
+//		
+//		cart.clear();
 	}
-	
-	
 	
 	@FunctionalInterface
 	private static interface TriConsumer {

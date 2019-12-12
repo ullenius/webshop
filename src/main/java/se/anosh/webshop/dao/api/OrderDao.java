@@ -9,7 +9,7 @@ public interface OrderDao {
 	
 	public List<Order> findAll();
 	public Order findById(int id) throws OrderNotFoundException;
-	public void add(Order item);
+	public int add(int customerId);
 	public void remove(Order item);
 	public void update(Order item);
 
