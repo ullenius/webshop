@@ -30,9 +30,11 @@
 		<h2>Search results</h2>
 		
 		<ol>
-			<li th:each="product : ${model.products}" th:text="${product.name}">result 1</li>
+			<li th:each="product : ${model.products}">
+			
+				<span><a th:href="@{'/product/' + ${product.id}}" th:text="${product.name}" target="_blank">result 1</a></span>
+			</li>
 		</ol>
-		
 	</div>
 	
 	<br/>
