@@ -12,7 +12,7 @@
 	</header>
 	
 	<h2>Categories</h2>
-	<p>Available categories:</p>
+	<p>Browse by category:</p>
 
 	<ol>	
 		<li th:each="category : ${model.categories}">
@@ -32,7 +32,7 @@
 	<hr/>
 	<h2>Product search</h2>
 	<form action="/shop" method="GET">
-		<label>Search available products: </label><input type="text" name="products" placeholder="Product name" /><br/>
+		<label>Search available products: </label><input type="text" name="products" placeholder="Product name" />
 		<input type="submit" value="Search">
 	</form>
 	
@@ -50,7 +50,7 @@
 	<br/>
 	<hr/>
 	
-	<h3>All products</h3>
+	<h2>All products</h2>
 	<p><a href="/shop/allproducts">List all products</a> in the database</p>
 	
 	<hr />
