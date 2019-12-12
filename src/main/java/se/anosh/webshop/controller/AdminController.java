@@ -1,4 +1,4 @@
-package se.anosh.webshop.rest;
+package se.anosh.webshop.controller;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

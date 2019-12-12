@@ -1,4 +1,4 @@
-package se.anosh.webshop.rest;
+package se.anosh.webshop.controller.rest;
 
 import java.util.List;
 import java.util.Objects;
