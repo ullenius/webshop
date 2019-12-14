@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,6 +30,7 @@ import se.anosh.webshop.service.ProductService;
 
 @Controller
 @SessionScope
+@RequestMapping("/admin")
 public class AdminController {
 
 	private OrderService orderService;
@@ -42,7 +44,7 @@ public class AdminController {
 		this.categoryService = Objects.requireNonNull(categoryService);
 	}
 
-	@GetMapping(value="/admin")
+	@GetMapping(value="/")
 	public ModelAndView showAllOrders() {
 
 		List<Order> dispatchedOrders = orderService.findAllDispatchedOrders();
@@ -55,7 +57,7 @@ public class AdminController {
 		return new ModelAndView("admin", "model", model);
 	}
 	
-	@GetMapping(value="/admin/order")
+	@GetMapping(value="/order")
 	public ModelAndView orderDetails(@RequestParam(value="id", required=true)final String id) {
 
 		final int orderId = Integer.parseInt(id);
@@ -63,19 +65,20 @@ public class AdminController {
 		return new ModelAndView("orderdetails", "model", orderLines);
 	}
 
-	@GetMapping(value="/admin/addProduct")
+	@GetMapping(value="/addProduct")
 	public ModelAndView addProduct() {
 
 		final List<Category> categories = categoryService.findAll();
 		return new ModelAndView("addproduct", "addProductModel", new AddProductModel(categories));
 	}
 
-	@PostMapping(value="/admin/saveProduct")
+	@PostMapping(value="/saveProduct")
 	public ModelAndView saveUser(@Valid AddProductModel model) {
 
 		Product product = new Product();
 		product.setName(model.getName());
-		product.setPrice(new BigDecimal(model.getPrice()));
+		BigDecimal price = new BigDecimal(model.getPrice());
+		product.setPrice(price);
 
 		try {
 			final int id = Integer.parseInt(model.getCategory());
@@ -89,7 +92,7 @@ public class AdminController {
 		return Redirect.success();
 	}
 	
-	@PostMapping(value="/admin/dispatchOrder")
+	@PostMapping(value="/dispatchOrder")
 	public ModelAndView dispatchOrder(@RequestParam("orderId") @NotEmpty String id) {
 
 		try {
