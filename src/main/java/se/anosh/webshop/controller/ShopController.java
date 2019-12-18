@@ -22,6 +22,7 @@ import se.anosh.webshop.dao.exception.CategoryNotFoundException;
 import se.anosh.webshop.dao.exception.ProductNotFoundException;
 import se.anosh.webshop.domain.Category;
 import se.anosh.webshop.domain.Product;
+import se.anosh.webshop.model.AddUserModel;
 import se.anosh.webshop.service.CategoryService;
 import se.anosh.webshop.service.ProductService;
 
@@ -37,6 +38,12 @@ public class ShopController {
 		this.productService = Objects.requireNonNull(productService);
 		this.categoryService = Objects.requireNonNull(categoryService);
 	}
+	
+	@GetMapping(value="/addUser")
+	public ModelAndView newUser() {
+		return new ModelAndView("create-account", "addUserModel", new AddUserModel());
+	}
+	
 	
 	@GetMapping(value="/product/{productId}")
 	public ModelAndView addProductToCart(@PathVariable("productId") final String id) {
