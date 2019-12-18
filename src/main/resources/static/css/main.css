@@ -65,12 +65,12 @@ li.menu:hover {
 }
 
 
-a:link    {
+a:link {
    color: #2200CC;
    text-decoration: none; 
 } 
 a:visited {
-	color: #d2d2d2;
+	color: #2200CC;
 }
 a:hover   {
   text-decoration: underline;
