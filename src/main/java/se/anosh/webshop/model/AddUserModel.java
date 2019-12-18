@@ -1,8 +1,12 @@
 package se.anosh.webshop.model;
 
+import javax.validation.constraints.NotEmpty;
+
 public class AddUserModel { // backing bean for account creation
 	
+	@NotEmpty
 	private String username;
+	@NotEmpty
 	private String password;
 	private String yearOfBirth;
 	private String city;
@@ -41,6 +45,12 @@ public class AddUserModel { // backing bean for account creation
 	}
 	public void setYearOfBirth(String yearOfBirth) {
 		this.yearOfBirth = yearOfBirth;
+	}
+
+	@Override
+	public String toString() {
+		return "AddUserModel [username=" + username + ", password=" + password + ", yearOfBirth=" + yearOfBirth
+				+ ", city=" + city + "]";
 	}
 
 }

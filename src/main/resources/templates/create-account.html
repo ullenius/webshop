@@ -19,16 +19,20 @@
 				<div class="fieldSection">
 					<div class="fieldTitle">Login name &amp; Password</div>
 					<input type="text" name="username" id="username" placeholder="username" required th:field="*{username}" />
-					<input type="password" name="pass1" id="pass1" placeholder="password" required th:field="*{password}" />
+					<input type="password" name="pass1" id="pass1" placeholder="password" required th:field="*{password}"/>
 				</div>
 					<label for="year">Year of birth:</label>
-					<input type="number" name="birthyear" id="year" placeholder="1995" min="1900" max="2019" required th:field="*{yearOfBirth}" />
-					<label for="city">City</label>
-					<input type="text" name ="city" id ="city" placeholder="Malmö" list="cities" required th:field="*{city}" />
+					<input type="number" name="birthyear" id="year" placeholder="1995" min="1900" max="2019" required th:field="*{yearOfBirth}" value="1995" />
+					<br/>
+					<label for="city">City:</label>
+					<input type="text" name ="city" id ="city" placeholder="Malmö" list="cities" required th:field="*{city}"/>
 				</div>
 		
 				<input type="submit" value="Save new user" class="button" />
 		</form>
+		
+		<br/>
+		<p>Once an account has been successfuly created you will be re-directed to the login page for <strong>manual login</strong></p>
 
 	<datalist id="cities">
 		<option value="Belgrade">
