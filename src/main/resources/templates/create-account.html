@@ -23,13 +23,31 @@
 				</div>
 					<label for="year">Year of birth:</label>
 					<input type="number" name="birthyear" id="year" placeholder="1995" min="1900" max="2019" required th:field="*{yearOfBirth}" />
+					<label for="city">City</label>
+					<input type="text" name ="city" id ="city" placeholder="Malmö" list="cities" required th:field="*{city}" />
 				</div>
 		
 				<input type="submit" value="Save new user" class="button" />
 		</form>
 
-	
-
+	<datalist id="cities">
+		<option value="Belgrade">
+		<option value="Dubai">
+		<option value="Dublin">
+		<option value="Helsingborg">
+		<option value="Hong-Kong">
+		<option value="Istanbul">
+		<option value="Johannesburg">
+		<option value="Kiruna">
+		<option value="Malmö">
+		<option value="Oslo">
+		<option value="Riga">
+		<option value="Singapore">
+		<option value="Stockholm">
+		<option value="Tokyo">
+		<option value="Örebro">
+		
+	</datalist>
 
 </body>
 </html>
