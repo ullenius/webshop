@@ -11,7 +11,9 @@
 	<h1>Web shop</h1>
 	</header>
 	
-	<h2>Admin pages</h2>
+	<div th:replace="fragments/menu.html :: main-menu">Main menu goes here</div>
+	
+	<h2>Order details</h2>
 	
 	<h3>Order details for order &#35;<mark><span th:text="${model.get(0).order.id}"></span></mark></h3>
 	
@@ -21,14 +23,11 @@
 		<br/>
 		<span><strong>Price per unit: </strong></span><span th:text="${orderline.product.price}"></span>
 		<br/>
-		<span><strong>Quantity: </strong></span><span th:text="${orderline.quantity}"></span>
+		<span><strong>Quantity: </strong></span><span th:text="${orderline.quantity}"></span>-->
 	
 	</div>
 	
 	<hr/>
-	<footer>
-	<p>Back to <a href="../admin">Admin page</a></p>
-	</footer>
 
 
 </body>

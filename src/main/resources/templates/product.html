@@ -11,6 +11,8 @@
 	<h1>Add to cart</h1>
 	</header>
 	
+	<div th:replace="fragments/menu.html :: main-menu">Main menu goes here</div>
+	
 	<p th:text="${model.name}" class="product">product name</p>
 	<p th:text="${model.price} + ' kr'">price per unit</p>
 	

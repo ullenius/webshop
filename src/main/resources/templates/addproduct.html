@@ -11,6 +11,8 @@
 	<h1>Add New Product</h1>
 	</header>
 	
+	<div th:replace="fragments/menu.html :: main-menu">Main menu goes here</div>
+	
 		<form action="/admin/saveProduct" method="POST" th:object="${addProductModel}">
 			<div class="newUserBox">
 				<div class="fieldSection">

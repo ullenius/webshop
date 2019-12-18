@@ -61,7 +61,11 @@ public class AdminController {
 	public ModelAndView orderDetails(@RequestParam(value="id", required=true)final String id) {
 
 		final int orderId = Integer.parseInt(id);
+		
+		System.out.println("Running /admin/order, input is: " + orderId);
 		List<Orderline> orderLines = orderService.findMatchingOrderlines(orderId);
+		System.out.println("Orderlines = " + orderLines);
+		
 		return new ModelAndView("orderdetails", "model", orderLines);
 	}
 

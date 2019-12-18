@@ -13,6 +13,8 @@
 	<hr/>
 	</header>
 	
+	<div th:replace="fragments/menu.html :: main-menu">Main menu goes here</div>
+	
 	<h2>Orders</h2>
 	
 	<h3>Undispatched Orders</h3>
@@ -42,11 +44,6 @@
 			<span><a th:href="@{/admin/order(id=${order.id})}" href="order.html?id=orderId">Details</a></span>	
 		</li>
 	</ol>
-	
-	<hr/>
-	<h2>Add Products</h2>
-	<p><a href="/admin/addProduct">Add new products</a></p>
-	
 
 </body>
 </html>
