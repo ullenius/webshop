@@ -43,11 +43,6 @@ hr {
 	bottom: 5em;
 	padding: 1em;
 	width: 100%;
-Navigation Bar = List of Links
-
-A navigation bar needs standard HTML as a base.
-
-In our examples we will build the navigation bar from a s
 }
 
 ul.menu {
@@ -67,4 +62,19 @@ li.menu {
 
 li.menu:hover {
 	background-color: #a9a9a9;
+}
+
+
+a:link    {
+   color: #2200CC;
+   text-decoration: none; 
+} 
+a:visited {
+	color: #d2d2d2;
+}
+a:hover   {
+  text-decoration: underline;
+}
+a:active  {
+	color: #FF0000;
 }
