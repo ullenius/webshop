@@ -13,7 +13,20 @@
 	<h1>Create a new Account</h1>
 	</header>
 	
-	
+		<form action="/saveUser" method="POST" th:object="${addUserModel}" >
+			<div class="newUserBox">
+		
+				<div class="fieldSection">
+					<div class="fieldTitle">Login name &amp; Password</div>
+					<input type="text" name="username" id="username" placeholder="username" required th:field="*{username}" />
+					<input type="password" name="pass1" id="pass1" placeholder="password" required th:field="*{password}" />
+				</div>
+					<label for="year">Year of birth:</label>
+					<input type="number" name="birthyear" id="year" placeholder="1995" min="1900" max="2019" required th:field="*{yearOfBirth}" />
+				</div>
+		
+				<input type="submit" value="Save new user" class="button" />
+		</form>
 
 	
 
