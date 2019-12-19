@@ -57,6 +57,39 @@ public class ShopController {
 		
 		return Redirect.success();
 	}
+	
+	//public ModelAndView processForm(@Valid final UserFormObject newUser, final Errors results) {
+	//
+//		if (results.hasErrors()) {
+//			return new ModelAndView("create-account", "userFormObject" , newUser);
+//		}
+	//
+//		List<GrantedAuthority> roles = new ArrayList<>();
+//		roles.add(new SimpleGrantedAuthority("ROLE_USER"));
+	//
+//		String encodedPassword = encoder.encode(newUser.getPassword());
+	//	
+//		User user = new User(newUser.getUsername(), encodedPassword, roles);
+	//
+//		try {
+//			userManager.createUser(user);
+//		} catch (DuplicateKeyException ex) {
+//			results.rejectValue("username", "username.unique");
+//			newUser.setPassword(null); // just to be on the safe side
+//			return new ModelAndView("create-account", "userFormObject", newUser);
+//		}
+	//
+//		Authentication credentials = new UsernamePasswordAuthenticationToken(user.getUsername(), newUser.getPassword());
+//		credentials = authenticationManager.authenticate(credentials);
+//		if (credentials.isAuthenticated()) {
+//			// GOOD!
+//			SecurityContextHolder.getContext().setAuthentication(credentials);
+//			return new ModelAndView("redirect:/viewAllBooks.do");
+//		} else {
+//			throw new RuntimeException("For some reason, the user didn't log in even though it should have been automatic");
+//		}
+	//
+	//}
 
 	
 	@GetMapping(value="/product/{productId}")
