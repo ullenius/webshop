@@ -43,25 +43,35 @@ public class AdminController {
 		this.productService = Objects.requireNonNull(productService);
 		this.categoryService = Objects.requireNonNull(categoryService);
 	}
-
-	@GetMapping(value="/")
-	public ModelAndView showAllOrders() {
-
+	
+	
+	@GetMapping(value="/dispatchedOrders")
+	public ModelAndView dispatchedOrders() {
+		
 		List<Order> dispatchedOrders = orderService.findAllDispatchedOrders();
-		List<Order> undispatchedOrders = orderService.findAllUndispatchedOrders();
-
 		Map<String,Object> model = new HashMap<>();
 		model.put("dispatched", dispatchedOrders);
-		model.put("undispatched", undispatchedOrders);
-
 		return new ModelAndView("admin", "model", model);
+	}
+	
+	@GetMapping(value="/undispatchedOrders")
+	public ModelAndView undispatchedOrders() {
+		
+		List<Order> undispatchedOrders = orderService.findAllUndispatchedOrders();
+		Map<String,Object> model = new HashMap<>();
+		model.put("undispatched", undispatchedOrders);
+		return new ModelAndView("undispatchedOrders", "model", model);
 	}
 	
 	@GetMapping(value="/order")
 	public ModelAndView orderDetails(@RequestParam(value="id", required=true)final String id) {
 
 		final int orderId = Integer.parseInt(id);
+		
+		System.out.println("Running /admin/order, input is: " + orderId);
 		List<Orderline> orderLines = orderService.findMatchingOrderlines(orderId);
+		System.out.println("Orderlines = " + orderLines);
+		
 		return new ModelAndView("orderdetails", "model", orderLines);
 	}
 

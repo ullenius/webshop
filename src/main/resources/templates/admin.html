@@ -4,37 +4,18 @@
 <link rel="stylesheet" href="css/main.css" th:href="@{../css/main.css}" />
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Webshop &#45; admin pages</title>
+<title>Webshop &#45; Dispatched Orders</title>
 </head>
-<body th:with="dispatched=${model.dispatched}, undispatched=${model.undispatched}">
+<body th:with="dispatched=${model.dispatched}">
 
 	<header>
 	<h1>Web shop &#45; Admin pages</h1>
 	<hr/>
 	</header>
 	
-	<h2>Orders</h2>
+	<div th:replace="fragments/menu.html :: main-menu">Main menu goes here</div>
 	
-	<h3>Undispatched Orders</h3>
-	
-	<ol>
-		<li th:each="order : ${undispatched}">
-			<span th:text="${order}">undispatched order 1</span>
-			<span><a th:href="@{/admin/order(id=${order.id})}" href="order.html?id=orderId">Details</a></span>
-		</li>
-	</ol>
-
-	<h4>Dispatch order</h4>
-	<p>Please select an order to mark it as dispatched</p>
-	<form action="/admin/dispatchOrder" method="POST">
-		<select name="orderId" required>
-			<option value="title" selected disabled>Order id</option>
-			<option th:each="order : ${undispatched}" th:text="${order.id}" th:value="${order.id}">placeholder option 1</option>
-		</select>
-		<button type="submit" value="Search">Mark as dispatched</button>
-	</form>
-	<hr/>
-	<h3>Dispatched Orders</h3>
+	<h2>Dispatched Orders</h2>
 	
 	<ol>
 		<li th:each="order : ${dispatched}">
@@ -42,11 +23,6 @@
 			<span><a th:href="@{/admin/order(id=${order.id})}" href="order.html?id=orderId">Details</a></span>	
 		</li>
 	</ol>
-	
-	<hr/>
-	<h2>Add Products</h2>
-	<p><a href="/admin/addProduct">Add new products</a></p>
-	
 
 </body>
 </html>

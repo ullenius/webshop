@@ -11,6 +11,8 @@
 	<h1>Welcome to the web shop!</h1>
 	</header>
 	
+	<div th:replace="fragments/menu.html :: main-menu">Main menu goes here</div>
+	
 	<h2>Categories</h2>
 	<p>Browse by category:</p>
 
@@ -49,14 +51,6 @@
 	
 	<br/>
 	<hr/>
-	
-	<h2>All products</h2>
-	<p><a href="/shop/allproducts">List all products</a> in the database</p>
-	
-	<hr />
-	<h2>Shopping cart</h2>
-	
-	<p><a href="/shoppingCart" target="_blank">View shopping cart</a></p>
 
 
 </body>

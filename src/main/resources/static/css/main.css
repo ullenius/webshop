@@ -44,3 +44,41 @@ hr {
 	padding: 1em;
 	width: 100%;
 }
+
+input {
+	padding: 0.5em;
+}
+
+ul.menu {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	overflow: auto;
+	border: 1px solid black;
+}
+
+li.menu {
+	display: block;
+	margin: 0;
+	padding: 0.2em;
+}
+
+li.menu:hover {
+	background-color: #a9a9a9;
+}
+
+
+a:link {
+   color: #2200CC;
+   text-decoration: none; 
+} 
+a:visited {
+	color: #2200CC;
+}
+a:hover   {
+  text-decoration: underline;
+}
+a:active  {
+	color: #FF0000;
+}

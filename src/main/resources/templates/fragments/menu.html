@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+<link rel="stylesheet" href="../../static/css/main.css" th:href="@{../css/main.css}" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webshop &#45; admin pages &#45; Success!</title>
+</head>
+<body>
+
+	<div th:fragment="main-menu">
+		<nav>
+			<h1>Menu</h1>
+			<ul class="menu">
+				<li class="menu"><a class="menu" href="/shop">Main page</a></li>
+				<li class="menu"><a class="menu" href="/shoppingCart" target="_blank">View Shopping Cart</a></li>
+				<li class="menu"><a class="menu" href="/shop/allproducts">List all products</a></li>
+				<li>Orders
+					<ul class="menu">
+						<li class="menu"><a class="menu" href="/admin/dispatchedOrders">Dispatched Orders</a></li>
+						<li class="menu"><a class="menu" href="/admin/undispatchedOrders">Undispatched Orders</a></li>
+					</ul>
+				</li>
+				<li class="menu"><a class="menu" href="/admin/addProduct">Add new products</a></li>
+				<li class="menu"><a class="menu" href="/logout">Logout</a></li>
+			</ul>
+		</nav>
+	</div>
+	
+
+</body>
+</html>

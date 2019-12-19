@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+<link rel="stylesheet" href="css/main.css" th:href="@{../css/main.css}" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webshop &#45; Undispatched Orders</title>
+</head>
+<body th:with="undispatched=${model.undispatched}">
+
+	<header>
+	<h1>Web shop &#45; Undispatched Orders</h1>
+	<hr/>
+	</header>
+	
+	<div th:replace="fragments/menu.html :: main-menu">Main menu goes here</div>
+	
+	<h2>Orders</h2>
+	
+	<h3>Undispatched Orders</h3>
+	
+	<ol>
+		<li th:each="order : ${undispatched}">
+			<span th:text="${order}">undispatched order 1</span>
+			<span><a th:href="@{/admin/order(id=${order.id})}" href="order.html?id=orderId">Details</a></span>
+		</li>
+	</ol>
+
+	<h4>Dispatch order</h4>
+	<p>Please select an order to mark it as dispatched</p>
+	<form action="/admin/dispatchOrder" method="POST">
+		<select name="orderId" required>
+			<option value="title" selected disabled>Order id</option>
+			<option th:each="order : ${undispatched}" th:text="${order.id}" th:value="${order.id}">placeholder option 1</option>
+		</select>
+		<button type="submit" value="Search">Mark as dispatched</button>
+	</form>
+	<hr/>
+	
+
+</body>
+</html>

@@ -7,6 +7,8 @@
 <title>Webshop &#45; admin pages &#45; Add Products</title> 
 </head>
 <body>
+	<div th:replace="fragments/menu.html :: main-menu">Main menu goes here</div>
+	
 	<header>
 	<h1>Add New Product</h1>
 	</header>
@@ -29,7 +31,7 @@
 					</select>
 				</div>
 				<br/>
-				<input type="submit" value="Save new product" class="button" />
+				<input type="submit" value="Add new product" class="button" />
 			</div>
 		</form>
 		
