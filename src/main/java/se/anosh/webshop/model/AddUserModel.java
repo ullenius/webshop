@@ -10,6 +10,7 @@ public class AddUserModel { // backing bean for account creation
 	private String password;
 	private String yearOfBirth;
 	private String city;
+	private String errorMessage;
 	
 	public AddUserModel() {
 	}
@@ -20,6 +21,14 @@ public class AddUserModel { // backing bean for account creation
 		this.password = password;
 		this.yearOfBirth = yearOfBirth;
 		this.city = city;
+	}
+	
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+	
+	public String getErrorMessage() {
+		return errorMessage;
 	}
 
 	public String getCity() {

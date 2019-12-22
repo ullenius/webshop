@@ -44,7 +44,7 @@ public class UserController {
 		User user = new User(newUser.getUsername(), newUser.getPassword());
 		System.out.println("Success! Received: " + newUser); // debug
 		if (userService.userExists(user)) {
-			results.rejectValue("username", "username.unique");
+			newUser.setErrorMessage("Username is already in use");
 			newUser.setPassword(null); // just to be on the safe side
 			return new ModelAndView("create-account", "addUserModel", newUser);
 		}
