@@ -40,15 +40,10 @@ public class UserController {
 			return new ModelAndView("create-account", "addUserModel", newUser);
 		}
 		
-//		List<GrantedAuthority> roles = new ArrayList<>();
-//		roles.add(new SimpleGrantedAuthority("ROLE_USER"));
-//
-//		User user = new User(newUser.getUsername(), newUser.getPassword(), roles);
-		
 		System.out.println("Success! Received: " + newUser);
 		
 		User user = new User(newUser.getUsername(), newUser.getPassword());
-		userService.addUser(user, UserRoles.ROLE_USER, UserRoles.ROLE_ADMIN);
+		userService.addUser(user, UserRoles.ROLE_USER);
 		
 		return Redirect.success();
 	}

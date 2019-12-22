@@ -11,14 +11,14 @@ public class User {
 		this.password = password;
 	}
 	public String getName() {
-		return name;
+		return name.toLowerCase();
 	}
 	public String getPassword() {
 		return password;
 	}
 	
 	public String toString() {
-		return "Username: " + name;
+		return "Username: " + getName();
 	}
 
 }
