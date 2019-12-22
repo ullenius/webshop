@@ -4,9 +4,11 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,10 +27,16 @@ import se.anosh.webshop.service.ProductService;
 @Controller
 @SessionScope
 public class ShopController {
-	
+
 	private ProductService productService;
 	private CategoryService categoryService;
-	
+
+	@Autowired
+	public ShopController(ProductService productService, CategoryService categoryService) {
+		this.productService = Objects.requireNonNull(productService);
+		this.categoryService = Objects.requireNonNull(categoryService);
+	}
+
 	@GetMapping(value="/product/{productId}")
 	public ModelAndView addProductToCart(@PathVariable("productId") final String id) {
 
@@ -41,7 +49,7 @@ public class ShopController {
 			return Redirect.error();
 		}
 	}
-	
+
 	@GetMapping(value="/shop")
 	public ModelAndView search(@RequestParam(value="products", required=false)final String products, HttpServletResponse response) {
 
@@ -49,22 +57,22 @@ public class ShopController {
 
 		final List<Product> matchingProducts = 
 				(products == null) 
-					? Collections.emptyList()
-					: productService.findByName(products);
+				? Collections.emptyList()
+						: productService.findByName(products);
 
-		model.put("categories",findAllCategories());
-		model.put("products", matchingProducts);
+				model.put("categories",findAllCategories());
+				model.put("products", matchingProducts);
 
-		response.setStatus(HttpStatus.I_AM_A_TEAPOT.value()); // TODO: test this!
-		return new ModelAndView("main", "model", model);
+				response.setStatus(HttpStatus.I_AM_A_TEAPOT.value()); // TODO: test this!
+				return new ModelAndView("main", "model", model);
 	}
-	
+
 	@GetMapping(value="/shop/{id}")
 	public ModelAndView searchByCategory(@PathVariable("id") final String id) {
-		
+
 		if (id.isEmpty())
 			return Redirect.error();
-		
+
 		final Map<String,Object> model = new LinkedHashMap<>();
 		final List<Product> matchingProducts;
 		final int categoryId;
@@ -74,28 +82,28 @@ public class ShopController {
 			matchingProducts = productService.findByCategory(criteria);
 		} catch (NumberFormatException | CategoryNotFoundException ex) {
 			return Redirect.error();
-			
+
 		}
-		
+
 		model.put("categories",findAllCategories());
 		model.put("products", matchingProducts);
 		model.put("urlId", categoryId);
 
 		return new ModelAndView("main", "model", model);
 	}
-	
+
 	@GetMapping(value="/shop/allproducts")
 	public ModelAndView listAllProducts() {
-		
+
 		final Map<String,Object> model = new LinkedHashMap<>();
 		final List<Product> matchingProducts = productService.findAllProducts();
-		
+
 		model.put("categories",findAllCategories());
 		model.put("products", matchingProducts);
 
 		return new ModelAndView("main", "model", model);
 	}
-	
+
 	private List<Category> findAllCategories() {
 		return categoryService.findAll();
 	}
