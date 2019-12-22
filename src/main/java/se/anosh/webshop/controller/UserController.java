@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
-import se.anosh.webshop.dao.UserDaoImplementation;
-import se.anosh.webshop.dao.api.UserDao;
 import se.anosh.webshop.dao.api.UserRoles;
 import se.anosh.webshop.domain.User;
 import se.anosh.webshop.model.AddUserModel;
