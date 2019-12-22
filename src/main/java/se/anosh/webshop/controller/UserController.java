@@ -26,6 +26,11 @@ public class UserController {
 		this.userService = userService;
 	}
 	
+	@GetMapping(value="/login")
+	public ModelAndView loginPage() {
+		return new ModelAndView("login");
+	}
+	
 	@GetMapping(value="/addUser")
 	public ModelAndView newUser() {
 		return new ModelAndView("create-account", "addUserModel", new AddUserModel());

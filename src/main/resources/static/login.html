@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+<link rel="stylesheet" href="css/main.css" th:href="@{css/main.css}" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webshop - Login page</title>
+</head>
+<body>
+	<header>
+	<h1>Login page</h1>
+	</header>
+	
+		  <form action="/login" method="POST">
+		  
+		  	<label>Username:</label> <input type="text" name="username" />
+		  	<label>Password:</label> <input type="password" name="password" />
+	        <input type="submit" value="Login"/>
+	      </form>		   	  
+	
+
+	<hr/>
+
+
+</body>
+	</html>
