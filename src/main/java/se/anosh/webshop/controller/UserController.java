@@ -10,14 +10,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
+import se.anosh.webshop.dao.UserDaoImplementation;
+import se.anosh.webshop.dao.api.UserDao;
+import se.anosh.webshop.dao.api.UserRoles;
+import se.anosh.webshop.domain.User;
 import se.anosh.webshop.model.AddUserModel;
+import se.anosh.webshop.service.UserService;
 
 @Controller
 @SessionScope
 public class UserController {
 
+	private UserService userService;
+	
 	@Autowired
-	public UserController() {
+	public UserController(UserService userService) {
+		this.userService = userService;
 	}
 	
 	@GetMapping(value="/addUser")
@@ -37,8 +45,10 @@ public class UserController {
 //
 //		User user = new User(newUser.getUsername(), newUser.getPassword(), roles);
 		
-		
 		System.out.println("Success! Received: " + newUser);
+		
+		User user = new User(newUser.getUsername(), newUser.getPassword());
+		userService.addUser(user, UserRoles.ROLE_USER, UserRoles.ROLE_ADMIN);
 		
 		return Redirect.success();
 	}
