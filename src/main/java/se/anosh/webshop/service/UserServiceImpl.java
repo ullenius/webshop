@@ -20,5 +20,10 @@ public class UserServiceImpl implements UserService {
 	public void addUser(User newUser, UserRoles... roles) {
 		dao.add(newUser, roles);
 	}
+	
+	@Override
+	public boolean userExists(User user) {
+		return dao.contains(user);
+	}
 
 }

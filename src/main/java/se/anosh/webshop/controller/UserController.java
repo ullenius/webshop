@@ -40,10 +40,17 @@ public class UserController {
 			return new ModelAndView("create-account", "addUserModel", newUser);
 		}
 		
-		System.out.println("Success! Received: " + newUser);
-		
+		// check if username is already in use
 		User user = new User(newUser.getUsername(), newUser.getPassword());
+		System.out.println("Success! Received: " + newUser); // debug
+		if (userService.userExists(user)) {
+			results.rejectValue("username", "username.unique");
+			newUser.setPassword(null); // just to be on the safe side
+			return new ModelAndView("create-account", "addUserModel", newUser);
+		}
+		
 		userService.addUser(user, UserRoles.ROLE_USER);
+		
 		
 		return Redirect.success();
 	}

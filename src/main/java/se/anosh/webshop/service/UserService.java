@@ -6,5 +6,6 @@ import se.anosh.webshop.domain.User;
 public interface UserService {
 	
 	public void addUser(User newUser, UserRoles ...roles);
+	public boolean userExists(User user);
 
 }
