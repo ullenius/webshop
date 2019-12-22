@@ -21,17 +21,14 @@
 	
 	<ol>
 		<li th:each="order : ${undispatched}">
-			<div>
-				<span>Id:</span>
-				<span>Date dispatched:</span>
-				<span>Customer:</span>
-				
-				<span th:text="${order}">undispatched order 1</span>
-				<span><a th:href="@{/admin/order(id=${order.id})}" href="order.html?id=orderId">Details</a></span>
-			</div>
-		</li>
+				<div><strong>Order Id: </strong><span th:text="${order.id}"></span></div>
+				<div><strong>Date dispatched: </strong><span><em>N/A</em></span></div>
+				<div><strong>Customer: </strong><span th:text="${order.customer.name}"></span></div>
+				<div>
+					<span><a th:href="@{/admin/order(id=${order.id})}" href="order.html?id=orderId">Details</a></span>
+				</div>
 	</ol>
-
+	
 	<h4>Dispatch order</h4>
 	<p>Please select an order to mark it as dispatched</p>
 	<form action="/admin/dispatchOrder" method="POST">
