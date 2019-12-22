@@ -42,13 +42,15 @@ public class OrderDaoImplementation implements OrderDao {
 	@Override
 	public int add(final int customerId) {
 		
+		System.out.println("Order dao, customer id = " + customerId);
+		
 		Query query = em.createNativeQuery("INSERT INTO orders (customer) VALUES (:id)");
 		query.setParameter("id", customerId);
 		int result = query.executeUpdate();
 		if (result == 0) 
 			throw new IllegalArgumentException("Customer with id: " + customerId + " not found");
 		
-		Query idQuery = em.createNativeQuery("SELECT id FROM orders WHERE customer = :id");
+		Query idQuery = em.createNativeQuery("SELECT id FROM orders WHERE customer = :id ORDER BY datum ASC LIMIT 1");
 		idQuery.setParameter("id", customerId);
 		int orderId = ((Number) idQuery.getSingleResult()).intValue();
 		return orderId;

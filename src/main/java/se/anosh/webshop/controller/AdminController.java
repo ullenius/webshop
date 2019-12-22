@@ -60,6 +60,9 @@ public class AdminController {
 		List<Order> undispatchedOrders = orderService.findAllUndispatchedOrders();
 		Map<String,Object> model = new HashMap<>();
 		model.put("undispatched", undispatchedOrders);
+		
+		System.out.println("Controller... undispatchedorders: " + undispatchedOrders);
+		
 		return new ModelAndView("undispatchedOrders", "model", model);
 	}
 	
