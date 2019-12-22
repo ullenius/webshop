@@ -19,9 +19,12 @@
 	
 	<ol>
 		<li th:each="order : ${dispatched}">
-			<span th:text="${order}">dispatched order 1</span>
-			<span><a th:href="@{/admin/order(id=${order.id})}" href="order.html?id=orderId">Details</a></span>	
-		</li>
+				<div><strong>Order Id: </strong><span th:text="${order.id}"></span></div>
+				<div><strong>Date dispatched: </strong><span><em><span th:text="${order.datum}">1995-12-24</span></em></span></div>
+				<div><strong>Customer: </strong><span th:text="${order.customer.name}"></span></div>
+				<div>
+					<span><a th:href="@{/admin/order(id=${order.id})}" href="order.html?id=orderId">Details</a></span>
+				</div>
 	</ol>
 
 </body>
