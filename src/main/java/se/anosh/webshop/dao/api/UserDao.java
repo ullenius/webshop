@@ -7,5 +7,6 @@ public interface UserDao {
 	public void add(User newUser, UserRoles ...roles);
 	public boolean contains(String username);
 	public default boolean contains(User user) { return contains(user.getName()); }
+	public int findId(String username);
 
 }

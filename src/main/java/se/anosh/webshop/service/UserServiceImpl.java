@@ -26,4 +26,9 @@ public class UserServiceImpl implements UserService {
 		return dao.contains(user);
 	}
 
+	@Override
+	public int findUserId(String username) {
+		return dao.findId(username);
+	}
+
 }

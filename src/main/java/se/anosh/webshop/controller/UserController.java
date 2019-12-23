@@ -1,5 +1,6 @@
 package se.anosh.webshop.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,14 @@ public class UserController {
 		this.userService = userService;
 		this.customerService = customerService;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+	}
+	
+	@GetMapping(value="/username")
+	public ModelAndView showUsername(HttpServletRequest request) {
+		
+		String user = request.getUserPrincipal().getName();
+		System.out.println(user);
+		return Redirect.success();
 	}
 	
 	@GetMapping(value="/login")

@@ -27,9 +27,11 @@ public class UserDaoImplementation implements UserDao {
 	private static final String INSERT_USER = "INSERT INTO users (username, password, enabled) values(:username, :password, true)";
 	private static final String ADD_USER_ROLE = "INSERT into authorities (username, authority) values(:username, :role)";
 	private static final String SELECT_USER = "SELECT (username) FROM users WHERE username = :username";
+	private static final String JOIN_USERNAME_AND_PERSONS_FOR_ID = 
+			"SELECT persons.id FROM persons INNER JOIN users ON users.username=persons.username WHERE users.username = :username";
 	
 	@Override
-	public void add(User newUser, UserRoles ...roles) {
+	public void add(final User newUser, final UserRoles ...roles) {
 		
 		Set<UserRoles> roleSet = new HashSet<>();
 		roleSet.addAll(Arrays.asList(roles));
@@ -49,7 +51,7 @@ public class UserDaoImplementation implements UserDao {
 	}
 
 	@Override
-	public boolean contains(String username) {
+	public boolean contains(final String username) {
 		
 		Query myQuery = em.createNativeQuery(SELECT_USER);
 		myQuery.setParameter("username", username);
@@ -59,6 +61,15 @@ public class UserDaoImplementation implements UserDao {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public int findId(final String username) {
+		
+		Query myQuery = em.createNativeQuery(JOIN_USERNAME_AND_PERSONS_FOR_ID);
+		myQuery.setParameter("username", username);
+		int userId = ((Number) myQuery.getSingleResult()).intValue();
+		return userId;
 	}
 
 }
