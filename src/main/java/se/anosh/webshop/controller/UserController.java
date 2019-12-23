@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import se.anosh.webshop.dao.api.UserRoles;
 import se.anosh.webshop.domain.User;
 import se.anosh.webshop.model.AddUserModel;
+import se.anosh.webshop.service.PersonService;
 import se.anosh.webshop.service.UserService;
 
 @Controller
@@ -21,13 +22,14 @@ import se.anosh.webshop.service.UserService;
 public class UserController {
 
 	private UserService userService;
-	
-	@Autowired
+	private PersonService customerService;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Autowired
-	public UserController(UserService userService) {
+	public UserController(UserService userService, PersonService customerService, BCryptPasswordEncoder bCryptPasswordEncoder) {
 		this.userService = userService;
+		this.customerService = customerService;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 	
 	@GetMapping(value="/login")
