@@ -78,11 +78,10 @@ public class ShopController {
 		final int categoryId;
 		try {
 			categoryId = Integer.parseInt(id);
-			Category criteria = categoryService.findById(categoryId);
-			matchingProducts = productService.findByCategory(criteria);
+			Category category = categoryService.findById(categoryId);
+			matchingProducts = productService.findByCategory(category);
 		} catch (NumberFormatException | CategoryNotFoundException ex) {
 			return Redirect.error();
-
 		}
 
 		model.put("categories",findAllCategories());
