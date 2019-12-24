@@ -33,9 +33,9 @@ import se.anosh.webshop.service.ProductService;
 @RequestMapping("/admin")
 public class AdminController {
 
-	private OrderService orderService;
-	private ProductService productService;
-	private CategoryService categoryService;
+	private final OrderService orderService;
+	private final ProductService productService;
+	private final CategoryService categoryService;
 
 	@Autowired
 	public AdminController(OrderService orderService, ProductService productService, CategoryService categoryService) {
@@ -43,7 +43,6 @@ public class AdminController {
 		this.productService = Objects.requireNonNull(productService);
 		this.categoryService = Objects.requireNonNull(categoryService);
 	}
-	
 	
 	@GetMapping(value="/dispatchedOrders")
 	public ModelAndView dispatchedOrders() {
