@@ -28,8 +28,8 @@ import se.anosh.webshop.service.ProductService;
 @SessionScope
 public class ShopController {
 
-	private ProductService productService;
-	private CategoryService categoryService;
+	private final ProductService productService;
+	private final CategoryService categoryService;
 
 	@Autowired
 	public ShopController(ProductService productService, CategoryService categoryService) {
@@ -51,7 +51,7 @@ public class ShopController {
 	}
 
 	@GetMapping(value="/shop")
-	public ModelAndView search(@RequestParam(value="products", required=false)final String products, HttpServletResponse response) {
+	public ModelAndView search(@RequestParam(value="products", required=false)final String products, final HttpServletResponse response) {
 
 		final Map<String,Object> model = new LinkedHashMap<>();
 
