@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,7 @@ import se.anosh.webshop.service.OrderService;
 import se.anosh.webshop.service.ProductService;
 import se.anosh.webshop.service.Shopping;
 import se.anosh.webshop.service.ShoppingCart;
+import se.anosh.webshop.service.UserService;
 
 @Controller
 @Scope(value = WebApplicationContext.SCOPE_SESSION)
@@ -31,12 +34,14 @@ public class ShoppingCartController {
 	private Shopping cart;
 	private ProductService productService;
 	private OrderService orderService;
+	private UserService userService;
 	private static final int ZERO = 0;
 	
 	@Autowired
-	public ShoppingCartController(ProductService productService, OrderService orderService) {
+	public ShoppingCartController(ProductService productService, OrderService orderService, UserService userService) {
 		this.productService = productService;
 		this.orderService = orderService;
+		this.userService = userService;
 		cart = new ShoppingCart();
 	}
 	
@@ -98,10 +103,11 @@ public class ShoppingCartController {
 	}
 	
 	@PostMapping(value="/shoppingCart/submitOrder")
-	public ModelAndView orderMapping() {
+	public ModelAndView orderMapping(final HttpServletRequest request) {
 		
 		try {
-			final int orderId = submitOrder();
+			final int customerId = loggedInUserId(request);
+			final int orderId = submitOrder(customerId);
 			List<Orderline> orderLines = orderService.findMatchingOrderlines(orderId); // duplicate code from orderDetails (adminController)
 			return new ModelAndView("orderdetails","model",orderLines);
 		} catch (IllegalStateException ex) {
@@ -109,15 +115,23 @@ public class ShoppingCartController {
 		}
 	}
 	
-	private int submitOrder() { // TODO: OptionalInt?
+	private int loggedInUserId(final HttpServletRequest request) {
+		final String username = request.getUserPrincipal().getName();
+		System.out.println(username);
+		int userId = userService.findUserId(username);
+		System.out.println("User id: " + userId);
+		
+		return userId;
+	}
+	
+	private int submitOrder(int customerId) { // TODO: OptionalInt?
 		
 		Set<Product> uniqueItems = cart.uniqueItems();
 		if (uniqueItems.isEmpty()) {
 			throw new IllegalStateException("Cart is empty. Cannot create order");
 		}
 		
-		final int personId = 99; // Bob
-		final int orderId = orderService.newOrder(personId);
+		final int orderId = orderService.newOrder(customerId);
 		Map<Product,Integer> shoppingList = createShoppingList();
 		
 		for (Product product : shoppingList.keySet()) {
