@@ -55,16 +55,16 @@ public class ShopController {
 	public ModelAndView search(@RequestParam(value="products", required=false)final String products) {
 
 		final Map<String,Object> model = new LinkedHashMap<>();
-
+		
 		final List<Product> matchingProducts = 
 				(products == null) 
 						? Collections.emptyList()
 						: productService.findByName(products);
 
-				model.put("categories",findAllCategories());
-				model.put("products", matchingProducts);
+		model.put("products", matchingProducts);
+		model.put("categories",findAllCategories());
 
-				return new ModelAndView("main", "model", model);
+		return new ModelAndView("main", "model", model);
 	}
 
 	@GetMapping(value="/shop/{id}")
