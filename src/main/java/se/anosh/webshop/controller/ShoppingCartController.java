@@ -31,10 +31,10 @@ import se.anosh.webshop.service.UserService;
 @Scope(value = WebApplicationContext.SCOPE_SESSION)
 public class ShoppingCartController {
 	
-	private Shopping cart;
-	private ProductService productService;
-	private OrderService orderService;
-	private UserService userService;
+	private final Shopping cart;
+	private final ProductService productService;
+	private final OrderService orderService;
+	private final UserService userService;
 	private static final int ZERO = 0;
 	
 	@Autowired
@@ -124,7 +124,7 @@ public class ShoppingCartController {
 		return userId;
 	}
 	
-	private int submitOrder(int customerId) { // TODO: OptionalInt?
+	private int submitOrder(final int customerId) { // TODO: OptionalInt?
 		
 		Set<Product> uniqueItems = cart.uniqueItems();
 		if (uniqueItems.isEmpty()) {
