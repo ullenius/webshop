@@ -27,6 +27,7 @@ import se.anosh.webshop.model.AddProductModel;
 import se.anosh.webshop.service.CategoryService;
 import se.anosh.webshop.service.OrderService;
 import se.anosh.webshop.service.ProductService;
+import se.anosh.webshop.util.Logger;
 
 @Controller
 @SessionScope
@@ -60,8 +61,6 @@ public class AdminController {
 		Map<String,Object> model = new HashMap<>();
 		model.put("undispatched", undispatchedOrders);
 		
-		System.out.println("Controller... undispatchedorders: " + undispatchedOrders);
-		
 		return new ModelAndView("undispatchedOrders", "model", model);
 	}
 	
@@ -69,10 +68,8 @@ public class AdminController {
 	public ModelAndView orderDetails(@RequestParam(value="id", required=true)final String id) {
 
 		final int orderId = Integer.parseInt(id);
-		
-		System.out.println("Running /admin/order, input is: " + orderId);
 		List<Orderline> orderLines = orderService.findMatchingOrderlines(orderId);
-		System.out.println("Orderlines = " + orderLines);
+		Logger.log("Orderlines = " + orderLines);
 		
 		return new ModelAndView("orderdetails", "model", orderLines);
 	}
@@ -87,7 +84,7 @@ public class AdminController {
 	@PostMapping(value="/saveProduct")
 	public ModelAndView saveUser(@Valid AddProductModel model) {
 
-		Product product = new Product();
+		final Product product = new Product();
 		product.setName(model.getName());
 		BigDecimal price = new BigDecimal(model.getPrice());
 		product.setPrice(price);
@@ -105,7 +102,7 @@ public class AdminController {
 	}
 	
 	@PostMapping(value="/dispatchOrder")
-	public ModelAndView dispatchOrder(@RequestParam("orderId") @NotEmpty String id) {
+	public ModelAndView dispatchOrder(@RequestParam("orderId") @NotEmpty final String id) {
 
 		try {
 			Integer orderId = Integer.parseInt(id);
