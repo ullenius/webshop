@@ -1,6 +1,5 @@
 package se.anosh.webshop.dao;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.EntityManager;

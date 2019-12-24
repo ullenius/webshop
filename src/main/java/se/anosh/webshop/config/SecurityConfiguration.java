@@ -17,6 +17,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
 	
+	private static final String ADMIN = "ADMIN";
+	private static final String USER = "USER";
+	
 	@Autowired
     DataSource dataSource;
 
@@ -36,14 +39,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
 		web.ignoring().antMatchers("/resources/**");
 	}
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	http.authorizeRequests().antMatchers("/","/addUser","/saveUser","/login.html","/css/*","/menu.html").permitAll()
-    	.antMatchers("/shop/*").hasAnyRole("USER", "ADMIN")
-    	.antMatchers("/product/*").hasAnyRole("USER", "ADMIN")
-    	.antMatchers("/shoppingCart/*").hasAnyRole("USER", "ADMIN")
-    	.antMatchers("/admin/*").hasAnyRole("ADMIN").anyRequest().authenticated()
+    	.antMatchers("/shop/*").hasAnyRole(USER, ADMIN)
+    	.antMatchers("/product/*").hasAnyRole(USER, ADMIN)
+    	.antMatchers("/shoppingCart/*").hasAnyRole(USER, ADMIN)
+    	.antMatchers("/admin/*").hasAnyRole(ADMIN).anyRequest().authenticated()
     	.and().formLogin().loginPage("/login").permitAll()
     	.and().logout().permitAll();
 
