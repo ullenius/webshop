@@ -10,7 +10,7 @@ public class Logger {
 		throw new AssertionError("Class cannot be instantiated");
 	}
 	
-	public static void log(final String message) {
+	public static void log(final CharSequence message) {
 		
 		if (enabled)
 			System.out.println(new Date() + " : + " + message);

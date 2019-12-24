@@ -23,6 +23,7 @@ import se.anosh.webshop.domain.Category;
 import se.anosh.webshop.domain.Product;
 import se.anosh.webshop.service.CategoryService;
 import se.anosh.webshop.service.ProductService;
+import se.anosh.webshop.util.Logger;
 
 @Controller
 @SessionScope
@@ -51,19 +52,18 @@ public class ShopController {
 	}
 
 	@GetMapping(value="/shop")
-	public ModelAndView search(@RequestParam(value="products", required=false)final String products, final HttpServletResponse response) {
+	public ModelAndView search(@RequestParam(value="products", required=false)final String products) {
 
 		final Map<String,Object> model = new LinkedHashMap<>();
 
 		final List<Product> matchingProducts = 
 				(products == null) 
-				? Collections.emptyList()
+						? Collections.emptyList()
 						: productService.findByName(products);
 
 				model.put("categories",findAllCategories());
 				model.put("products", matchingProducts);
 
-				response.setStatus(HttpStatus.I_AM_A_TEAPOT.value()); // TODO: test this!
 				return new ModelAndView("main", "model", model);
 	}
 
