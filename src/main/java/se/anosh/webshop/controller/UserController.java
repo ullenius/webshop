@@ -21,8 +21,8 @@ import se.anosh.webshop.service.UserService;
 @SessionScope
 public class UserController {
 
-	private UserService userService;
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	private final UserService userService;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Autowired
 	public UserController(UserService userService, PersonService customerService, BCryptPasswordEncoder bCryptPasswordEncoder) {

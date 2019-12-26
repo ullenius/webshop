@@ -26,6 +26,7 @@ import se.anosh.webshop.service.ProductService;
 import se.anosh.webshop.service.Shopping;
 import se.anosh.webshop.service.ShoppingCart;
 import se.anosh.webshop.service.UserService;
+import se.anosh.webshop.util.Logger;
 
 @Controller
 @Scope(value = WebApplicationContext.SCOPE_SESSION)
@@ -117,9 +118,9 @@ public class ShoppingCartController {
 	
 	private int loggedInUserId(final HttpServletRequest request) {
 		final String username = request.getUserPrincipal().getName();
-		System.out.println(username);
+		Logger.log(username);
 		int userId = userService.findUserId(username);
-		System.out.println("User id: " + userId);
+		Logger.log("User id: " + userId);
 		
 		return userId;
 	}
