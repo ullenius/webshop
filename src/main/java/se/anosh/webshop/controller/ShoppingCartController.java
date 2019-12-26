@@ -76,7 +76,7 @@ public class ShoppingCartController {
 		return performCrudOperation(id,amount, (idNumber,productAmount,product) -> cart.update(product,productAmount));
 	}
 	
-	@GetMapping(value="/shoppingCart/remove") // TODO: ought to be POST, not an imdempotent
+	@PostMapping(value="/shoppingCart/remove")
 	public ModelAndView removeProductFromCart(
 			@RequestParam(value="id", required=true) final String id) {
 		

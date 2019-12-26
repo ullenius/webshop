@@ -16,8 +16,13 @@
 	<div th:if="${model.products.size() > 0}">
 		<ol>
 			<li th:each="product : ${model.products}">
-			<span th:text="${product.key.name} + ' amount = ' + ${product.value}"></span>
-				<small><a th:href="@{/shoppingCart/remove(id=${product.key.id})}">Remove from cart</a></small>
+				<div>
+					<span th:text="${product.key.name} + ' amount = ' + ${product.value}"></span>
+					<form action="/shoppingCart/remove" method="POST">
+						<input type="hidden" name="id" th:value="${product.key.id}" />
+						<input type="submit" value="Remove from cart" />
+					</form>
+				</div>
 				<div>
 					<form action="/shoppingCart/update" method="POST">
 						<input type="hidden" name="id" id="id" value="666" th:value="${product.key.id}" />
