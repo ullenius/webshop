@@ -17,47 +17,48 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.annotation.SessionScope;
 
 import se.anosh.webshop.dao.exception.OrderNotFoundException;
 import se.anosh.webshop.domain.Order;
 import se.anosh.webshop.domain.Product;
-import se.anosh.webshop.service.CategoryService;
 import se.anosh.webshop.service.OrderService;
 import se.anosh.webshop.service.ProductService;
 
 @Controller
 @SessionScope
+@RequestMapping("/admin")
 public class AdminRestController {
 
-	private OrderService orderService;
-	private ProductService productService;
+	private final OrderService orderService;
+	private final ProductService productService;
 
 	@Autowired
-	public AdminRestController(OrderService orderService, ProductService productService, CategoryService categoryService) {
+	public AdminRestController(OrderService orderService, ProductService productService) {
 		this.orderService = Objects.requireNonNull(orderService);
 		this.productService = Objects.requireNonNull(productService);
 	}
 
 	// JSON method
-	@PostMapping(value="/admin/addProduct", produces=MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value="/addProduct", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> addProductJson(@NotNull @Valid @RequestBody Product newProduct) {
 		productService.addProduct(newProduct);
 		return ResponseEntity.accepted().build();
 	}
 
-	@GetMapping(value="/admin/undispatched", produces=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/undispatched", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Order>> listUndispatchedOrders() {
 		return new ResponseEntity<List<Order>>(orderService.findAllUndispatchedOrders(), HttpStatus.OK);
 	}
 
-	@GetMapping(value="/admin/dispatched", produces=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/dispatched", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Order>> listDispatchedOrders() {
 		return new ResponseEntity<List<Order>>(orderService.findAllDispatchedOrders(), HttpStatus.OK);
 	}
 
 	// JSON version of (/admin/dispatchOrder)
-	@PostMapping(value="/admin/{orderId}", produces=MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value="/{orderId}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ErrorMessage> dispatchOrderJson(@PathVariable("orderId") String id) {
 		try {
 			int orderId = Integer.parseInt(id);
@@ -71,7 +72,7 @@ public class AdminRestController {
 	}
 
 	@XmlRootElement
-	private class ErrorMessage {
+	private static class ErrorMessage {
 		@XmlElement(name="error")
 		private final String message;
 		ErrorMessage(String message) {
