@@ -23,11 +23,18 @@ public class Person implements Serializable {
     @Column(name = "birth")
     private Integer yearOfbirth; // 4 digits
     private String city;
-
+    
     public Person() { //default constructor required by JPA
     }
     
-    public int getId() {
+    public Person(String name, Integer yearOfbirth, String city) {
+		super();
+		this.name = name;
+		this.yearOfbirth = yearOfbirth;
+		this.city = city;
+	}
+
+	public int getId() {
         return id;
     }
 

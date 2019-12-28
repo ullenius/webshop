@@ -30,8 +30,8 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public void addCustomer(Person person) {
-		dao.add(person);
+	public void addCustomer(Person person, String username) {
+		dao.add(person,username);
 	}
 
 	@Override

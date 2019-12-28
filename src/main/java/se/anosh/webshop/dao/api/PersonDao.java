@@ -10,7 +10,7 @@ public interface PersonDao {
 	
 	public List<Person> findAll();
 	public Person findById(int id) throws PersonNotFoundException;
-	public void add(Person item);
+	public void add(Person person, String username);
 	public void remove(Person item);
 	public void update(Person item);
 }

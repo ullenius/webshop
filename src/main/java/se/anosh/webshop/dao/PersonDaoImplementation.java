@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
@@ -38,16 +39,24 @@ public class PersonDaoImplementation implements PersonDao {
 	}
 
 	@Override
-	public void add(Person person) {
-		em.persist(person);
+	public void add(Person person, String username) {
+		
+			Query query = em.createNativeQuery("INSERT INTO persons (name, birth, city, username) VALUES (:name, :birth, :city, :username)");
+			query.setParameter("name", person.getName());
+			query.setParameter("birth", person.getYearOfbirth());
+			query.setParameter("city", person.getCity());
+			query.setParameter("username", username);
+			query.executeUpdate();
 	}
 
 	@Override
+	@Deprecated
 	public void remove(Person person) {
 		em.remove(person);
 	}
 
 	@Override
+	@Deprecated
 	public void update(Person updatedPerson) {
 		em.merge(updatedPerson);
 	}
