@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -28,12 +27,12 @@ public class Person implements Serializable {
     private String city;
     @JoinColumn(name = "users", referencedColumnName = "username")
     @OneToOne(optional = false)
-    private User username;
-
+    private String username;
+    
     public Person() { //default constructor required by JPA
     }
     
-    public Person(String name, Integer yearOfbirth, String city, User username) {
+    public Person(String name, Integer yearOfbirth, String city, String username) {
 		super();
 		this.name = name;
 		this.yearOfbirth = yearOfbirth;
@@ -69,8 +68,8 @@ public class Person implements Serializable {
         this.city = city;
     }
     
-    public String getUser() {
-    	return username.toString();
+    public String getUsername() {
+    	return username;
     }
     
 	@Override
