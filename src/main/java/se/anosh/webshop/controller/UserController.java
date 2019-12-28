@@ -14,18 +14,18 @@ import org.springframework.web.servlet.ModelAndView;
 import se.anosh.webshop.dao.api.UserRoles;
 import se.anosh.webshop.domain.User;
 import se.anosh.webshop.model.AddUserModel;
-import se.anosh.webshop.service.PersonService;
-import se.anosh.webshop.service.UserService;
+import se.anosh.webshop.service.api.UserService;
+import se.anosh.webshop.util.Logger;
 
 @Controller
 @SessionScope
 public class UserController {
 
-	private UserService userService;
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	private final UserService userService;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Autowired
-	public UserController(UserService userService, PersonService customerService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+	public UserController(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
 		this.userService = userService;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
@@ -49,10 +49,10 @@ public class UserController {
 		
 		// check if username is already in use
 		final String encryptedPassword = bCryptPasswordEncoder.encode(newUser.getPassword());
-		System.out.println("Encrypted password: " + encryptedPassword);
+		Logger.log("Encrypted password: " + encryptedPassword);
 		
 		User user = new User(newUser.getUsername(), encryptedPassword);
-		System.out.println("Success! Received: " + newUser); // debug
+		Logger.log("Success! Received: " + newUser);
 		if (userService.userExists(user)) {
 			newUser.setErrorMessage("Username is already in use");
 			newUser.setPassword(null); // just to be on the safe side
@@ -60,7 +60,6 @@ public class UserController {
 		}
 		
 		userService.addUser(user, UserRoles.ROLE_USER);
-		
 		
 		return Redirect.success();
 	}

@@ -21,20 +21,21 @@ import org.springframework.web.servlet.ModelAndView;
 import se.anosh.webshop.dao.exception.ProductNotFoundException;
 import se.anosh.webshop.domain.Orderline;
 import se.anosh.webshop.domain.Product;
-import se.anosh.webshop.service.OrderService;
-import se.anosh.webshop.service.ProductService;
-import se.anosh.webshop.service.Shopping;
 import se.anosh.webshop.service.ShoppingCart;
-import se.anosh.webshop.service.UserService;
+import se.anosh.webshop.service.api.OrderService;
+import se.anosh.webshop.service.api.ProductService;
+import se.anosh.webshop.service.api.Shopping;
+import se.anosh.webshop.service.api.UserService;
+import se.anosh.webshop.util.Logger;
 
 @Controller
 @Scope(value = WebApplicationContext.SCOPE_SESSION)
 public class ShoppingCartController {
 	
-	private Shopping cart;
-	private ProductService productService;
-	private OrderService orderService;
-	private UserService userService;
+	private final Shopping cart;
+	private final ProductService productService;
+	private final OrderService orderService;
+	private final UserService userService;
 	private static final int ZERO = 0;
 	
 	@Autowired
@@ -76,7 +77,7 @@ public class ShoppingCartController {
 		return performCrudOperation(id,amount, (idNumber,productAmount,product) -> cart.update(product,productAmount));
 	}
 	
-	@GetMapping(value="/shoppingCart/remove") // TODO: ought to be POST, not an imdempotent
+	@PostMapping(value="/shoppingCart/remove")
 	public ModelAndView removeProductFromCart(
 			@RequestParam(value="id", required=true) final String id) {
 		
@@ -117,14 +118,14 @@ public class ShoppingCartController {
 	
 	private int loggedInUserId(final HttpServletRequest request) {
 		final String username = request.getUserPrincipal().getName();
-		System.out.println(username);
+		Logger.log(username);
 		int userId = userService.findUserId(username);
-		System.out.println("User id: " + userId);
+		Logger.log("User id: " + userId);
 		
 		return userId;
 	}
 	
-	private int submitOrder(int customerId) { // TODO: OptionalInt?
+	private int submitOrder(final int customerId) { // TODO: OptionalInt?
 		
 		Set<Product> uniqueItems = cart.uniqueItems();
 		if (uniqueItems.isEmpty()) {

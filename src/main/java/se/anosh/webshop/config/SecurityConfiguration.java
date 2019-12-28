@@ -23,16 +23,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
 	@Autowired
     DataSource dataSource;
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-	
 	//Enable jdbc authentication
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder());
     }
+    
+    @Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
     
     @Override
 	public void configure(WebSecurity web) throws Exception {

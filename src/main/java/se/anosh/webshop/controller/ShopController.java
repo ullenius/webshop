@@ -21,15 +21,16 @@ import se.anosh.webshop.dao.exception.CategoryNotFoundException;
 import se.anosh.webshop.dao.exception.ProductNotFoundException;
 import se.anosh.webshop.domain.Category;
 import se.anosh.webshop.domain.Product;
-import se.anosh.webshop.service.CategoryService;
-import se.anosh.webshop.service.ProductService;
+import se.anosh.webshop.service.api.CategoryService;
+import se.anosh.webshop.service.api.ProductService;
+import se.anosh.webshop.util.Logger;
 
 @Controller
 @SessionScope
 public class ShopController {
 
-	private ProductService productService;
-	private CategoryService categoryService;
+	private final ProductService productService;
+	private final CategoryService categoryService;
 
 	@Autowired
 	public ShopController(ProductService productService, CategoryService categoryService) {
@@ -51,20 +52,19 @@ public class ShopController {
 	}
 
 	@GetMapping(value="/shop")
-	public ModelAndView search(@RequestParam(value="products", required=false)final String products, HttpServletResponse response) {
+	public ModelAndView search(@RequestParam(value="products", required=false)final String products) {
 
 		final Map<String,Object> model = new LinkedHashMap<>();
-
+		
 		final List<Product> matchingProducts = 
 				(products == null) 
-				? Collections.emptyList()
+						? Collections.emptyList()
 						: productService.findByName(products);
 
-				model.put("categories",findAllCategories());
-				model.put("products", matchingProducts);
+		model.put("products", matchingProducts);
+		model.put("categories",findAllCategories());
 
-				response.setStatus(HttpStatus.I_AM_A_TEAPOT.value()); // TODO: test this!
-				return new ModelAndView("main", "model", model);
+		return new ModelAndView("main", "model", model);
 	}
 
 	@GetMapping(value="/shop/{id}")
@@ -78,11 +78,10 @@ public class ShopController {
 		final int categoryId;
 		try {
 			categoryId = Integer.parseInt(id);
-			Category criteria = categoryService.findById(categoryId);
-			matchingProducts = productService.findByCategory(criteria);
+			Category category = categoryService.findById(categoryId);
+			matchingProducts = productService.findByCategory(category);
 		} catch (NumberFormatException | CategoryNotFoundException ex) {
 			return Redirect.error();
-
 		}
 
 		model.put("categories",findAllCategories());

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import se.anosh.webshop.dao.api.CategoryDao;
 import se.anosh.webshop.dao.exception.CategoryNotFoundException;
 import se.anosh.webshop.domain.Category;
+import se.anosh.webshop.service.api.CategoryService;
 
 @Service
 @Transactional

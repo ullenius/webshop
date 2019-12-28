@@ -24,18 +24,19 @@ import se.anosh.webshop.domain.Order;
 import se.anosh.webshop.domain.Orderline;
 import se.anosh.webshop.domain.Product;
 import se.anosh.webshop.model.AddProductModel;
-import se.anosh.webshop.service.CategoryService;
-import se.anosh.webshop.service.OrderService;
-import se.anosh.webshop.service.ProductService;
+import se.anosh.webshop.service.api.CategoryService;
+import se.anosh.webshop.service.api.OrderService;
+import se.anosh.webshop.service.api.ProductService;
+import se.anosh.webshop.util.Logger;
 
 @Controller
 @SessionScope
 @RequestMapping("/admin")
 public class AdminController {
 
-	private OrderService orderService;
-	private ProductService productService;
-	private CategoryService categoryService;
+	private final OrderService orderService;
+	private final ProductService productService;
+	private final CategoryService categoryService;
 
 	@Autowired
 	public AdminController(OrderService orderService, ProductService productService, CategoryService categoryService) {
@@ -43,7 +44,6 @@ public class AdminController {
 		this.productService = Objects.requireNonNull(productService);
 		this.categoryService = Objects.requireNonNull(categoryService);
 	}
-	
 	
 	@GetMapping(value="/dispatchedOrders")
 	public ModelAndView dispatchedOrders() {
@@ -61,8 +61,6 @@ public class AdminController {
 		Map<String,Object> model = new HashMap<>();
 		model.put("undispatched", undispatchedOrders);
 		
-		System.out.println("Controller... undispatchedorders: " + undispatchedOrders);
-		
 		return new ModelAndView("undispatchedOrders", "model", model);
 	}
 	
@@ -70,10 +68,8 @@ public class AdminController {
 	public ModelAndView orderDetails(@RequestParam(value="id", required=true)final String id) {
 
 		final int orderId = Integer.parseInt(id);
-		
-		System.out.println("Running /admin/order, input is: " + orderId);
 		List<Orderline> orderLines = orderService.findMatchingOrderlines(orderId);
-		System.out.println("Orderlines = " + orderLines);
+		Logger.log("Orderlines = " + orderLines);
 		
 		return new ModelAndView("orderdetails", "model", orderLines);
 	}
@@ -88,7 +84,7 @@ public class AdminController {
 	@PostMapping(value="/saveProduct")
 	public ModelAndView saveUser(@Valid AddProductModel model) {
 
-		Product product = new Product();
+		final Product product = new Product();
 		product.setName(model.getName());
 		BigDecimal price = new BigDecimal(model.getPrice());
 		product.setPrice(price);
@@ -106,7 +102,7 @@ public class AdminController {
 	}
 	
 	@PostMapping(value="/dispatchOrder")
-	public ModelAndView dispatchOrder(@RequestParam("orderId") @NotEmpty String id) {
+	public ModelAndView dispatchOrder(@RequestParam("orderId") @NotEmpty final String id) {
 
 		try {
 			Integer orderId = Integer.parseInt(id);

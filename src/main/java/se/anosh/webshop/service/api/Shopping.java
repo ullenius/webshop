@@ -1,4 +1,4 @@
-package se.anosh.webshop.service;
+package se.anosh.webshop.service.api;
 
 import java.math.BigDecimal;
 import java.util.List;
