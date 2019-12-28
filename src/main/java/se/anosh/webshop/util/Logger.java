@@ -13,7 +13,7 @@ public final class Logger {
 	public static void log(final CharSequence message) {
 		
 		if (enabled)
-			System.out.println(new Date() + " : + " + message);
+			System.out.println(new Date() + " : " + message);
 	}
 	
 	public boolean isEnabled() {
