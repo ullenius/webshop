@@ -21,11 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
 import se.anosh.webshop.dao.exception.ProductNotFoundException;
 import se.anosh.webshop.domain.Orderline;
 import se.anosh.webshop.domain.Product;
-import se.anosh.webshop.service.OrderService;
-import se.anosh.webshop.service.ProductService;
-import se.anosh.webshop.service.Shopping;
 import se.anosh.webshop.service.ShoppingCart;
-import se.anosh.webshop.service.UserService;
+import se.anosh.webshop.service.api.OrderService;
+import se.anosh.webshop.service.api.ProductService;
+import se.anosh.webshop.service.api.Shopping;
+import se.anosh.webshop.service.api.UserService;
 import se.anosh.webshop.util.Logger;
 
 @Controller

@@ -24,9 +24,9 @@ import se.anosh.webshop.domain.Order;
 import se.anosh.webshop.domain.Orderline;
 import se.anosh.webshop.domain.Product;
 import se.anosh.webshop.model.AddProductModel;
-import se.anosh.webshop.service.CategoryService;
-import se.anosh.webshop.service.OrderService;
-import se.anosh.webshop.service.ProductService;
+import se.anosh.webshop.service.api.CategoryService;
+import se.anosh.webshop.service.api.OrderService;
+import se.anosh.webshop.service.api.ProductService;
 import se.anosh.webshop.util.Logger;
 
 @Controller

@@ -1,4 +1,4 @@
-package se.anosh.webshop.service;
+package se.anosh.webshop.service.api;
 
 import se.anosh.webshop.dao.api.UserRoles;
 import se.anosh.webshop.domain.User;

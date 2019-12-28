@@ -17,6 +17,7 @@ import se.anosh.webshop.dao.exception.OrderNotFoundException;
 import se.anosh.webshop.domain.Order;
 import se.anosh.webshop.domain.Orderline;
 import se.anosh.webshop.domain.Product;
+import se.anosh.webshop.service.api.OrderService;
 
 @Service
 @Transactional

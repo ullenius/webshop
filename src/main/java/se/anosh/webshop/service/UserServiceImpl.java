@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import se.anosh.webshop.dao.api.UserDao;
 import se.anosh.webshop.dao.api.UserRoles;
 import se.anosh.webshop.domain.User;
+import se.anosh.webshop.service.api.UserService;
 
 @Service
 @Transactional

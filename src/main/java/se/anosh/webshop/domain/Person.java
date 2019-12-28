@@ -24,8 +24,7 @@ public class Person implements Serializable {
     private Integer yearOfbirth; // 4 digits
     private String city;
 
-    public Person() {
-    	//default constructor required by JPA
+    public Person() { //default constructor required by JPA
     }
     
     public int getId() {

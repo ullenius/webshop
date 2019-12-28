@@ -23,8 +23,8 @@ import org.springframework.web.context.annotation.SessionScope;
 import se.anosh.webshop.dao.exception.OrderNotFoundException;
 import se.anosh.webshop.domain.Order;
 import se.anosh.webshop.domain.Product;
-import se.anosh.webshop.service.OrderService;
-import se.anosh.webshop.service.ProductService;
+import se.anosh.webshop.service.api.OrderService;
+import se.anosh.webshop.service.api.ProductService;
 
 @Controller
 @SessionScope

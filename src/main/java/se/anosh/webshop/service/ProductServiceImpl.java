@@ -14,6 +14,7 @@ import se.anosh.webshop.dao.api.ProductDao;
 import se.anosh.webshop.dao.exception.ProductNotFoundException;
 import se.anosh.webshop.domain.Category;
 import se.anosh.webshop.domain.Product;
+import se.anosh.webshop.service.api.ProductService;
 
 @Service
 @Transactional

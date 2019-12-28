@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import se.anosh.webshop.dao.api.UserRoles;
 import se.anosh.webshop.domain.User;
 import se.anosh.webshop.model.AddUserModel;
-import se.anosh.webshop.service.UserService;
+import se.anosh.webshop.service.api.UserService;
 import se.anosh.webshop.util.Logger;
 
 @Controller

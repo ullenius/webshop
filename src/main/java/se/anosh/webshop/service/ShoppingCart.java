@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
 
 import se.anosh.webshop.domain.Product;
+import se.anosh.webshop.service.api.Shopping;
 
 @Service
 @Scope(value = WebApplicationContext.SCOPE_SESSION)

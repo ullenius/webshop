@@ -21,8 +21,8 @@ import se.anosh.webshop.dao.exception.CategoryNotFoundException;
 import se.anosh.webshop.dao.exception.ProductNotFoundException;
 import se.anosh.webshop.domain.Category;
 import se.anosh.webshop.domain.Product;
-import se.anosh.webshop.service.CategoryService;
-import se.anosh.webshop.service.ProductService;
+import se.anosh.webshop.service.api.CategoryService;
+import se.anosh.webshop.service.api.ProductService;
 import se.anosh.webshop.util.Logger;
 
 @Controller

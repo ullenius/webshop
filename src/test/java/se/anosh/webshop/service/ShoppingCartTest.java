@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import se.anosh.webshop.domain.Product;
+import se.anosh.webshop.service.api.Shopping;
 
 class ShoppingCartTest {
 	
