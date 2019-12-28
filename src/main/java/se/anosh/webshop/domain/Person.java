@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -23,11 +26,22 @@ public class Person implements Serializable {
     @Column(name = "birth")
     private Integer yearOfbirth; // 4 digits
     private String city;
+    @JoinColumn(name = "users", referencedColumnName = "username")
+    @OneToOne(optional = false)
+    private User username;
 
     public Person() { //default constructor required by JPA
     }
     
-    public int getId() {
+    public Person(String name, Integer yearOfbirth, String city, User username) {
+		super();
+		this.name = name;
+		this.yearOfbirth = yearOfbirth;
+		this.city = city;
+		this.username = username;
+	}
+
+	public int getId() {
         return id;
     }
 
@@ -53,6 +67,10 @@ public class Person implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+    
+    public String getUser() {
+    	return username.toString();
     }
     
 	@Override

@@ -12,8 +12,10 @@ import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import se.anosh.webshop.dao.api.UserRoles;
+import se.anosh.webshop.domain.Person;
 import se.anosh.webshop.domain.User;
 import se.anosh.webshop.model.AddUserModel;
+import se.anosh.webshop.service.api.PersonService;
 import se.anosh.webshop.service.api.UserService;
 import se.anosh.webshop.util.Logger;
 
@@ -22,11 +24,14 @@ import se.anosh.webshop.util.Logger;
 public class UserController {
 
 	private final UserService userService;
+	private final PersonService personService;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	
+	
 	@Autowired
-	public UserController(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+	public UserController(UserService userService, PersonService personService, BCryptPasswordEncoder bCryptPasswordEncoder) {
 		this.userService = userService;
+		this.personService = personService;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 	
@@ -60,6 +65,7 @@ public class UserController {
 		}
 		
 		userService.addUser(user, UserRoles.ROLE_USER);
+		Person newCustomer = new Person();
 		
 		return Redirect.success();
 	}

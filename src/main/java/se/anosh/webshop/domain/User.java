@@ -1,6 +1,10 @@
 package se.anosh.webshop.domain;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	private final String name;
 	private final String password;
