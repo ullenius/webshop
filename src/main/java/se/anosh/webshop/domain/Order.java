@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -31,21 +30,12 @@ public class Order implements Serializable {
     @JoinColumn(name = "customer", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Person customer;
-    @Transient
-    @Deprecated // add to database-table or remove
-    private final long creationTimeStampNanoSeconds;
 
     public Order() {
-    	creationTimeStampNanoSeconds = System.nanoTime();
     }
 
     public Order(Date datum) {
         this.date = datum;
-        creationTimeStampNanoSeconds = System.nanoTime();
-    }
-    
-    public long getNanoStamp() {
-    	return creationTimeStampNanoSeconds;
     }
 
     public int getId() {
@@ -65,33 +55,8 @@ public class Order implements Serializable {
     }
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Order other = (Order) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
-
-	@Override
 	public String toString() {
 		return "Order [id=" + id + ", date=" + date + ", customer=" + customer + "]";
 	}
-	
-	
-	
     
 }
