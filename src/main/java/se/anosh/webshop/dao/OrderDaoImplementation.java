@@ -15,6 +15,7 @@ import se.anosh.webshop.dao.api.OrderDao;
 import se.anosh.webshop.dao.exception.OrderNotFoundException;
 import se.anosh.webshop.domain.Order;
 import se.anosh.webshop.domain.Product;
+import se.anosh.webshop.util.Logger;
 
 @Repository
 public class OrderDaoImplementation implements OrderDao {
@@ -42,15 +43,15 @@ public class OrderDaoImplementation implements OrderDao {
 	@Override
 	public int add(final int customerId) {
 		
-		System.out.println("Order dao, customer id = " + customerId);
+		Logger.log("Order dao, customer id = " + customerId);
 		
-		Query query = em.createNativeQuery("INSERT INTO orders (customer) VALUES (:id)");
+		final Query query = em.createNativeQuery("INSERT INTO orders (customer) VALUES (:id)");
 		query.setParameter("id", customerId);
 		int result = query.executeUpdate();
 		if (result == 0) 
 			throw new IllegalArgumentException("Customer with id: " + customerId + " not found");
 		
-		Query idQuery = em.createNativeQuery("SELECT id FROM orders WHERE customer = :id ORDER BY datum ASC LIMIT 1");
+		final Query idQuery = em.createNativeQuery("SELECT id FROM orders WHERE customer = :id ORDER BY datum ASC LIMIT 1");
 		idQuery.setParameter("id", customerId);
 		int orderId = ((Number) idQuery.getSingleResult()).intValue();
 		return orderId;

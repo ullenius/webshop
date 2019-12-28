@@ -20,7 +20,8 @@ public class OrderlineDaoImplementation implements OrderLineDao {
 
 	@Override
 	public List<Orderline> findMatchingOrderlines(int orderid) {
-		Query query = em.createNativeQuery("SELECT id, quantity, orderlines.order, product FROM orderlines WHERE orderlines.order = ?", Orderline.class);
+		Query query = em.createNativeQuery(
+				"SELECT id, quantity, orderlines.order, product FROM orderlines WHERE orderlines.order = ?", Orderline.class);
 		query.setParameter(1, orderid);
 		
 		List<Orderline> orderlines = (List<Orderline>) query.getResultList();
