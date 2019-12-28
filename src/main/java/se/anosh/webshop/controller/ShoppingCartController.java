@@ -125,7 +125,7 @@ public class ShoppingCartController {
 		return userId;
 	}
 	
-	private int submitOrder(final int customerId) { // TODO: OptionalInt?
+	private int submitOrder(final int customerId) {
 		
 		Set<Product> uniqueItems = cart.uniqueItems();
 		if (uniqueItems.isEmpty()) {
@@ -135,8 +135,10 @@ public class ShoppingCartController {
 		final int orderId = orderService.newOrder(customerId);
 		Map<Product,Integer> shoppingList = createShoppingList();
 		
-		for (Product product : shoppingList.keySet()) {
-			orderService.createLine(orderId, product, shoppingList.get(product));
+		for (Map.Entry<Product, Integer> entry : shoppingList.entrySet()) {
+			Product product = entry.getKey();
+			Integer value = entry.getValue();
+			orderService.createLine(orderId, product, value);
 		}
 		cart.clear();
 		return orderId;
