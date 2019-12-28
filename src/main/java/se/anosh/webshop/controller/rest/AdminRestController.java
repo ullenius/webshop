@@ -40,7 +40,11 @@ public class AdminRestController {
 		this.productService = Objects.requireNonNull(productService);
 	}
 
-	// JSON method
+	@GetMapping(value="/products", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Product>> listProducts() {
+		return new ResponseEntity<List<Product>>(productService.findAllProducts(), HttpStatus.OK);
+	}
+	
 	@PostMapping(value="/addProduct", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> addProductJson(@NotNull @Valid @RequestBody Product newProduct) {
 		productService.addProduct(newProduct);
