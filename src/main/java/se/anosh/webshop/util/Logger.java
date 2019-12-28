@@ -2,7 +2,7 @@ package se.anosh.webshop.util;
 
 import java.util.Date;
 
-public class Logger {
+public final class Logger {
 	
 	private static final boolean enabled = true;
 	
