@@ -65,7 +65,8 @@ public class UserController {
 		}
 		
 		userService.addUser(user, UserRoles.ROLE_USER);
-		Person newCustomer = new Person();
+		Person newCustomer = new Person(user.getName(), Integer.parseInt(newUser.getYearOfBirth()), newUser.getCity());
+		personService.addCustomer(newCustomer,user.getName());
 		
 		return Redirect.success();
 	}

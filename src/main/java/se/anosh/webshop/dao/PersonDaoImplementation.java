@@ -39,13 +39,13 @@ public class PersonDaoImplementation implements PersonDao {
 	}
 
 	@Override
-	public void add(Person person) {
+	public void add(Person person, String username) {
 		
 			Query query = em.createQuery("INSERT into persons (name, birth, city, username) VALUES (:name, :birth, :city, :username)");
 			query.setParameter("name", person.getName());
 			query.setParameter("birth", person.getYearOfbirth());
 			query.setParameter("city", person.getCity());
-			query.setParameter("username", person.getUsername());
+			query.setParameter("username", username);
 			query.executeUpdate();
 	}
 
