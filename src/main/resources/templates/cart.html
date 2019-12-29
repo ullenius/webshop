@@ -18,13 +18,13 @@
 			<li th:each="product : ${model.products}">
 				<div>
 					<span th:text="${product.key.name} + ' amount = ' + ${product.value}"></span>
-					<form action="/shoppingCart/remove" method="POST">
+					<form action="/shoppingCart/remove" th:action="@{/shoppingCart/remove}" method="POST">
 						<input type="hidden" name="id" th:value="${product.key.id}" />
 						<input type="submit" value="Remove from cart" />
 					</form>
 				</div>
 				<div>
-					<form action="/shoppingCart/update" method="POST">
+					<form action="/shoppingCart/update" th:action="@{/shoppingCart/update}" method="POST">
 						<input type="hidden" name="id" id="id" value="666" th:value="${product.key.id}" />
 						<label for="amount"><small>Edit amount</small></label>
 						<input type="number" name="amount" id="amount" th:value="${product.value}" min="1" max="999" required />
@@ -41,7 +41,7 @@
 	<hr />
 	<div th:if="${model.products.size() > 0}" class="submit-order">
 	<h2>Submit order</h2>
-		<form action="/shoppingCart/submitOrder" method="POST">
+		<form action="/shoppingCart/submitOrder" th:action="@{/shoppingCart/submitOrder}" method="POST">
 				<input type="submit" value="Submit" />
 		</form>
 	</div>

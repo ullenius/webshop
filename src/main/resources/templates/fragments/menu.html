@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head>
 <link rel="stylesheet" href="../../static/css/main.css" th:href="@{../css/main.css}" />
 <meta charset="utf-8" />
@@ -13,17 +13,40 @@
 			<h1>Menu</h1>
 			<ul class="menu">
 				<li class="menu"><a class="menu" href="/shop">Main page (search &amp; browse by category)</a></li>
-				<li class="menu"><a class="menu" href="/shoppingCart" target="_blank">View Shopping Cart</a></li>
+				
+					<li class="menu">
+						<div sec:authorize="!hasRole('ADMIN')">
+							<a class="menu" href="/shoppingCart" target="_blank">View Shopping Cart</a>
+						</div>
+					</li>
+				
 				<li class="menu"><a class="menu" href="/shop/allproducts">List all Products</a></li>
-				<li>Orders
-					<ul class="menu">
-						<li class="menu"><a class="menu" href="/admin/dispatchedOrders">Dispatched Orders</a></li>
-						<li class="menu"><a class="menu" href="/admin/undispatchedOrders">Undispatched Orders</a></li>
-					</ul>
+				<li>
+					<div sec:authorize="hasRole('ADMIN')">
+						Orders
+						<ul class="menu">
+							<li class="menu"><a class="menu" href="/admin/dispatchedOrders">Dispatched Orders</a></li>
+							<li class="menu"><a class="menu" href="/admin/undispatchedOrders">Undispatched Orders</a></li>
+						</ul>
+					</div>
 				</li>
-				<li class="menu"><a class="menu" href="/admin/addProduct">Add new Product</a></li>
-				<li class="menu"><a class="menu" href="/logout">Logout</a></li>
-				<li class="menu"><a class="menu" href="/addUser">Create new Account</a></li>
+				<li class="menu">
+					<div sec:authorize="hasRole('ADMIN')">
+						<a class="menu" href="/admin/addProduct">Add new Product</a>
+					</div>
+				</li>
+				<li class="menu">
+					<div sec:authorize="isAuthenticated()">
+						<form action="/logout" th:action="@{/logout}" method="POST">
+							<button class="button" type="submit" value="Logout">Logout</button>
+						</form>
+					</div>
+				</li>
+				<li class="menu">
+					<div sec:authorize="isAnonymous()">
+						<a class="menu" href="/addUser">Create new Account</a>
+					</div>
+				</li>
 			</ul>
 		</nav>
 	</div>

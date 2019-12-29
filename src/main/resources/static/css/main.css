@@ -85,3 +85,19 @@ a:active  {
 .error {
 	color: #FF0000;
 }
+
+.button {
+		 background: none;
+		 font-family: serif;
+		 color: #2200CC;
+		 line-height: 1.6;
+		 border: none;
+		 font-size: 18px;
+         text-decoration: none;
+         display: inline-block;
+         cursor: pointer;
+}
+
+.button:hover {
+	 text-decoration: underline;
+}

@@ -13,7 +13,7 @@
 	<h1>Create a new Account</h1>
 	</header>
 	
-		<form action="/saveUser" method="POST" th:object="${addUserModel}" >
+		<form action="/saveUser" th:action="@{/saveUser}" method="POST" th:object="${addUserModel}" >
 			<div class="newUserBox">
 		
 				<div th:if="*{errorMessage} != null">

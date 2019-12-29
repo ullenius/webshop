@@ -17,7 +17,7 @@
 	<p th:text="${model.price} + ' kr'">price per unit</p>
 	
 
-	<form action="/shoppingCart" method="POST">
+	<form action="/shoppingCart" method="POST" th:action="@{/shoppingCart}">
 			<div>
 					<input type="hidden" name="id" id="id" value="666" th:value="${model.id}" />
 					<label for="amount">Amount</label>
