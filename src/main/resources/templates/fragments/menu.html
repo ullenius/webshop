@@ -22,7 +22,12 @@
 					</ul>
 				</li>
 				<li class="menu"><a class="menu" href="/admin/addProduct">Add new Product</a></li>
-				<li class="menu"><a class="menu" href="/logout">Logout</a></li>
+				
+				<li class="menu">
+					<div sec:authorize="isAuthenticated()">
+						<a class="menu" href="/logout">Logout</a>
+					</div>
+				</li>
 				<li class="menu"><a class="menu" href="/addUser">Create new Account</a></li>
 			</ul>
 		</nav>
