@@ -13,7 +13,7 @@
 	<h1>Add New Product</h1>
 	</header>
 	
-		<form action="/admin/saveProduct" method="POST" th:object="${addProductModel}">
+		<form action="/admin/saveProduct" th:action="@{/admin/saveProduct}" method="POST" th:object="${addProductModel}">
 			<div class="newUserBox">
 				<div class="fieldSection">
 					<div class="fieldTitle">Product name &amp; Price</div>

@@ -17,6 +17,7 @@
 		  	<br />
 		  	<label>Password:</label> <input type="password" name="password" />
 		  	<br />
+		  	 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 	        <input type="submit" value="Login"/>
 	      </form>		   	  
 	

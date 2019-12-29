@@ -37,7 +37,7 @@ public class UserController {
 	
 	@GetMapping(value="/login")
 	public ModelAndView loginPage() {
-		return new ModelAndView("redirect:/login.html");
+		return new ModelAndView("login");
 	}
 	
 	@GetMapping(value="/addUser")
