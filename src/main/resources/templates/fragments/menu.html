@@ -37,7 +37,9 @@
 				</li>
 				<li class="menu">
 					<div sec:authorize="isAuthenticated()">
-						<a class="menu" href="/logout">Logout</a>
+						<form action="/logout" th:action="@{/logout}" method="POST">
+							<button class="button" type="submit" value="Logout">Logout</button>
+						</form>
 					</div>
 				</li>
 				<li class="menu">
