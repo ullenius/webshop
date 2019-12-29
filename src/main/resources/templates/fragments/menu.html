@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head>
 <link rel="stylesheet" href="../../static/css/main.css" th:href="@{../css/main.css}" />
 <meta charset="utf-8" />
@@ -11,6 +11,9 @@
 	<div th:fragment="main-menu">
 		<nav>
 			<h1>Menu</h1>
+			<div sec:authorize="isAuthenticated()">
+				<p>only logged in users can see this!</p>
+			</div>
 			<ul class="menu">
 				<li class="menu"><a class="menu" href="/shop">Main page (search &amp; browse by category)</a></li>
 				<li class="menu"><a class="menu" href="/shoppingCart" target="_blank">View Shopping Cart</a></li>
