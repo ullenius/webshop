@@ -40,7 +40,11 @@
 						<a class="menu" href="/logout">Logout</a>
 					</div>
 				</li>
-				<li class="menu"><a class="menu" href="/addUser">Create new Account</a></li>
+				<li class="menu">
+					<div sec:authorize="isAnonymous()">
+						<a class="menu" href="/addUser">Create new Account</a>
+					</div>
+				</li>
 			</ul>
 		</nav>
 	</div>
