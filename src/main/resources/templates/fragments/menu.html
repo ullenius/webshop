@@ -11,21 +11,30 @@
 	<div th:fragment="main-menu">
 		<nav>
 			<h1>Menu</h1>
-			<div sec:authorize="isAuthenticated()">
-				<p>only logged in users can see this!</p>
-			</div>
 			<ul class="menu">
 				<li class="menu"><a class="menu" href="/shop">Main page (search &amp; browse by category)</a></li>
-				<li class="menu"><a class="menu" href="/shoppingCart" target="_blank">View Shopping Cart</a></li>
-				<li class="menu"><a class="menu" href="/shop/allproducts">List all Products</a></li>
-				<li>Orders
-					<ul class="menu">
-						<li class="menu"><a class="menu" href="/admin/dispatchedOrders">Dispatched Orders</a></li>
-						<li class="menu"><a class="menu" href="/admin/undispatchedOrders">Undispatched Orders</a></li>
-					</ul>
-				</li>
-				<li class="menu"><a class="menu" href="/admin/addProduct">Add new Product</a></li>
 				
+					<li class="menu">
+						<div sec:authorize="!hasRole('ADMIN')">
+							<a class="menu" href="/shoppingCart" target="_blank">View Shopping Cart</a>
+						</div>
+					</li>
+				
+				<li class="menu"><a class="menu" href="/shop/allproducts">List all Products</a></li>
+				<li>
+					<div sec:authorize="hasRole('ADMIN')">
+						Orders
+						<ul class="menu">
+							<li class="menu"><a class="menu" href="/admin/dispatchedOrders">Dispatched Orders</a></li>
+							<li class="menu"><a class="menu" href="/admin/undispatchedOrders">Undispatched Orders</a></li>
+						</ul>
+					</div>
+				</li>
+				<li class="menu">
+					<div sec:authorize="hasRole('ADMIN')">
+						<a class="menu" href="/admin/addProduct">Add new Product</a>
+					</div>
+				</li>
 				<li class="menu">
 					<div sec:authorize="isAuthenticated()">
 						<a class="menu" href="/logout">Logout</a>

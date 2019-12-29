@@ -50,7 +50,12 @@ public class ShopController {
 			return Redirect.error();
 		}
 	}
-
+	
+	@GetMapping(value="/")
+	public ModelAndView mainPage() {
+		return search("");
+	}
+	
 	@GetMapping(value="/shop")
 	public ModelAndView search(@RequestParam(value="products", required=false)final String products) {
 
