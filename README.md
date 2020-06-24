@@ -1,8 +1,13 @@
-## Webshop in Spring Boot
+## Web shop
 
-Simple web shop done in Spring Boot. Users can register and log in. Add items to the shopping cart and place orders. Administrators can view orders and mark them as dispatched.
+Simple web shop for Spring exam project.
 
-Admin features are also available as a REST API.
+### Features
+
+1. Users can register and log in. 
+1. Add items to the shopping cart and place orders.
+1. Administrators can view orders and mark them as dispatched.
+1. Admin features are also available as a REST API.
 
 
 ## Technologies used
@@ -24,7 +29,7 @@ Admin features are also available as a REST API.
 * Maven
 * JUnit & Mockito (unit testing)
 
-##Minimal functional requirements
+## Minimal functional requirements
 (text by Ulf Bilting, 2019). Translation from Swedish :sweden: by Google Translate.
 
 "The customer must be met by a login page where they can register as a new customer or log in as
