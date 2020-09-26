@@ -2,9 +2,6 @@
 
 Simple web shop for Spring exam project.
 
-## Live Demo
-[Live Demo](https://ullenius.net:8080/login)
-
 ## Screenshots
 
 ![Login page](login.png)
